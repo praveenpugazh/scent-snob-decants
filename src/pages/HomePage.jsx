@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { S, C } from '../styles/theme.js';
 import { FEATURED } from '../data/products.js';
-import { BottleSVG, AddBtn } from '../components/ui.jsx';
+import { DECANT_IMG, AddBtn } from '../components/ui.jsx';
+import { FLAGS } from '../config/flags.js';
 
 export default function HomePage({ onOpen, setPage }) {
   const carRef = useRef(null);
@@ -47,7 +48,7 @@ export default function HomePage({ onOpen, setPage }) {
           {FEATURED.map(p => (
             <div key={p.id} style={S.featCard} onClick={() => onOpen(p)}>
               <div style={S.featImg}>
-                <BottleSVG />
+                <img src={DECANT_IMG} alt={p.name} style={{height:'100%',width:'auto',objectFit:'contain',padding:'8px 0'}} loading="lazy"/>
                 <div style={{
                   ...S.featBadge,
                   background: p.cat === 'niche' ? 'rgba(255,255,255,0.10)' : 'rgba(176,144,96,0.30)',
@@ -68,7 +69,7 @@ export default function HomePage({ onOpen, setPage }) {
                         ₹{p.p5} <span style={{ color: C.t3, fontSize: 10 }}>/ 5ml</span>
                       </div>
                     )}
-                    <div style={S.prMuted}>10ml glass · coming soon</div>
+                    {!FLAGS.ENABLE_10ML && <div style={S.prMuted}>10ml glass · coming soon</div>}
                   </div>
                   <AddBtn onClick={e => { e.stopPropagation(); onOpen(p); }} />
                 </div>

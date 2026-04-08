@@ -1,4 +1,5 @@
 import { S, C } from '../styles/theme.js';
+import { FLAGS } from '../config/flags.js';
 
 export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
   return (
@@ -15,7 +16,7 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
       }}>
         <span style={{ color: '#b09060' }}>Free shipping</span> on orders above ₹2499
         &nbsp;·&nbsp; PAN India delivery
-        &nbsp;·&nbsp; <span style={{ color: '#b09060' }}>10ml glass coming soon</span>
+        {!FLAGS.ENABLE_10ML && <>&nbsp;·&nbsp; <span style={{ color: '#b09060' }}>10ml glass coming soon</span></>}
       </div>
 
       {/* Nav Row */}
