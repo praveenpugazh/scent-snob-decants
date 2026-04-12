@@ -1,29 +1,22 @@
-import { S, C } from '../styles/theme.js'
-import { FLAGS } from '../config/flags.js'
+import { S, C } from '../styles/theme.js';
+import { FLAGS } from '../config/flags.js';
 
 export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
   return (
     <nav style={{ ...S.nav, ...(scrolled ? S.navScrolled : {}) }}>
       {/* Shipping Banner */}
-      <div
-        style={{
-          background: '#141210',
-          color: 'rgba(255,255,255,0.45)',
-          textAlign: 'center',
-          padding: '7px 1rem',
-          fontSize: 10,
-          letterSpacing: '0.12em',
-          borderBottom: `0.5px solid ${C.border}`
-        }}
-      >
-        <span style={{ color: '#b09060' }}>Free shipping</span> on orders above
-        ₹2999 &nbsp;·&nbsp; PAN India delivery
-        {!FLAGS.ENABLE_10ML && (
-          <>
-            &nbsp;·&nbsp;{' '}
-            <span style={{ color: '#b09060' }}>10ml glass coming soon</span>
-          </>
-        )}
+      <div style={{
+        background: '#141210',
+        color: 'rgba(255,255,255,0.45)',
+        textAlign: 'center',
+        padding: '7px 1rem',
+        fontSize: 10,
+        letterSpacing: '0.12em',
+        borderBottom: `0.5px solid ${C.border}`,
+      }}>
+        <span style={{ color: '#b09060' }}>Free shipping</span> on orders above ₹2499
+        &nbsp;·&nbsp; PAN India delivery
+        {!FLAGS.ENABLE_10ML && <>&nbsp;·&nbsp; <span style={{ color: '#b09060' }}>10ml glass coming soon</span></>}
       </div>
 
       {/* Nav Row */}
@@ -34,17 +27,13 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
         </div>
 
         <div style={S.navLinks}>
-          {[
-            ['home', 'Home'],
-            ['brands', 'Brands'],
-            ['about', 'About']
-          ].map(([p, l]) => (
+          {[['home', 'Home'], ['brands', 'Brands'], ['about', 'About']].map(([p, l]) => (
             <button
               key={p}
               style={{
                 ...S.navBtn,
-                color: page === p ? '#b09060' : C.t2,
-                fontWeight: page === p ? 500 : 300
+                color:      page === p ? '#b09060' : C.t2,
+                fontWeight: page === p ? 500 : 300,
               }}
               onClick={() => setPage(p)}
             >
@@ -59,6 +48,5 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
         </div>
       </div>
     </nav>
-  )
+  );
 }
-

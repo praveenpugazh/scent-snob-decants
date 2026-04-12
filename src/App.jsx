@@ -68,15 +68,24 @@ export default function App() {
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
 
-  // Build WhatsApp order link
-  const buildWALink = useCallback(() => {
+  // Build WhatsApp order link — receives computed totals from CartDrawer
+  const buildWALink = useCallback((subtotal, shipping, grandTotal, totalQty) => {
     const items = Object.values(cart);
-    const total = items.reduce((a, b) => a + b.price * b.qty, 0);
-    let msg = 'Hello Scent Snob Decants! 🛒\n\nI would like to order:\n\n';
+    let msg = '🛒 *New Order — Scent Snob Decants*\n\n';
     items.forEach(i => {
-      msg += `• ${i.brand} - ${i.name} (${i.size}) x${i.qty} = ₹${(i.price * i.qty).toLocaleString('en-IN')}\n`;
+      msg += `• ${i.brand} — ${i.name} (${i.size}) × ${i.qty} = ₹${(i.price * i.qty).toLocaleString('en-IN')}\n`;
     });
-    msg += `\n*Total: ₹${total.toLocaleString('en-IN')}*\n\nPlease confirm availability and share payment details. Thank you!`;
+    msg += `\n━━━━━━━━━━━━━━━`;
+    msg += `\nTotal items : ${totalQty}`;
+    msg += `\nSubtotal   : ₹${subtotal.toLocaleString('en-IN')}`;
+    msg += `\nShipping   : ${shipping === 0 ? 'Free' : `₹${shipping}`}`;
+    msg += `\n*Grand Total: ₹${grandTotal.toLocaleString('en-IN')}*`;
+    msg += `\n━━━━━━━━━━━━━━━`;
+    msg += `\n\n*To confirm your order:*`;
+    msg += `\n1️⃣ Pay ₹${grandTotal.toLocaleString('en-IN')} to GPay: *8754519509* (Praveen P)`;
+    msg += `\n2️⃣ Reply with your *full delivery address* (name, flat, street, city, pincode)`;
+    msg += `\n3️⃣ Send *payment screenshot*`;
+    msg += `\n\nWe'll confirm and dispatch within 24 hours 🚀`;
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }, [cart]);
 
