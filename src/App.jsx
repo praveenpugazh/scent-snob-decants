@@ -1,28 +1,27 @@
 import { useState, useEffect, useCallback } from 'react';
 import './styles/global.css';
 
-import Nav         from './components/Nav.jsx';
-import CartDrawer  from './components/CartDrawer.jsx';
-import SizeModal   from './components/SizeModal.jsx';
+import Nav        from './components/Nav.jsx';
+import CartDrawer from './components/CartDrawer.jsx';
+import SizeModal  from './components/SizeModal.jsx';
 import { Toast, WAIcon } from './components/ui.jsx';
-import { S, C }    from './styles/theme.js';
+import { S, C }   from './styles/theme.js';
 
-import HomePage    from './pages/HomePage.jsx';
-import BrandsPage  from './pages/BrandsPage.jsx';
-import AboutPage   from './pages/AboutPage.jsx';
+import HomePage   from './pages/HomePage.jsx';
+import BrandsPage from './pages/BrandsPage.jsx';
+import AboutPage  from './pages/AboutPage.jsx';
 
 const WA_NUMBER = '918754519509';
 
 export default function App() {
-  const [page,      setPage]      = useState('home');
-  const [cart,      setCart]      = useState({});
-  const [cartOpen,  setCartOpen]  = useState(false);
-  const [modal,     setModal]     = useState(null);
-  const [toast,     setToast]     = useState('');
-  const [scrolled,  setScrolled]  = useState(false);
-  const [showBtt,   setShowBtt]   = useState(false);
+  const [page,     setPage]     = useState('home');
+  const [cart,     setCart]     = useState({});
+  const [cartOpen, setCartOpen] = useState(false);
+  const [modal,    setModal]    = useState(null);
+  const [toast,    setToast]    = useState('');
+  const [scrolled, setScrolled] = useState(false);
+  const [showBtt,  setShowBtt]  = useState(false);
 
-  // Scroll listener
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -32,18 +31,15 @@ export default function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Scroll to top on page change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page]);
 
-  // Toast helper
   const showToast = useCallback(msg => {
     setToast(msg);
     setTimeout(() => setToast(''), 2200);
   }, []);
 
-  // Add to cart
   const addToCart = useCallback((product, size) => {
     const key = `${product.id}-${size.size}`;
     setCart(prev => ({
@@ -56,7 +52,6 @@ export default function App() {
     setModal(null);
   }, [showToast]);
 
-  // Change cart qty
   const changeQty = useCallback((key, delta) => {
     setCart(prev => {
       const next = { ...prev };
@@ -68,42 +63,50 @@ export default function App() {
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
 
-  // Build WhatsApp order link — receives computed totals from CartDrawer
-  const buildWALink = useCallback((subtotal, shipping, grandTotal, totalQty) => {
+  // buildWALink now receives customer details from CartDrawer
+  const buildWALink = useCallback((subtotal, shipping, grandTotal, totalQty, name, phone, address) => {
     const items = Object.values(cart);
     let msg = '🛒 *New Order — Scent Snob Decants*\n\n';
+
+    // Order items
     items.forEach(i => {
       msg += `• ${i.brand} — ${i.name} (${i.size}) × ${i.qty} = ₹${(i.price * i.qty).toLocaleString('en-IN')}\n`;
     });
+
+    // Order summary
     msg += `\n━━━━━━━━━━━━━━━`;
     msg += `\nTotal items : ${totalQty}`;
     msg += `\nSubtotal   : ₹${subtotal.toLocaleString('en-IN')}`;
-    msg += `\nShipping   : ${shipping === 0 ? 'Free' : `₹${shipping}`}`;
+    msg += `\nShipping   : ${shipping === 0 ? 'Free 🎉' : `₹${shipping}`}`;
     msg += `\n*Grand Total: ₹${grandTotal.toLocaleString('en-IN')}*`;
     msg += `\n━━━━━━━━━━━━━━━`;
-    msg += `\n\n*To confirm your order:*`;
-    msg += `\n1️⃣ Pay ₹${grandTotal.toLocaleString('en-IN')} to GPay: *8754519509* (Praveen P)`;
-    msg += `\n2️⃣ Reply with your *full delivery address* (name, flat, street, city, pincode)`;
-    msg += `\n3️⃣ Send *payment screenshot*`;
-    msg += `\n\nWe'll confirm and dispatch within 24 hours 🚀`;
+
+    // Customer details
+    msg += `\n\n*Delivery Details*`;
+    msg += `\nName    : ${name}`;
+    msg += `\nPhone   : ${phone}`;
+    msg += `\nAddress : ${address}`;
+
+    // Payment instructions
+    msg += `\n\n*Payment*`;
+    msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *8754519509@okbizaxis* (Praveen P)`;
+    msg += `\nSend payment screenshot to confirm your order 📸`;
+
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   }, [cart]);
 
   return (
     <div style={S.page}>
-      {/* Fixed Nav (includes banner) */}
       <Nav
         page={page} setPage={setPage}
         cartCount={cartCount} openCart={() => setCartOpen(true)}
         scrolled={scrolled}
       />
 
-      {/* Pages */}
       {page === 'home'   && <HomePage   onOpen={setModal} setPage={setPage} />}
       {page === 'brands' && <BrandsPage onOpen={setModal} />}
       {page === 'about'  && <AboutPage />}
 
-      {/* Footer */}
       <footer style={S.footer}>
         <span style={S.footerBrand}>
           Scent Snob <em style={{ fontStyle: 'italic', color: '#b09060' }}>Decants</em>
@@ -119,7 +122,6 @@ export default function App() {
         <div>© 2026 Scent Snob Decants · All rights reserved</div>
       </footer>
 
-      {/* Overlays */}
       {cartOpen && (
         <CartDrawer
           cart={cart}
@@ -136,7 +138,6 @@ export default function App() {
         />
       )}
 
-      {/* WhatsApp Float */}
       <button
         style={S.waFloat}
         onClick={() => window.open(`https://wa.me/${WA_NUMBER}`, '_blank')}
@@ -145,7 +146,6 @@ export default function App() {
         <WAIcon size={26} />
       </button>
 
-      {/* Back to top */}
       {showBtt && (
         <button style={S.btt} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={C.t2} strokeWidth="2.5">
@@ -154,7 +154,6 @@ export default function App() {
         </button>
       )}
 
-      {/* Toast */}
       <Toast msg={toast} />
     </div>
   );

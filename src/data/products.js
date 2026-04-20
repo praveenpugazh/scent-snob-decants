@@ -5,7 +5,6 @@ export const DESIGNER_BRANDS = [
   'Versace','Yves Saint Laurent','Guerlain',
 ];
 
-// [brand, name, notes, p5, p10]
 export const DUPES_RAW = [
   ['Lattafa','Asad Elixir','Amber · Saffron · Patchouli',179,299],
   ['Lattafa','Asad Bourbon','Bourbon · Vanilla · Tonka',179,299],
@@ -204,32 +203,22 @@ export const NICHE_RAW = [
   ['Yves Saint Laurent',"Y L'Elixir",'Sage · Tonka · Musk',999,0],
 ];
 
-// ── PROCESSED PRODUCTS ──
 export const allProducts = [
-  ...DUPES_RAW.map((d, i) => ({
-    id: 'd' + i, brand: d[0], name: d[1], notes: d[2],
-    p5: d[3], p10: d[4], cat: 'dupe',
-  })),
-  ...NICHE_RAW.map((n, i) => ({
-    id: 'n' + i, brand: n[0], name: n[1], notes: n[2],
-    p5: n[3], p10: n[4],
-    cat: DESIGNER_BRANDS.includes(n[0]) ? 'designer' : 'niche',
-  })),
+  ...DUPES_RAW.map((d, i) => ({ id:'d'+i, brand:d[0], name:d[1], notes:d[2], p5:d[3], p10:d[4], cat:'dupe' })),
+  ...NICHE_RAW.map((n, i) => ({ id:'n'+i, brand:n[0], name:n[1], notes:n[2], p5:n[3], p10:n[4], cat: DESIGNER_BRANDS.includes(n[0]) ? 'designer' : 'niche' })),
 ];
 
-// ── BRAND LISTS ──
 export const BRANDS_NICHE    = [...new Set(NICHE_RAW.filter(n => !DESIGNER_BRANDS.includes(n[0])).map(n => n[0]))].sort();
 export const BRANDS_DESIGNER = [...new Set(NICHE_RAW.filter(n =>  DESIGNER_BRANDS.includes(n[0])).map(n => n[0]))].sort();
 export const BRANDS_DUPES    = [...new Set(DUPES_RAW.map(d => d[0]))].sort();
 
-// ── FEATURED / STAFF PICKS ──
 export const FEATURED = [
-  { id:'f1', brand:'Afnan',         name:'Supremacy CE',         notes:'Pineapple · Birch · Oakmoss',          inspired:'Inspired by Creed Aventus',          p5:279,  p10:449,  cat:'dupe'  },
-  { id:'f2', brand:'Rasasi',        name:'Hawas Ice',            notes:'Bergamot · Aquatic · Amber',            inspired:'Inspired by Acqua di Gio Profumo',   p5:379,  p10:499,  cat:'dupe'  },
-  { id:'f3', brand:'Lattafa',       name:'Musamam Black Intense',notes:'Oud · Saffron · Leather',               inspired:'Dark gourmand powerhouse',           p5:399,  p10:519,  cat:'dupe'  },
-  { id:'f4', brand:'Afnan',         name:'9pm Night Out',        notes:'Dragon Fruit · Cognac · Suede',         inspired:'For nights that leave a mark',        p5:269,  p10:389,  cat:'dupe'  },
-  { id:'f5', brand:'French Avenue', name:'Frostbite',            notes:'Mint · Aquatic · White Musk',           inspired:'Inspired by Dior Sauvage',           p5:349,  p10:479,  cat:'dupe'  },
-  { id:'f6', brand:'Swiss Arabian', name:'Incensen 01',          notes:'Frankincense · Oud · Sandalwood',       inspired:'Inspired by Amouage Interlude',       p5:479,  p10:829,  cat:'dupe'  },
-  { id:'f7', brand:'Creed',         name:'Aventus EDP',          notes:'Pineapple · Birch · Musk · Oakmoss',    inspired:'The original crowd favourite',        p5:2399, p10:4399, cat:'niche' },
-  { id:'f8', brand:'Initio',        name:'Oud for Greatness EDP',notes:'Oud · Musk · Incense',                  inspired:'Statement niche pick',               p5:1599, p10:2799, cat:'niche' },
+  { id:'f1', brand:'Afnan',         name:'Supremacy CE',          notes:'Pineapple · Birch · Oakmoss',        inspired:'Inspired by Creed Aventus',        p5:279,  p10:449,  cat:'dupe'  },
+  { id:'f2', brand:'Rasasi',        name:'Hawas Ice',             notes:'Bergamot · Aquatic · Amber',          inspired:'Inspired by Acqua di Gio Profumo', p5:379,  p10:499,  cat:'dupe'  },
+  { id:'f3', brand:'Lattafa',       name:'Musamam Black Intense', notes:'Oud · Saffron · Leather',             inspired:'Dark gourmand powerhouse',         p5:399,  p10:519,  cat:'dupe'  },
+  { id:'f4', brand:'Afnan',         name:'9pm Night Out',         notes:'Dragon Fruit · Cognac · Suede',       inspired:'For nights that leave a mark',     p5:269,  p10:389,  cat:'dupe'  },
+  { id:'f5', brand:'French Avenue', name:'Frostbite',             notes:'Mint · Aquatic · White Musk',         inspired:'Inspired by Dior Sauvage',         p5:349,  p10:479,  cat:'dupe'  },
+  { id:'f6', brand:'Swiss Arabian', name:'Incensen 01',           notes:'Frankincense · Oud · Sandalwood',     inspired:'Inspired by Amouage Interlude',    p5:479,  p10:829,  cat:'dupe'  },
+  { id:'f7', brand:'Creed',         name:'Aventus EDP',           notes:'Pineapple · Birch · Musk · Oakmoss',  inspired:'The original crowd favourite',     p5:2399, p10:4399, cat:'niche' },
+  { id:'f8', brand:'Initio',        name:'Oud for Greatness EDP', notes:'Oud · Musk · Incense',                inspired:'Statement niche pick',             p5:1599, p10:2799, cat:'niche' },
 ];
