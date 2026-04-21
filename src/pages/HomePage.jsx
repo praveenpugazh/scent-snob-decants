@@ -137,7 +137,7 @@ export default function HomePage({ onOpen, setPage }) {
 
           {/* Sub */}
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, marginBottom: '2rem', maxWidth: 400, fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
-            170+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
+            200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
           </p>
 
           {/* CTAs */}
