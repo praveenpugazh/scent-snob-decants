@@ -225,3 +225,66 @@ export const FEATURED = [
   { id:'f7', brand:'Creed',         name:'Aventus EDP',           notes:'Pineapple · Birch · Musk · Oakmoss',  inspired:'The original crowd favourite',     p5:2399, p10:4399, cat:'niche' },
   { id:'f8', brand:'Initio',        name:'Oud for Greatness EDP', notes:'Oud · Musk · Incense',                inspired:'Statement niche pick',             p5:1599, p10:2799, cat:'niche' },
 ];
+
+// ─────────────────────────────────────────────────────────
+//  COMBOS
+// ─────────────────────────────────────────────────────────
+export const COMBOS = [
+  {
+    id: 'summer-escape',
+    tag: 'Summer Combo',
+    name: 'Summer Escape',
+    description: 'Four fresh, aquatic and citrus scents built for Indian summers. Cool, clean, and office-safe.',
+    items: [
+      { brand: 'Rasasi',         name: 'Hawas Ice',       size: '5ml', price: 379 },
+      { brand: 'French Avenue',  name: 'Frostbite',       size: '5ml', price: 349 },
+      { brand: 'Rayhaan',        name: 'Aquatica',        size: '5ml', price: 209 },
+      { brand: 'Afnan',          name: 'Turathi Blue',    size: '5ml', price: 229 },
+    ],
+    // originalPrice auto-calculated from items
+    discountPct: 10,  // 10% off
+    badge: '☀️ Summer',
+    badgeColor: 'rgba(176,144,96,0.3)',
+  },
+  {
+    id: 'starter-pack',
+    tag: 'Starter Combo',
+    name: 'The Starter Pack',
+    description: 'New to fragrance? Start here. Four crowd-pleasing dupes across different scent families — amber, sweet, aquatic, and leather. All under ₹800.',
+    items: [
+      { brand: 'Lattafa',  name: 'Asad Elixir',      size: '5ml', price: 179 },
+      { brand: 'Afnan',    name: '9pm Elixir',        size: '5ml', price: 219 },
+      { brand: 'Rayhaan',  name: 'Aquatica',          size: '5ml', price: 209 },
+      { brand: 'Armaf',    name: 'Odyssey Spectre',   size: '5ml', price: 159 },
+    ],
+    discountPct: 10,
+    badge: '🎯 Beginner',
+    badgeColor: 'rgba(100,160,100,0.3)',
+  },
+];
+
+// Helper: calculate combo pricing
+export const comboPrice = (combo) => {
+  const original = combo.items.reduce((sum, i) => sum + i.price, 0);
+  const discounted = Math.round(original * (1 - combo.discountPct / 100) / 10) * 10;
+  return { original, discounted, saving: original - discounted };
+};
+
+// ─────────────────────────────────────────────────────────
+//  PARTIALS
+//  Partial bottles — whatever is left in the bottle.
+//  Price is set manually per listing when stock is available.
+//  Set ENABLE_PARTIALS: true in flags.js when ready.
+// ─────────────────────────────────────────────────────────
+export const PARTIALS = [
+  // Add partials here when ready. Format:
+  // {
+  //   id: 'partial-1',
+  //   brand: 'Creed',
+  //   name: 'Aventus EDP',
+  //   notes: 'Pineapple · Birch · Oakmoss',
+  //   mlLeft: 18,        // approximate ml remaining
+  //   price: 2800,       // your price for this partial
+  //   condition: 'Like new — used 2-3 sprays',
+  // },
+];
