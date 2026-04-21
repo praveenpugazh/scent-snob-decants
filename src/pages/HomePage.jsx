@@ -118,7 +118,7 @@ export default function HomePage({ onOpen, setPage }) {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: '1.5rem', padding: '5px 14px 5px 5px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#b09060' }}/>
             <span style={{ fontSize: 15, letterSpacing: '0.2em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
-              Authentic Decants · Bangalore
+              Authentic Decants · India
             </span>
           </div>
 
@@ -139,7 +139,7 @@ export default function HomePage({ onOpen, setPage }) {
 
           {/* Sub */}
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, marginBottom: '2rem', maxWidth: 400, fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
-            170+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
+            200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
           </p>
 
           {/* CTAs */}
@@ -247,7 +247,7 @@ export default function HomePage({ onOpen, setPage }) {
               </div>
               <div>
                 <div style={{ fontSize: 14, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
-                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)' }}>Orders above ₹2499</div>
+                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)' }}>Orders above ₹2999</div>
               </div>
             </div>
           </StatCard>

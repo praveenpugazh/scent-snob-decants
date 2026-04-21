@@ -6,7 +6,7 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
     <nav style={{ ...S.nav, ...(scrolled ? S.navScrolled : {}) }}>
       {/* Shipping Banner */}
       <div style={{ background:'#141210', color:'rgba(255,255,255,0.45)', textAlign:'center', padding:'7px 1rem', fontSize:10, letterSpacing:'0.12em', borderBottom:`0.5px solid ${C.border}` }}>
-        <span style={{ color:'#b09060' }}>Free shipping</span> on orders above ₹2499
+        <span style={{ color:'#b09060' }}>Free shipping</span> on orders above ₹2999
         &nbsp;·&nbsp; PAN India delivery
         {!FLAGS.ENABLE_10ML && !FLAGS.ENABLE_20ML && <>&nbsp;·&nbsp; <span style={{ color:'#b09060' }}>10ml &amp; 20ml coming soon</span></>}
         {FLAGS.ENABLE_10ML && !FLAGS.ENABLE_20ML && <>&nbsp;·&nbsp; <span style={{ color:'#b09060' }}>20ml coming soon</span></>}
