@@ -23,21 +23,19 @@ textarea::placeholder { color: rgba(255,255,255,0.3); }
 @keyframes heroFloat  { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-14px); } }
 @keyframes scrollPulse{ 0%,100% { opacity:0.4; transform:scaleY(1); } 50% { opacity:1; transform:scaleY(1.15); } }
 
-/* ── DESKTOP HERO ── */
+/* ── DESKTOP HERO: side-by-side layout ── */
 @media (min-width: 768px) {
-  .hero-inner {
+  /* Hero inner flex — row on desktop */
+  .hero-layout {
     flex-direction: row !important;
-    align-items: center !important;
+    align-items: stretch !important;
   }
-  .hero-text {
-    flex: 0 0 50% !important;
-    max-width: 580px !important;
-    padding-bottom: 2rem !important;
-  }
-  .hero-bottle {
-    position: absolute !important;
-    right: 0; top: 0; bottom: 0 !important;
-    width: 52% !important;
+}
+
+/* Fix text block maxWidth on mobile — full width */
+@media (max-width: 767px) {
+  .hero-text-block {
+    max-width: 100% !important;
   }
 }
 

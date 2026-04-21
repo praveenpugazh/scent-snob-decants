@@ -59,6 +59,12 @@ export default function HomePage({ onOpen, setPage }) {
   const carRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => setLoaded(true), 100);
@@ -88,176 +94,156 @@ export default function HomePage({ onOpen, setPage }) {
           HERO SECTION
       ══════════════════════════════════════════ */}
       <section style={{
-        minHeight: '100svh',
+        minHeight: '100vh',
         position: 'relative',
         overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
         paddingTop: 80,
       }}>
-
-        {/* Atmospheric background layers */}
+        {/* Background */}
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 70% 60% at 65% 45%, rgba(140,90,40,0.18) 0%, rgba(100,60,20,0.08) 40%, transparent 70%)' }}/>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 40% 50% at 20% 80%, rgba(176,144,96,0.06) 0%, transparent 60%)' }}/>
-        {/* Grain texture */}
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.04\'/%3E%3C/svg%3E")', opacity: 0.5, pointerEvents: 'none' }}/>
-        {/* Horizontal rule lines */}
-        <div style={{ position: 'absolute', left: 0, right: 0, top: '30%', height: '0.5px', background: 'linear-gradient(90deg, transparent, rgba(176,144,96,0.08), transparent)' }}/>
-        <div style={{ position: 'absolute', left: 0, right: 0, top: '70%', height: '0.5px', background: 'linear-gradient(90deg, transparent, rgba(176,144,96,0.06), transparent)' }}/>
 
-        {/* Left content */}
+        {/* ── MOBILE layout: stack vertically ── */}
         <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 'calc(100vh - 80px)',
           position: 'relative', zIndex: 2,
-          padding: 'clamp(1.5rem,5vw,3rem) clamp(1.25rem,5vw,4vw) 0',
-          width: '100%',
-          maxWidth: 580,
-          opacity: loaded ? 1 : 0,
-          transform: loaded ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity .8s ease, transform .8s ease',
         }}>
-          {/* Tag */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: '1rem', padding: '4px 12px 4px 4px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
-            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#b09060' }}/>
-            <span style={{ fontSize: 10, letterSpacing: '0.18em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
-              Authentic Decants · India
-            </span>
+
+          {/* Text block */}
+          <div style={{
+            padding: 'clamp(1.75rem,6vw,3.5rem) clamp(1.25rem,6vw,5vw) 1.5rem',
+            opacity: loaded ? 1 : 0,
+            transform: loaded ? 'none' : 'translateY(20px)',
+            transition: 'opacity .8s ease, transform .8s ease',
+            // On desktop: limit to left half via maxWidth + keep bottle on right via the absolute below
+            maxWidth: isMobile ? '100%' : 'min(560px, 52vw)',
+          }}>
+            {/* Tag */}
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: '1rem', padding: '4px 12px 4px 5px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
+              <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#b09060', flexShrink: 0 }}/>
+              <span style={{ fontSize: 10, letterSpacing: '0.18em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)', whiteSpace: 'nowrap' }}>
+                Authentic Decants · India
+              </span>
+            </div>
+
+            {/* Headline */}
+            <h1 style={{
+              fontFamily: 'var(--ff-serif)',
+              fontSize: 'clamp(2.2rem, 7vw, 5.2rem)',
+              fontWeight: 300, color: '#fff',
+              lineHeight: 1.05, marginBottom: '0.85rem',
+              letterSpacing: '-0.01em',
+            }}>
+              Wear the<br/>
+              <em style={{ fontStyle: 'italic', color: '#b09060' }}>World's Finest</em><br/>
+              Fragrances
+            </h1>
+
+            <p style={{ fontSize: 'clamp(13px,3vw,15px)', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '1.25rem', fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
+              200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
+            </p>
+
+            {/* CTAs */}
+            <div style={{ display: 'flex', gap: 10, marginBottom: '1.5rem', flexWrap: 'wrap' }}>
+              <button onClick={() => setPage('brands')} style={{ background: '#b09060', color: '#fff', border: 'none', padding: '11px 22px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, fontWeight: 400 }}>
+                Shop Collection
+              </button>
+              <button onClick={() => setPage('about')} style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.2)', padding: '11px 18px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4 }}>
+                Our Story
+              </button>
+            </div>
+
+            {/* Scent pills */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>
+                Popular right now
+              </div>
+              {picks.map((p, i) => (
+                <ScentPill key={p.id} name={p.name} notes={p.notes} price={p.p5} delay={0.3 + i * 0.1} onOpen={onOpen} product={p}/>
+              ))}
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 style={{
-            fontFamily: 'var(--ff-serif)',
-            fontSize: 'clamp(2.2rem, 8vw, 5.5rem)',
-            fontWeight: 300,
-            color: '#fff',
-            lineHeight: 1.05,
-            marginBottom: '0.9rem',
-            letterSpacing: '-0.01em',
+          {/* Bottle — relative/stacked on mobile, absolute right panel on desktop */}
+          <div style={{
+            position: isMobile ? 'relative' : 'absolute',
+            right: isMobile ? undefined : 0,
+            top: isMobile ? undefined : 0,
+            bottom: isMobile ? undefined : 0,
+            width: isMobile ? '100%' : '52%',
+            flex: isMobile ? 1 : undefined,
+            minHeight: isMobile ? 300 : undefined,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            overflow: 'hidden',
           }}>
-            Wear the<br/>
-            <em style={{ fontStyle: 'italic', color: '#b09060' }}>World's Finest</em><br/>
-            Fragrances
-          </h1>
+            {/* Glow */}
+            <div style={{ position: 'absolute', width: '50%', paddingBottom: '50%', borderRadius: '50%', background: 'radial-gradient(circle, rgba(176,144,96,0.18) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', filter: 'blur(32px)', pointerEvents: 'none' }}/>
 
-          {/* Sub */}
-          <p style={{ fontSize: 'clamp(13px,3.5vw,15px)', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '1.25rem', maxWidth: 400, fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
-            200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
-          </p>
+            {/* Bottle image */}
+            <img
+              src={HERO_IMG}
+              alt="Scent Snob Decant Bottle"
+              style={{
+                height: 'clamp(200px, 42vw, 500px)',
+                width: 'auto', objectFit: 'contain',
+                position: 'relative', zIndex: 2,
+                transform: `translate(${px}px, ${py}px)`,
+                transition: 'transform .15s ease-out',
+                filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.85))',
+                animation: 'heroFloat 6s ease-in-out infinite',
+              }}
+            />
 
-          {/* CTAs */}
-          <div style={{ display: 'flex', gap: 10, marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-            <button
-              onClick={() => setPage('brands')}
-              style={{ background: '#b09060', color: '#fff', border: 'none', padding: '12px 22px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s', fontWeight: 400 }}
-            >
-              Shop Collection
-            </button>
-            <button
-              onClick={() => setPage('about')}
-              style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '12px 18px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s' }}
-            >
-              Our Story
-            </button>
+            {/* Floating card: Today's Pick */}
+            <StatCard style={{ position: 'absolute', bottom: '12%', left: '4%', minWidth: 140, maxWidth: 175, animation: 'fadeUp .6s ease .5s both' }}>
+              <div style={{ fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 3, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
+              <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '0.95rem', color: '#fff', marginBottom: 2 }}>Hawas Ice</div>
+              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginBottom: 6 }}>Bergamot · Aquatic · Amber</div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: 12, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
+                <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(176,144,96,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => onOpen(FEATURED[1])}>
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#b09060" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+              </div>
+            </StatCard>
+
+            {/* Floating card: Free Shipping */}
+            <StatCard style={{ position: 'absolute', top: '8%', right: '4%', padding: '8px 12px', animation: 'fadeUp .6s ease .7s both' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(176,144,96,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: 13 }}>✦</span>
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
+                  <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Above ₹2999</div>
+                </div>
+              </div>
+            </StatCard>
+
+            {/* Floating card: 500+ orders */}
+            <StatCard style={{ position: 'absolute', bottom: '12%', right: '4%', minWidth: 130, animation: 'fadeUp .6s ease .9s both' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
+                <div style={{ display: 'flex' }}>
+                  {['#c8a060','#a08050','#e0b880'].map((col,i) => (
+                    <div key={i} style={{ width: 20, height: 20, borderRadius: '50%', background: col, border: '2px solid #141210', marginLeft: i>0?-6:0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                  ))}
+                </div>
+                <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>Happy customers</span>
+              </div>
+              <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.3rem', fontWeight: 300, color: '#fff', lineHeight: 1 }}>500+</div>
+              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>Orders PAN India</div>
+            </StatCard>
           </div>
-
-          {/* Quick picks */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 14, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>
-              Popular right now
-            </div>
-            {picks.map((p, i) => (
-              <ScentPill key={p.id} name={p.name} notes={p.notes} price={p.p5} delay={0.3 + i * 0.1} onOpen={onOpen} product={p}/>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottle + floating cards — flows below text on mobile, absolute on desktop */}
-        <div style={{
-          position: 'relative',
-          flex: 1,
-          minHeight: 'clamp(280px, 50vw, 520px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 1,
-        }}>
-          {/* Glow behind bottle */}
-          <div style={{ position: 'absolute', width: 360, height: 360, borderRadius: '50%', background: 'radial-gradient(circle, rgba(176,144,96,0.15) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', filter: 'blur(40px)' }}/>
-
-          {/* Hero bottle image with parallax */}
-          <img
-            src={HERO_IMG}
-            alt="Scent Snob Decant Bottle"
-            style={{
-              height: 'clamp(220px, 45vw, 520px)',
-              width: 'auto',
-              objectFit: 'contain',
-              position: 'relative', zIndex: 2,
-              transform: `translate(${px}px, ${py}px)`,
-              transition: 'transform .15s ease-out',
-              filter: 'drop-shadow(0 24px 48px rgba(0,0,0,0.8))',
-              animation: 'heroFloat 6s ease-in-out infinite',
-            }}
-          />
-
-          {/* Floating card — Today's Pick — bottom left */}
-          <StatCard style={{
-            position: 'absolute', bottom: '8%', left: '3%',
-            animation: 'fadeUp .7s ease .5s both',
-            minWidth: 130, maxWidth: 170,
-          }}>
-            <div style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
-            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '0.9rem', color: '#fff', marginBottom: 2 }}>Hawas Ice</div>
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginBottom: 5 }}>Bergamot · Aquatic · Amber</div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 12, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
-              <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(176,144,96,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-                onClick={() => onOpen(FEATURED[1])}>
-                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#b09060" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-              </div>
-            </div>
-          </StatCard>
-
-          {/* Floating badge — free shipping — top right */}
-          <StatCard style={{
-            position: 'absolute', top: '6%', right: '3%',
-            animation: 'fadeUp .7s ease .7s both',
-            padding: '8px 11px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-              <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(176,144,96,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <span style={{ fontSize: 12 }}>✦</span>
-              </div>
-              <div>
-                <div style={{ fontSize: 11, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
-                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Above ₹2999</div>
-              </div>
-            </div>
-          </StatCard>
-
-          {/* Trust card — bottom right */}
-          <StatCard style={{
-            position: 'absolute', bottom: '8%', right: '3%',
-            animation: 'fadeUp .7s ease .9s both',
-            minWidth: 140,
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
-              <div style={{ display: 'flex' }}>
-                {['#c8a060','#a08050','#e0b880'].map((col, i) => (
-                  <div key={i} style={{ width: 20, height: 20, borderRadius: '50%', background: col, border: '2px solid #141210', marginLeft: i > 0 ? -6 : 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--ff-sans)' }}>Happy customers</span>
-            </div>
-            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.3rem', fontWeight: 300, color: '#fff', lineHeight: 1 }}>500+</div>
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>Orders PAN India</div>
-          </StatCard>
-
         </div>
 
         {/* Scroll indicator */}
-        <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.2)', animation: 'fadeIn 1.5s ease 1.5s both', zIndex: 3 }}>
-          <div style={{ width: 1, height: 40, background: 'linear-gradient(to bottom, rgba(176,144,96,0.4), transparent)', animation: 'scrollPulse 2s ease-in-out infinite' }}/>
-          <span style={{ fontSize: 14, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>Scroll</span>
+        <div style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, color: 'rgba(255,255,255,0.2)', animation: 'fadeIn 1.5s ease 1.5s both', zIndex: 3 }}>
+          <div style={{ width: 1, height: 30, background: 'linear-gradient(to bottom, rgba(176,144,96,0.4), transparent)', animation: 'scrollPulse 2s ease-in-out infinite' }}/>
+          <span style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>Scroll</span>
         </div>
       </section>
 
