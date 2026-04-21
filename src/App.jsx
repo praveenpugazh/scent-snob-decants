@@ -5,6 +5,7 @@ import Nav        from './components/Nav.jsx';
 import CartDrawer from './components/CartDrawer.jsx';
 import SizeModal  from './components/SizeModal.jsx';
 import { Toast, WAIcon } from './components/ui.jsx';
+import ScentQuiz from './components/ScentQuiz.jsx';
 import { S, C }   from './styles/theme.js';
 
 import HomePage   from './pages/HomePage.jsx';

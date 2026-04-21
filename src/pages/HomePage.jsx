@@ -3,6 +3,7 @@ import { C } from '../styles/theme.js';
 import { FEATURED } from '../data/products.js';
 import { DECANT_IMG, AddBtn } from '../components/ui.jsx';
 import CombosSection from '../components/CombosSection.jsx';
+import MoodFilter from '../components/MoodFilter.jsx';
 import PartialsSection from '../components/PartialsSection.jsx';
 import { FLAGS } from '../config/flags.js';
 
@@ -328,6 +329,21 @@ export default function HomePage({ onOpen, setPage }) {
             >{l}</button>
           ))}
         </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          MOOD FILTER
+      ══════════════════════════════════════════ */}
+      <section style={{ padding: '3rem 4vw 2rem', background: '#0c0a08', borderTop: '0.5px solid rgba(255,255,255,0.05)' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#b09060', marginBottom: 8, fontFamily: 'var(--ff-sans)' }}>
+            Shop by Mood
+          </div>
+          <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: 'rgba(255,255,255,0.92)' }}>
+            What are you <em style={{ fontStyle: 'italic', color: '#b09060' }}>dressing for?</em>
+          </h2>
+        </div>
+        <MoodFilter onOpen={onOpen} />
       </section>
 
       {/* ══════════════════════════════════════════

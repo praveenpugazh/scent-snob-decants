@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { S, C } from '../styles/theme.js';
 import { allProducts } from '../data/products.js';
 import { ProductCard } from '../components/ui.jsx';
+import MoodFilter from '../components/MoodFilter.jsx';
 
 function BrandCard({ brand, count, cat, onClick }) {
   const [hov, setHov] = useState(false);
