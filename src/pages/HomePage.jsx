@@ -44,10 +44,10 @@ function ScentPill({ name, notes, price, delay, onOpen, product }) {
         <img src={DECANT_IMG} alt="" style={{ height: 30, width: 'auto', objectFit: 'contain' }}/>
       </div>
       <div>
-        <div style={{ fontSize: 11, fontWeight: 500, color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--ff-sans)', letterSpacing: '0.02em' }}>{name}</div>
-        <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em' }}>{notes}</div>
+        <div style={{ fontSize: 14, fontWeight: 500, color: 'rgba(255,255,255,0.9)', fontFamily: 'var(--ff-sans)', letterSpacing: '0.02em' }}>{name}</div>
+        <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em' }}>{notes}</div>
       </div>
-      <div style={{ marginLeft: 8, fontSize: 12, color: '#b09060', fontWeight: 500, flexShrink: 0 }}>₹{price}</div>
+      <div style={{ marginLeft: 8, fontSize: 14, color: '#b09060', fontWeight: 500, flexShrink: 0 }}>₹{price}</div>
     </div>
   );
 }
@@ -115,7 +115,7 @@ export default function HomePage({ onOpen, setPage }) {
           {/* Tag */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: '1.5rem', padding: '5px 14px 5px 5px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#b09060' }}/>
-            <span style={{ fontSize: 10, letterSpacing: '0.2em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
+            <span style={{ fontSize: 15, letterSpacing: '0.2em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
               Authentic Decants · Bangalore
             </span>
           </div>
@@ -144,13 +144,13 @@ export default function HomePage({ onOpen, setPage }) {
           <div style={{ display: 'flex', gap: 12, marginBottom: '3rem', flexWrap: 'wrap' }}>
             <button
               onClick={() => setPage('brands')}
-              style={{ background: '#b09060', color: '#fff', border: 'none', padding: '14px 28px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s', fontWeight: 400 }}
+              style={{ background: '#b09060', color: '#fff', border: 'none', padding: '14px 28px', fontFamily: 'var(--ff-sans)', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s', fontWeight: 400 }}
             >
               Shop Collection
             </button>
             <button
               onClick={() => setPage('about')}
-              style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '14px 24px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s' }}
+              style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '14px 24px', fontFamily: 'var(--ff-sans)', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s' }}
             >
               Our Story
             </button>
@@ -158,7 +158,7 @@ export default function HomePage({ onOpen, setPage }) {
 
           {/* Quick picks */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <div style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>
+            <div style={{ fontSize: 14, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>
               Popular right now
             </div>
             {picks.map((p, i) => (
@@ -200,11 +200,11 @@ export default function HomePage({ onOpen, setPage }) {
             animation: 'fadeUp .7s ease .5s both',
             minWidth: 160,
           }}>
-            <div style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 6, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
+            <div style={{ fontSize: 14, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 6, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
             <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1rem', color: '#fff', marginBottom: 2 }}>Hawas Ice</div>
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)' }}>Bergamot · Aquatic · Amber</div>
+            <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)' }}>Bergamot · Aquatic · Amber</div>
             <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 13, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
+              <span style={{ fontSize: 15, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
               <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(176,144,96,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                 onClick={() => onOpen(FEATURED[1])}>
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#b09060" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -227,10 +227,10 @@ export default function HomePage({ onOpen, setPage }) {
                   </div>
                 ))}
               </div>
-              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--ff-sans)' }}>Happy customers</span>
+              <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--ff-sans)' }}>Happy customers</span>
             </div>
             <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.6rem', fontWeight: 300, color: '#fff', lineHeight: 1 }}>500+</div>
-            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', marginTop: 3 }}>Orders shipped PAN India</div>
+            <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.35)', marginTop: 3 }}>Orders shipped PAN India</div>
           </StatCard>
 
           {/* Floating badge — free shipping */}
@@ -244,8 +244,8 @@ export default function HomePage({ onOpen, setPage }) {
                 <span style={{ fontSize: 14 }}>✦</span>
               </div>
               <div>
-                <div style={{ fontSize: 11, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
-                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.35)' }}>Orders above ₹2499</div>
+                <div style={{ fontSize: 14, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
+                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)' }}>Orders above ₹2499</div>
               </div>
             </div>
           </StatCard>
@@ -255,7 +255,7 @@ export default function HomePage({ onOpen, setPage }) {
         {/* Scroll indicator */}
         <div style={{ position: 'absolute', bottom: 28, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, color: 'rgba(255,255,255,0.2)', animation: 'fadeIn 1.5s ease 1.5s both', zIndex: 3 }}>
           <div style={{ width: 1, height: 40, background: 'linear-gradient(to bottom, rgba(176,144,96,0.4), transparent)', animation: 'scrollPulse 2s ease-in-out infinite' }}/>
-          <span style={{ fontSize: 9, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>Scroll</span>
+          <span style={{ fontSize: 14, letterSpacing: '0.2em', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>Scroll</span>
         </div>
       </section>
 
@@ -264,7 +264,7 @@ export default function HomePage({ onOpen, setPage }) {
       ══════════════════════════════════════════ */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 0, overflow: 'hidden' }}>
         {['Niche', 'Designer', 'Middle Eastern', 'Authentic', '5ml Decants', 'PAN India', 'Niche', 'Designer', 'Middle Eastern', 'Authentic', '5ml Decants', 'PAN India'].map((t, i) => (
-          <span key={i} style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: i % 2 === 0 ? 'rgba(255,255,255,0.12)' : 'rgba(176,144,96,0.3)', padding: '14px 20px', borderRight: '0.5px solid rgba(255,255,255,0.06)', whiteSpace: 'nowrap', fontFamily: 'var(--ff-sans)', flexShrink: 0 }}>{t}</span>
+          <span key={i} style={{ fontSize: 15, letterSpacing: '0.2em', textTransform: 'uppercase', color: i % 2 === 0 ? 'rgba(255,255,255,0.12)' : 'rgba(176,144,96,0.3)', padding: '14px 20px', borderRight: '0.5px solid rgba(255,255,255,0.06)', whiteSpace: 'nowrap', fontFamily: 'var(--ff-sans)', flexShrink: 0 }}>{t}</span>
         ))}
       </div>
 
@@ -274,12 +274,12 @@ export default function HomePage({ onOpen, setPage }) {
       <section style={{ padding: '5rem 4vw', background: '#0c0a08' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
           <div>
-            <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#b09060', marginBottom: 8, fontFamily: 'var(--ff-sans)' }}>Curated Collection</div>
+            <div style={{ fontSize: 15, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#b09060', marginBottom: 8, fontFamily: 'var(--ff-sans)' }}>Curated Collection</div>
             <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, color: '#fff' }}>
               Staff <em style={{ fontStyle: 'italic', color: '#b09060' }}>Picks</em>
             </h2>
           </div>
-          <button style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', cursor: 'pointer', background: 'none', border: 'none', fontFamily: 'var(--ff-sans)' }} onClick={() => setPage('brands')}>
+          <button style={{ fontSize: 15, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', cursor: 'pointer', background: 'none', border: 'none', fontFamily: 'var(--ff-sans)' }} onClick={() => setPage('brands')}>
             Browse all →
           </button>
         </div>
@@ -302,14 +302,14 @@ export default function HomePage({ onOpen, setPage }) {
               </div>
               {/* Card body */}
               <div style={{ padding: '1rem 1rem 1.1rem' }}>
-                <div style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', marginBottom: 4 }}>{p.brand}</div>
+                <div style={{ fontSize: 14, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', marginBottom: 4 }}>{p.brand}</div>
                 <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.05rem', fontWeight: 300, color: 'rgba(255,255,255,0.92)', marginBottom: 4, lineHeight: 1.2 }}>{p.name}</div>
-                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>{p.notes}</div>
-                <div style={{ fontSize: 10, color: '#b09060', fontStyle: 'italic', marginBottom: 12 }}>{p.inspired}</div>
+                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>{p.notes}</div>
+                <div style={{ fontSize: 15, color: '#b09060', fontStyle: 'italic', marginBottom: 12 }}>{p.inspired}</div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    {p.p5 && <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.9)' }}>₹{p.p5} <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>/ 5ml</span></div>}
-                    {!FLAGS.ENABLE_10ML && <div style={{ fontSize: 9, color: '#b09060', fontStyle: 'italic' }}>10ml glass · soon</div>}
+                    {p.p5 && <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.9)' }}>₹{p.p5} <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.3)' }}>/ 5ml</span></div>}
+                    {!FLAGS.ENABLE_10ML && <div style={{ fontSize: 14, color: '#b09060', fontStyle: 'italic' }}>10ml glass · soon</div>}
                   </div>
                   <AddBtn onClick={e => { e.stopPropagation(); onOpen(p); }}/>
                 </div>
@@ -341,8 +341,8 @@ export default function HomePage({ onOpen, setPage }) {
           ].map(([icon, title, sub]) => (
             <div key={title} style={{ padding: '1.5rem', background: '#0f0d0b', textAlign: 'center' }}>
               <div style={{ fontSize: 20, color: '#b09060', marginBottom: 8 }}>{icon}</div>
-              <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>{title}</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 }}>{sub}</div>
+              <div style={{ fontSize: 14, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>{title}</div>
+              <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 }}>{sub}</div>
             </div>
           ))}
         </div>

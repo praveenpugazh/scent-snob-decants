@@ -27,7 +27,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
     borderRadius: 3,
     padding: '9px 12px',
     fontFamily: 'var(--ff-sans)',
-    fontSize: 12,
+    fontSize: 14,
     color: C.t1,
     outline: 'none',
     transition: 'border-color .2s',
@@ -36,7 +36,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
   });
 
   const labelStyle = {
-    fontSize: 10,
+    fontSize: 15,
     letterSpacing: '0.1em',
     textTransform: 'uppercase',
     color: C.t3,
@@ -77,7 +77,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
           <div>
             <h2 style={S.drawerH2}>Your Cart</h2>
             {totalQty > 0 && (
-              <div style={{ fontSize: 11, color: C.t3, marginTop: 2 }}>
+              <div style={{ fontSize: 14, color: C.t3, marginTop: 2 }}>
                 {totalQty} item{totalQty !== 1 ? 's' : ''}
               </div>
             )}
@@ -88,7 +88,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
         {/* ── Free shipping progress ── */}
         {items.length > 0 && shipping > 0 && (
           <div style={{ padding: '10px 1.5rem', background: 'rgba(176,144,96,0.05)', borderBottom: `0.5px solid ${C.border}` }}>
-            <div style={{ fontSize: 10, color: C.t3, marginBottom: 6 }}>
+            <div style={{ fontSize: 15, color: C.t3, marginBottom: 6 }}>
               Add{' '}
               <span style={{ color: '#b09060', fontWeight: 500 }}>
                 ₹{(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString('en-IN')}
@@ -105,7 +105,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
           </div>
         )}
         {shipping === 0 && items.length > 0 && (
-          <div style={{ padding: '8px 1.5rem', background: 'rgba(176,144,96,0.05)', borderBottom: `0.5px solid ${C.border}`, fontSize: 10, color: '#b09060', textAlign: 'center', letterSpacing: '0.06em' }}>
+          <div style={{ padding: '8px 1.5rem', background: 'rgba(176,144,96,0.05)', borderBottom: `0.5px solid ${C.border}`, fontSize: 15, color: '#b09060', textAlign: 'center', letterSpacing: '0.06em' }}>
             ✦ Free shipping unlocked!
           </div>
         )}
@@ -140,7 +140,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
           {/* ── Delivery details form ── */}
           {items.length > 0 && (
             <div style={{ marginTop: '1.5rem', paddingTop: '1.25rem', borderTop: `0.5px solid ${C.border}` }}>
-              <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b09060', marginBottom: '1rem' }}>
+              <div style={{ fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b09060', marginBottom: '1rem' }}>
                 Delivery Details
               </div>
 
@@ -148,7 +148,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
               <div style={{ marginBottom: 12 }}>
                 <label style={labelStyle}>
                   Full Name{' '}
-                  {errors.name && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 10 }}>required</span>}
+                  {errors.name && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 15 }}>required</span>}
                 </label>
                 <input
                   style={inputStyle('name')}
@@ -162,7 +162,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
               <div style={{ marginBottom: 12 }}>
                 <label style={labelStyle}>
                   Phone{' '}
-                  {errors.phone && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 10 }}>valid 10-digit number required</span>}
+                  {errors.phone && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 15 }}>valid 10-digit number required</span>}
                 </label>
                 <input
                   style={inputStyle('phone')}
@@ -178,7 +178,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
               <div style={{ marginBottom: 4 }}>
                 <label style={labelStyle}>
                   Delivery Address{' '}
-                  {errors.address && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 10 }}>required</span>}
+                  {errors.address && <span style={{ color: '#e05a5a', textTransform: 'none', letterSpacing: 0, fontSize: 15 }}>required</span>}
                 </label>
                 <textarea
                   style={{ ...inputStyle('address'), height: 84, resize: 'none', lineHeight: 1.6 }}
@@ -197,18 +197,18 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
 
             {/* Subtotal */}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 11, color: C.t3 }}>
+              <span style={{ fontSize: 14, color: C.t3 }}>
                 Subtotal ({totalQty} item{totalQty !== 1 ? 's' : ''})
               </span>
-              <span style={{ fontSize: 13, color: C.t1 }}>
+              <span style={{ fontSize: 15, color: C.t1 }}>
                 ₹{subtotal.toLocaleString('en-IN')}
               </span>
             </div>
 
             {/* Shipping */}
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12, paddingBottom: 12, borderBottom: `0.5px solid ${C.border}` }}>
-              <span style={{ fontSize: 11, color: C.t3 }}>Shipping</span>
-              <span style={{ fontSize: 13, color: shipping === 0 ? '#b09060' : C.t1 }}>
+              <span style={{ fontSize: 14, color: C.t3 }}>Shipping</span>
+              <span style={{ fontSize: 15, color: shipping === 0 ? '#b09060' : C.t1 }}>
                 {shipping === 0 ? 'Free' : `₹${shipping}`}
               </span>
             </div>
@@ -221,7 +221,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
 
             {/* WhatsApp CTA */}
             {!allFilled && (
-              <div style={{ fontSize: 10, color: C.t3, textAlign: 'center', marginBottom: 8, letterSpacing: '0.05em' }}>
+              <div style={{ fontSize: 15, color: C.t3, textAlign: 'center', marginBottom: 8, letterSpacing: '0.05em' }}>
                 Fill in delivery details above to confirm order
               </div>
             )}
@@ -253,17 +253,17 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
               gap: 8,
             }}>
               <div>
-                <div style={{ fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.t3, marginBottom: 3 }}>
+                <div style={{ fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.t3, marginBottom: 3 }}>
                   Pay via UPI after confirming
                 </div>
-                <div style={{ fontSize: 12, color: '#b09060', fontWeight: 500, letterSpacing: '0.02em' }}>
+                <div style={{ fontSize: 14, color: '#b09060', fontWeight: 500, letterSpacing: '0.02em' }}>
                   {UPI_ID}
                 </div>
-                <div style={{ fontSize: 10, color: C.t3, marginTop: 1 }}>{UPI_NAME}</div>
+                <div style={{ fontSize: 15, color: C.t3, marginTop: 1 }}>{UPI_NAME}</div>
               </div>
               <button
                 style={{
-                  fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase',
+                  fontSize: 14, letterSpacing: '0.1em', textTransform: 'uppercase',
                   color: copied ? '#b09060' : C.t3,
                   background: 'none',
                   border: `0.5px solid ${copied ? 'rgba(176,144,96,0.4)' : C.border}`,
@@ -276,7 +276,7 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
               </button>
             </div>
 
-            <div style={{ fontSize: 10, color: C.t3, textAlign: 'center', marginTop: 8, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 15, color: C.t3, textAlign: 'center', marginTop: 8, lineHeight: 1.6 }}>
               Pay after WhatsApp confirmation · Send screenshot to confirm
             </div>
           </div>
