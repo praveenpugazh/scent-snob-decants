@@ -88,12 +88,12 @@ export default function HomePage({ onOpen, setPage }) {
           HERO SECTION
       ══════════════════════════════════════════ */}
       <section style={{
-        minHeight: '100vh',
+        minHeight: '100svh',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',
-        alignItems: 'center',
-        paddingTop: 94, // nav height
+        flexDirection: 'column',
+        paddingTop: 80,
       }}>
 
         {/* Atmospheric background layers */}
@@ -108,17 +108,17 @@ export default function HomePage({ onOpen, setPage }) {
         {/* Left content */}
         <div style={{
           position: 'relative', zIndex: 2,
-          padding: '0 4vw',
-          flex: '0 0 50%',
-          maxWidth: 600,
+          padding: 'clamp(1.5rem,5vw,3rem) clamp(1.25rem,5vw,4vw) 0',
+          width: '100%',
+          maxWidth: 580,
           opacity: loaded ? 1 : 0,
           transform: loaded ? 'translateY(0)' : 'translateY(20px)',
           transition: 'opacity .8s ease, transform .8s ease',
         }}>
           {/* Tag */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: '1.5rem', padding: '5px 14px 5px 5px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#b09060' }}/>
-            <span style={{ fontSize: 15, letterSpacing: '0.2em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: '1rem', padding: '4px 12px 4px 4px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
+            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#b09060' }}/>
+            <span style={{ fontSize: 10, letterSpacing: '0.18em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)' }}>
               Authentic Decants · India
             </span>
           </div>
@@ -126,11 +126,11 @@ export default function HomePage({ onOpen, setPage }) {
           {/* Headline */}
           <h1 style={{
             fontFamily: 'var(--ff-serif)',
-            fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+            fontSize: 'clamp(2.2rem, 8vw, 5.5rem)',
             fontWeight: 300,
             color: '#fff',
-            lineHeight: 1.0,
-            marginBottom: '1.25rem',
+            lineHeight: 1.05,
+            marginBottom: '0.9rem',
             letterSpacing: '-0.01em',
           }}>
             Wear the<br/>
@@ -139,21 +139,21 @@ export default function HomePage({ onOpen, setPage }) {
           </h1>
 
           {/* Sub */}
-          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, marginBottom: '2rem', maxWidth: 400, fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
+          <p style={{ fontSize: 'clamp(13px,3.5vw,15px)', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '1.25rem', maxWidth: 400, fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
             200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
           </p>
 
           {/* CTAs */}
-          <div style={{ display: 'flex', gap: 12, marginBottom: '3rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 10, marginBottom: '1.5rem', flexWrap: 'wrap' }}>
             <button
               onClick={() => setPage('brands')}
-              style={{ background: '#b09060', color: '#fff', border: 'none', padding: '14px 28px', fontFamily: 'var(--ff-sans)', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s', fontWeight: 400 }}
+              style={{ background: '#b09060', color: '#fff', border: 'none', padding: '12px 22px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s', fontWeight: 400 }}
             >
               Shop Collection
             </button>
             <button
               onClick={() => setPage('about')}
-              style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '14px 24px', fontFamily: 'var(--ff-sans)', fontSize: 14, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s' }}
+              style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '12px 18px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, transition: 'all .2s' }}
             >
               Our Story
             </button>
@@ -170,11 +170,11 @@ export default function HomePage({ onOpen, setPage }) {
           </div>
         </div>
 
-        {/* Right — hero bottle + floating cards */}
+        {/* Bottle + floating cards — flows below text on mobile, absolute on desktop */}
         <div style={{
-          position: 'absolute',
-          right: 0, top: 0, bottom: 0,
-          width: '52%',
+          position: 'relative',
+          flex: 1,
+          minHeight: 'clamp(280px, 50vw, 520px)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 1,
         }}>
@@ -186,7 +186,7 @@ export default function HomePage({ onOpen, setPage }) {
             src={HERO_IMG}
             alt="Scent Snob Decant Bottle"
             style={{
-              height: 'clamp(300px, 52vh, 520px)',
+              height: 'clamp(220px, 45vw, 520px)',
               width: 'auto',
               objectFit: 'contain',
               position: 'relative', zIndex: 2,
@@ -197,60 +197,59 @@ export default function HomePage({ onOpen, setPage }) {
             }}
           />
 
-          {/* Floating card — top left */}
+          {/* Floating card — Today's Pick — bottom left */}
           <StatCard style={{
-            position: 'absolute', top: '18%', left: '4%',
+            position: 'absolute', bottom: '8%', left: '3%',
             animation: 'fadeUp .7s ease .5s both',
-            minWidth: 160,
+            minWidth: 130, maxWidth: 170,
           }}>
-            <div style={{ fontSize: 14, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 6, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
-            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1rem', color: '#fff', marginBottom: 2 }}>Hawas Ice</div>
-            <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)' }}>Bergamot · Aquatic · Amber</div>
-            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <span style={{ fontSize: 15, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
-              <div style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(176,144,96,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+            <div style={{ fontSize: 9, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>Today's Pick</div>
+            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '0.9rem', color: '#fff', marginBottom: 2 }}>Hawas Ice</div>
+            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginBottom: 5 }}>Bergamot · Aquatic · Amber</div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: 12, color: '#b09060', fontWeight: 500 }}>₹379 / 5ml</span>
+              <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(176,144,96,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
                 onClick={() => onOpen(FEATURED[1])}>
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#b09060" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#b09060" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </div>
             </div>
           </StatCard>
 
-          {/* Floating card — trust signal */}
+          {/* Floating badge — free shipping — top right */}
           <StatCard style={{
-            position: 'absolute', bottom: '22%', right: '2%',
+            position: 'absolute', top: '6%', right: '3%',
             animation: 'fadeUp .7s ease .7s both',
-            minWidth: 180,
+            padding: '8px 11px',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              {/* Avatar stack */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
+              <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(176,144,96,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <span style={{ fontSize: 12 }}>✦</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 11, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
+                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Above ₹2999</div>
+              </div>
+            </div>
+          </StatCard>
+
+          {/* Trust card — bottom right */}
+          <StatCard style={{
+            position: 'absolute', bottom: '8%', right: '3%',
+            animation: 'fadeUp .7s ease .9s both',
+            minWidth: 140,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
               <div style={{ display: 'flex' }}>
                 {['#c8a060','#a08050','#e0b880'].map((col, i) => (
-                  <div key={i} style={{ width: 24, height: 24, borderRadius: '50%', background: col, border: '2px solid #141210', marginLeft: i > 0 ? -8 : 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <div key={i} style={{ width: 20, height: 20, borderRadius: '50%', background: col, border: '2px solid #141210', marginLeft: i > 0 ? -6 : 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   </div>
                 ))}
               </div>
-              <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--ff-sans)' }}>Happy customers</span>
+              <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--ff-sans)' }}>Happy customers</span>
             </div>
-            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.6rem', fontWeight: 300, color: '#fff', lineHeight: 1 }}>500+</div>
-            <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.35)', marginTop: 3 }}>Orders shipped PAN India</div>
-          </StatCard>
-
-          {/* Floating badge — free shipping */}
-          <StatCard style={{
-            position: 'absolute', top: '12%', right: '8%',
-            animation: 'fadeUp .7s ease .9s both',
-            padding: '10px 14px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'rgba(176,144,96,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: 14 }}>✦</span>
-              </div>
-              <div>
-                <div style={{ fontSize: 14, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
-                <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)' }}>Orders above ₹2999</div>
-              </div>
-            </div>
+            <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.3rem', fontWeight: 300, color: '#fff', lineHeight: 1 }}>500+</div>
+            <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>Orders PAN India</div>
           </StatCard>
 
         </div>
