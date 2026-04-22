@@ -6,7 +6,7 @@ const FAQS = [
   ['Are the fragrances 100% authentic?', 'Absolutely. Every decant is taken from genuine, authenticated bottles. We never dilute, substitute, or adulterate any fragrance.'],
   ['How is the decant packaged?', 'Each decant is sealed, labelled, and wrapped in bubble wrap inside a padded envelope. Every order is inspected before dispatch.'],
   ['Do you ship PAN India?', 'Yes! Free shipping on orders above ₹2999. Delivery takes 3–7 business days. Currently shipping 5ml — 10ml glass atomisers coming soon.'],
-  ['What payment methods are accepted?', 'UPI and GPay. Pay to 8754519509@okbizaxis (Praveen P). Payment details are included in your WhatsApp order confirmation.'],
+  ['What payment methods are accepted?', 'UPI and GPay. Pay to 8754519509@okicici (Praveen P). Payment details are included in your WhatsApp order confirmation.'],
 ];
 
 export default function AboutPage() {

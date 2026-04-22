@@ -90,7 +90,7 @@ export default function App() {
 
     // Payment instructions
     msg += `\n\n*Payment*`;
-    msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *8754519509@okbizaxis* (Praveen P)`;
+    msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *8754519509@okicici* (Praveen P)`;
     msg += `\nSend payment screenshot to confirm your order 📸`;
 
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
@@ -138,6 +138,8 @@ export default function App() {
           onAdd={addToCart}
         />
       )}
+
+      <ScentQuiz onOpen={setModal} />
 
       <button
         style={S.waFloat}
