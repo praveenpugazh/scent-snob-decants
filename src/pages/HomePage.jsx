@@ -3,6 +3,7 @@ import { C } from '../styles/theme.js';
 import { FEATURED } from '../data/products.js';
 import { DECANT_IMG, AddBtn } from '../components/ui.jsx';
 import CombosSection from '../components/CombosSection.jsx';
+import NewArrivalsSection from '../components/NewArrivalsSection.jsx';
 import MoodFilter from '../components/MoodFilter.jsx';
 import PartialsSection from '../components/PartialsSection.jsx';
 import { FLAGS } from '../config/flags.js';
@@ -255,6 +256,11 @@ export default function HomePage({ onOpen, setPage }) {
           <span key={i} style={{ fontSize: 15, letterSpacing: '0.2em', textTransform: 'uppercase', color: i % 2 === 0 ? 'rgba(255,255,255,0.12)' : 'rgba(176,144,96,0.3)', padding: '14px 20px', borderRight: '0.5px solid rgba(255,255,255,0.06)', whiteSpace: 'nowrap', fontFamily: 'var(--ff-sans)', flexShrink: 0 }}>{t}</span>
         ))}
       </div>
+
+      {/* ══════════════════════════════════════════
+          NEW ARRIVALS
+      ══════════════════════════════════════════ */}
+      <NewArrivalsSection onOpen={setModal} />
 
       {/* ══════════════════════════════════════════
           STAFF PICKS

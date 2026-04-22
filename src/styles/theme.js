@@ -94,7 +94,7 @@ export const S = {
   qtyRow: { display:'flex', alignItems:'center', gap:5 },
   qtyBtn: { width:22, height:22, border:'0.5px solid rgba(255,255,255,0.08)', background:'transparent', cursor:'pointer', fontSize:14, display:'flex', alignItems:'center', justifyContent:'center', borderRadius:2, color:'rgba(255,255,255,0.55)', transition:'all .15s' },
   qtyVal: { fontSize:14, minWidth:16, textAlign:'center', color:'rgba(255,255,255,0.92)' },
-  drawerFoot: { padding:'1.25rem 1.5rem', borderTop:'0.5px solid rgba(255,255,255,0.08)' },
+  drawerFoot: { padding:'10px 1.25rem 12px', borderTop:'0.5px solid rgba(255,255,255,0.08)', flexShrink:0 },
   totalRow: { display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:'1rem' },
   totalLbl: { fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', color:'rgba(255,255,255,0.3)' },
   totalAmt: { fontFamily:'var(--ff-serif)', fontSize:'1.4rem', fontWeight:300, color:'rgba(255,255,255,0.92)' },

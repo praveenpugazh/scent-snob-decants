@@ -296,3 +296,26 @@ export const PARTIALS = [
   //   condition: 'Like new — used 2-3 sprays',
   // },
 ];
+
+// ─────────────────────────────────────────────────────────
+//  NEW ARRIVALS
+//  Update this list whenever new stock comes in.
+//  Format: same as DUPES_RAW — [brand, name, notes, p5, p10]
+//  Shown in a dedicated "New Arrivals" section on the home page.
+//  Keep the most recent additions at the top.
+// ─────────────────────────────────────────────────────────
+export const NEW_ARRIVALS = [
+  ['Arabiyat Prestige','Hamdan The Sheikh','Rose · Oud · Leather',280,540],
+  ['Riiffs','Freeze','Mint · Citrus · Amber',220,420],
+  ['Nusuk','Ateeq','Oud · Saffron · Musk',200,390],
+  ['Lattafa','Fakhar Platin','Bergamot · Oud · Vanilla',170,320],
+  ['Lattafa','Atlas','Oud · Rose · Sandalwood',330,640],
+  ['Rasasi','Fattan','Rose · Oud · Musky',170,320],
+  ['Rayhaan','Jungle Vibe','Green · Tropical · Musk',180,330],
+  ['Lattafa','Dynasty','Floral · Musky · Warm',180,330],
+  ['Arabiyat Prestige','Ramad Oriental','Oud · Smoke · Amber',210,400],
+  ['Nusuk','Sama','Fresh · Floral · Clean',150,290],
+  ['Arabiyat Prestige','Al Noor','Floral · Musk · Fresh',220,420],
+  ['Arabiyat Prestige','Mahad Al Dhahab','Oud · Amber · Rose',220,420],
+  ['Armaf','Cristian Provenzano III','Leather · Woody · Oud',470,920],
+];
