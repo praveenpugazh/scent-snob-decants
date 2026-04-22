@@ -260,7 +260,7 @@ export default function HomePage({ onOpen, setPage }) {
       {/* ══════════════════════════════════════════
           NEW ARRIVALS
       ══════════════════════════════════════════ */}
-      <NewArrivalsSection onOpen={setModal} />
+      <NewArrivalsSection onOpen={onOpen} />
 
       {/* ══════════════════════════════════════════
           STAFF PICKS
