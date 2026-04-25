@@ -14,6 +14,20 @@ import BrandsPage from './pages/BrandsPage.jsx';
 import AboutPage  from './pages/AboutPage.jsx';
 
 const WA_NUMBER = '918754519509';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwo609JWeg6NHLi-C4Fcea-ME2-X1OmFdjA_Ju7HKCqDEszRsHwNFEkredAGv8dMfRe/exec';
+
+const logOrderToSheet = async (orderData) => {
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData),
+    });
+  } catch (e) {
+    console.warn('Sheet log failed:', e);
+  }
+};
 
 export default function App() {
   const [page,     setPage]     = useState('home');
@@ -67,31 +81,46 @@ export default function App() {
 
   const cartCount = Object.values(cart).reduce((a, b) => a + b.qty, 0);
 
-  // buildWALink now receives customer details from CartDrawer
+  // buildWALink — builds WA message AND silently logs order to Google Sheet
   const buildWALink = useCallback((subtotal, shipping, grandTotal, totalQty, name, phone, address) => {
     const items = Object.values(cart);
-    let msg = '🛒 *New Order — Scent Snob Decants*\n\n';
 
-    // Order items
+    // Generate unique order ID
+    const orderId = `SS-${Date.now().toString(36).toUpperCase()}`;
+    const orderDate = new Date().toLocaleDateString('en-IN');
+
+    // Build items string
+    const itemsStr = items.map(i => `${i.brand} — ${i.name} (${i.size}) × ${i.qty}`).join(', ');
+
+    // Log to Google Sheet silently
+    logOrderToSheet({
+      orderId,
+      date: orderDate,
+      name,
+      phone,
+      items: itemsStr,
+      subtotal,
+      shipping: shipping === 0 ? 'Free' : shipping,
+      total: grandTotal,
+      address,
+      status: 'Pending',
+    });
+
+    // Build WhatsApp message
+    let msg = `🛒 *New Order — Scent Snob Decants*\n📦 Order ID: ${orderId}\n\n`;
     items.forEach(i => {
       msg += `• ${i.brand} — ${i.name} (${i.size}) × ${i.qty} = ₹${(i.price * i.qty).toLocaleString('en-IN')}\n`;
     });
-
-    // Order summary
     msg += `\n━━━━━━━━━━━━━━━`;
     msg += `\nTotal items : ${totalQty}`;
     msg += `\nSubtotal   : ₹${subtotal.toLocaleString('en-IN')}`;
     msg += `\nShipping   : ${shipping === 0 ? 'Free 🎉' : `₹${shipping}`}`;
     msg += `\n*Grand Total: ₹${grandTotal.toLocaleString('en-IN')}*`;
     msg += `\n━━━━━━━━━━━━━━━`;
-
-    // Customer details
     msg += `\n\n*Delivery Details*`;
     msg += `\nName    : ${name}`;
     msg += `\nPhone   : ${phone}`;
     msg += `\nAddress : ${address}`;
-
-    // Payment instructions
     msg += `\n\n*Payment*`;
     msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *praveenpugazh14@okicici* (Praveen P)`;
     msg += `\nSend payment screenshot to confirm your order 📸`;
