@@ -2,8 +2,29 @@ import { useState, useEffect, useCallback } from 'react';
 import { C } from '../styles/theme.js';
 
 const ADMIN_KEY   = 'scentsnob_admin_2024';
-const POST_URL    = 'https://script.google.com/macros/s/AKfycbwo609JWeg6NHLi-C4Fcea-ME2-X1OmFdjA_Ju7HKCqDEszRsHwNFEkredAGv8dMfRe/exec';
+const POST_URL    = 'https://script.google.com/macros/s/AKfycbyRoTcexwmKRkmyVYINqZ08S237oybFZt60ZpFElXxd6go7KlelJTB_QlD3r-eGwuhC/exec';
 const GET_URL     = 'https://script.google.com/macros/s/AKfycbyRoTcexwmKRkmyVYINqZ08S237oybFZt60ZpFElXxd6go7KlelJTB_QlD3r-eGwuhC/exec';
+
+const SEED_ORDERS = [
+  { id:'SS-HIST-001', date:'2026-04-01', name:'Jeffrin John Stephen', phone:'9740231237', items:'Valentino — Uomo Born In Roma Intense EDP (5ml) ×1, Valentino — Uomo Born In Roma Extradose Parfum (5ml) ×1, Amouage — Outlands Essence De Parfum (5ml) ×1, Ex Nihilo — Blue Talisman EDP (5ml) ×1', amount:5646, status:'Delivered', address:'Radha Govind Public School, Garh Rd, Somdutt Vihar Colony, Anuyogipuram, Meerut, UP 250004', notes:'Historical order', createdAt:'2026-04-01' },
+  { id:'SS-HIST-002', date:'2026-04-05', name:'Arun Pandiyan', phone:'9360751344', items:'Valentino — Uomo BIR Intense (5ml) ×1, Valentino — Uomo BIR Extradose (5ml) ×1, French Avenue — Aether Extrait (5ml) ×1, French Avenue — Altantis Extrait (5ml) ×1, Afnan — Supremacy CE (5ml) ×1, Parfums de Marly — Layton (5ml) ×1, Lattafa — Asad Bourbon (5ml) ×1', amount:4143, status:'Delivered', address:'No:13, Malligai Street, New Ramnadu road, Theppakulam, Madurai-625009', notes:'Historical order', createdAt:'2026-04-05' },
+  { id:'SS-HIST-003', date:'2026-04-10', name:'Unknown', phone:'', items:'Lattafa — Art of Universe (10ml) ×1, French Avenue — Platine Blanc (10ml) ×1, French Avenue — Carnal Desire (10ml) ×1, French Avenue — Ghost Spectre (30ml) ×1, Rayhaan — Aquatica (10ml) ×1, Rayhaan — Valhalla (10ml) ×1, Rayhaan — Lion (10ml) ×1, Nusuk — Ateeq (10ml) ×1, Lattafa — Dynasty (10ml) ×1, Swiss Arabian — Enigma of Taif (10ml) ×1, Arabiyat Prestige — Marwa (30ml) ×1', amount:5369, status:'Delivered', address:'Not provided', notes:'No customer details', createdAt:'2026-04-10' },
+  { id:'SS-HIST-004', date:'2026-04-15', name:'Anna Daya Priyadharshini', phone:'9790859962', items:'Argos — Triumph of Bacchus EDP (5ml) ×1, Swiss Arabian — Incensen 01 (5ml) ×1', amount:2328, status:'Delivered', address:'2167, 14th floor, Tower 2B, Prestige Bella Vista Apartments, Iyyappanthangal, Chennai 600056', notes:'₹150 shipping charged', createdAt:'2026-04-15' },
+  { id:'SS-HIST-005', date:'2026-04-18', name:'Mihir Motta', phone:'8585018251', items:'LV Imagination (5ml) ×1, Pantheon Roma Annone (5ml) ×1', amount:2400, status:'Delivered', address:'32, Rowland Road, Rowland Palace Flat No.10, Kolkata - 700020, West Bengal', notes:'LV Imagination ₹1500 + Pantheon Roma Annone ₹900', createdAt:'2026-04-18' },
+  { id:'SS-HIST-006', date:'2026-04-20', name:'Rahul', phone:'6379180571', items:'Afnan — Supremacy CE (5ml) ×1, Rasasi — Hawas Ice (5ml) ×1', amount:658, status:'Delivered', address:'80/42 West Ponnagaram 8th Street, Arapalayam, Madurai - 625016', notes:'Historical order', createdAt:'2026-04-20' },
+  { id:'SS-HIST-007', date:'2026-04-21', name:'Manickkam', phone:'9791595002', items:'Rasasi — Hawas Ice (5ml) ×1, Afnan — Supremacy CE (5ml) ×1', amount:658, status:'Delivered', address:'C2/2, First Floor, Kilari Illam, KRR Nagar, Theni - 625531', notes:'Historical order', createdAt:'2026-04-21' },
+  { id:'SS-HIST-008', date:'2026-04-22', name:'Vivek Jaykrishnan', phone:'9880535751', items:'Dries Van Noten — Santal Greenery (5ml) ×1, Mizensir — Perfect Oud (5ml) ×1, Roja Parfums — Elysium Pour Homme Parfum (5ml) ×1, MDCI — Invasion Barbare (5ml) ×1, MDCI — Chypre Palatin (5ml) ×1, Ormonde Jayne — Nawab of Oudh Intensivo (5ml) ×1, Rayhaan — Terra (5ml) ×1, French Avenue — Teas Me (10ml) ×1, Swiss Arabian — Enigma of Taif (10ml) ×1, Swiss Arabian — Incensen 01 (5ml) ×1, Rayhaan — Obsidian (10ml) ×1', amount:12699, status:'Delivered', address:'Villa 80, Peninsula Prakruthi, Sarjapura, Bangalore - 562125, Karnataka', notes:'11 items, free shipping', createdAt:'2026-04-22' },
+  { id:'SS-HIST-009', date:'2026-04-08', name:'Sufiyan Khan', phone:'9892545224', items:'Afnan — Supremacy CE (10ml) ×1, Afnan — Supremacy NOI (10ml) ×1, Khadlaj — Island (10ml) ×1, Khadlaj — Shiyaka Snow (10ml) ×1, Arabiyat Prestige — Marwa (10ml) ×1, French Avenue — Aether Extrait (10ml) ×1, Rayhaan — Lion (10ml) ×1', amount:2550, status:'Delivered', address:'B-903, Runwal Elina, Mehra Compound, Saki Naka, Mumbai - 400072', notes:'Paid via GPay 8 Apr 2026', createdAt:'2026-04-08' },
+  { id:'SS-HIST-010', date:'2026-04-25', name:'Raihan Abdurahman', phone:'7902534765', items:'Afnan — Supremacy CE (5ml) ×1, Afnan — 9pm Elixir (5ml) ×1, Arabiyat Prestige — Marwa (5ml) ×1, French Avenue — Amber Empire (5ml) ×1, Rayhaan — Terra (5ml) ×1, Lattafa — Atlas (5ml) ×1, Lattafa — Dynasty (5ml) ×1, Swiss Arabian — Incensen 01 (5ml) ×1, Swiss Arabian — Enigma Of Taif (5ml) ×1', amount:2561, status:'Pending', address:'Tajnas, Near Darussalam Masjid, SRM Road, Pachalam, Ernakulam, Kerala 682012', notes:'9 items all 5ml', createdAt:'2026-04-25' },
+  { id:'SS-HIST-011', date:'2026-04-25', name:'Ajay SK', phone:'7397338492', items:'Lattafa — Musamam Black Intense (10ml) ×1, Lattafa — Atlas (10ml) ×1, Lattafa — Art of Universe (10ml) ×1, Lattafa — Dynasty (10ml) ×1, French Avenue — Platine Blanc (10ml) ×1, French Avenue — Frostbite (10ml) ×1, Swiss Arabian — Incensen 01 (10ml) ×1', amount:3553, status:'Pending', address:'Row House 15, Konark Nagar Phase 2, Clover Park, Viman Nagar, Pune 411014', notes:'7 items all 10ml', createdAt:'2026-04-25' },
+  { id:'SS-HIST-012', date:'2026-04-25', name:'Suryaprakash T', phone:'9486272697', items:'Afnan — Supremacy CE (5ml) ×1, Riiffs — Freeze (5ml) ×1, Ahmed Al Maghribi — Kaaf (5ml) ×1, Arabiyat Prestige — Marwa (5ml) ×1, Zimaya — Mazaaj Rhythmn (5ml) ×1', amount:1155, status:'Pending', address:'19/12, Dharmalingam Street-2, Linemedu, Salem - 636006', notes:'₹150 shipping', createdAt:'2026-04-25' },
+  { id:'SS-HIST-013', date:'2026-04-25', name:'Pranith Reddy', phone:'9951338191', items:'Lattafa — Art of Universe (5ml) ×1, Riiffs — Freeze (5ml) ×1, French Avenue — Sun Kissed (5ml) ×1, French Avenue — Frostbite (5ml) ×1, French Avenue — Ghost Spectre (5ml) ×1, French Avenue — Atlantis Extrait (5ml) ×1, French Avenue — Aether Extrait (5ml) ×1, Rayhaan — Pacific Aura (5ml) ×1, Afnan — Supremacy CE (5ml) ×1, Armaf — Odyssey Spectre (5ml) ×1, Armaf — CDNIM Limited Edition (5ml) ×1, Swiss Arabian — Enigma of Taif (5ml) ×1, Khadlaj — Shiyaka Snow (5ml) ×1, Xerjoff — Naxos (5ml) ×1', amount:4656, status:'Pending', address:'Flat 4803, Floor 8, Tower 4, Vasavi Srinilayam, RTC Colony, LB Nagar, Hyderabad 500074', notes:'14 items all 5ml', createdAt:'2026-04-25' },
+  { id:'SS-HIST-014', date:'2026-04-23', name:'Sharon Joe', phone:'', items:'Rasasi — Hawas Black (10ml) ×1, Zimaya — Mazaaj Rhythmn (10ml) ×1, Vilovat Done (50ml) ×1', amount:2149, status:'Delivered', address:'Bangalore', notes:'Done', createdAt:'2026-04-23' },
+  { id:'SS-HIST-015', date:'2026-04-23', name:'Surendra Gowtham', phone:'', items:'Creed — Silver Mountain Water (30ml) ×1, Valentino — Uomo BIR Intense (30ml) ×1, Valentino — Uomo BIR Intense Coral (10ml) ×1, Lattafa — Atlas (5ml) ×1', amount:7160, status:'Delivered', address:'', notes:'Done', createdAt:'2026-04-23' },
+  { id:'SS-HIST-016', date:'2026-04-23', name:'Sayed', phone:'', items:'Bois Impérial (5ml) ×1', amount:700, status:'Delivered', address:'', notes:'Done', createdAt:'2026-04-23' },
+  { id:'SS-HIST-017', date:'2026-04-24', name:'Vishwa R', phone:'', items:'Lattafa — Atlas (5ml) ×1, Zimaya — Mazaaj Rhythmn (10ml) ×1, Rasasi — Hawas Ice (10ml) ×1', amount:1205, status:'Delivered', address:'', notes:'Done', createdAt:'2026-04-24' },
+  { id:'SS-HIST-018', date:'2026-04-24', name:'H (Unknown)', phone:'', items:'Viktor & Rolf — Spicebomb Metallic Musk (10ml) ×1, Afnan — Supremacy CE (10ml) ×1, Armaf — CDNIM (10ml) ×1, Swiss Arabian — Incensen 01 (10ml) ×1', amount:2500, status:'Delivered', address:'', notes:'Customer name unknown — update when known', createdAt:'2026-04-24' },
+];
 
 const genId  = () => `SS-${Date.now().toString(36).toUpperCase()}`;
 const today  = () => new Date().toISOString().split('T')[0];
@@ -266,25 +287,39 @@ export default function AdminPage() {
   const loadOrders = useCallback(async () => {
     setLoading(true);
     setSheetError(false);
+
+    // Load from localStorage first — seed if empty
+    const local = localStorage.getItem('ss_orders');
+    let cached = [];
+    if (local) {
+      try { cached = JSON.parse(local); } catch(_) {}
+    }
+    // Merge seed orders with any cached orders (seed fills gaps)
+    const cachedIds = new Set(cached.map(o => o.id));
+    const toAdd = SEED_ORDERS.filter(o => !cachedIds.has(o.id));
+    if (toAdd.length > 0) {
+      cached = [...cached, ...toAdd];
+      localStorage.setItem('ss_orders', JSON.stringify(cached));
+    }
+    if (cached.length > 0) {
+      setOrders(cached);
+      setLastRefresh('local cache');
+    }
+
+    // Try Sheet in background for any newer orders
     const data = await fetchFromSheet();
     if (data && data.length > 0) {
-      setOrders(data);
-      setLastRefresh(new Date().toLocaleTimeString('en-IN'));
-      localStorage.setItem('ss_orders', JSON.stringify(data));
-    } else if (data && data.length === 0) {
-      // Sheet is reachable but empty — use localStorage seed if available
-      const local = localStorage.getItem('ss_orders');
-      if (local) {
-        setOrders(JSON.parse(local));
-        setLastRefresh('cached');
-      }
-      setSheetError(false); // Sheet works, just empty
-    } else {
-      // Sheet unreachable — fall back to localStorage
+      // Merge Sheet data with local (Sheet wins for same IDs)
+      const sheetIds = new Set(data.map(o => o.id));
+      const localOnly = cached.filter(o => !sheetIds.has(o.id));
+      const merged = [...data, ...localOnly];
+      setOrders(merged);
+      localStorage.setItem('ss_orders', JSON.stringify(merged));
+      setLastRefresh(new Date().toLocaleTimeString('en-IN') + ' (Sheet)');
+    } else if (!data) {
       setSheetError(true);
-      const local = localStorage.getItem('ss_orders');
-      if (local) setOrders(JSON.parse(local));
     }
+
     setLoading(false);
   }, []);
 

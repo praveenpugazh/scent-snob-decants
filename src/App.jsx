@@ -14,7 +14,7 @@ import BrandsPage from './pages/BrandsPage.jsx';
 import AboutPage  from './pages/AboutPage.jsx';
 
 const WA_NUMBER = '918754519509';
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwo609JWeg6NHLi-C4Fcea-ME2-X1OmFdjA_Ju7HKCqDEszRsHwNFEkredAGv8dMfRe/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyRoTcexwmKRkmyVYINqZ08S237oybFZt60ZpFElXxd6go7KlelJTB_QlD3r-eGwuhC/exec';
 
 const logOrderToSheet = async (orderData) => {
   try {
