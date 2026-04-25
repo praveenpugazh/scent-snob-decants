@@ -84,7 +84,7 @@ export default function PartialsSection() {
           </span>
         </div>
         <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: 'rgba(255,255,255,0.92)' }}>
-          Partial <em style={{ fontStyle: 'italic', color: '#b09060' }}>Bottles</em>
+          Partial <span style={{ fontStyle: 'normal', color: '#b09060' }}>Bottles</span>
         </h2>
         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', marginTop: 8, maxWidth: 500 }}>
           Genuine bottles with remaining juice — sold as-is. Each is authenticated and priced based on how much is left. First come, first served.

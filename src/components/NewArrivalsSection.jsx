@@ -103,7 +103,7 @@ export default function NewArrivalsSection({ onOpen }) {
             </span>
           </div>
           <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: 'rgba(255,255,255,0.92)', margin: 0 }}>
-            New <em style={{ fontStyle: 'italic', color: '#b09060' }}>Arrivals</em>
+            New <span style={{ fontStyle: 'normal', color: '#b09060' }}>Arrivals</span>
           </h2>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 6 }}>
             {products.length} freshly stocked decant{products.length !== 1 ? 's' : ''}

@@ -56,6 +56,8 @@ export const DUPES_RAW = [
   ['Arabiyat Prestige','Marwa','Fresh Floral · Citrus · Light Musk',259,390],
   ['Swiss Arabian','Enigma Of Taif','Rose Taif · Oud · Amber',279,530],
   ['Swiss Arabian','Incensen 01','Frankincense · Oud · Sandalwood',479,880],
+  ['Lattafa','Fahkar Platin','Bergamot · Guava · Sandalwood · Incense',210,370],
+  ['Riffs','Fareed','Cardamom · Lavender · Tonka',210,360],
 ];
 
 export const NICHE_RAW = [
@@ -209,14 +211,14 @@ export const BRANDS_DESIGNER = [...new Set(NICHE_RAW.filter(n =>  DESIGNER_BRAND
 export const BRANDS_DUPES    = [...new Set(DUPES_RAW.map(d => d[0]))].sort();
 
 export const FEATURED = [
-  { id:'f1', brand:'Afnan',         name:'Supremacy CE',          notes:'Pineapple · Birch · Oakmoss',        inspired:'Inspired by Creed Aventus',        p5:279,  p10:449,  cat:'dupe'  },
-  { id:'f2', brand:'Rasasi',        name:'Hawas Ice',             notes:'Bergamot · Aquatic · Amber',          inspired:'Inspired by Acqua di Gio Profumo', p5:379,  p10:499,  cat:'dupe'  },
-  { id:'f3', brand:'Lattafa',       name:'Musamam Black Intense', notes:'Oud · Saffron · Leather',             inspired:'Dark gourmand powerhouse',         p5:399,  p10:519,  cat:'dupe'  },
-  { id:'f4', brand:'Afnan',         name:'9pm Night Out',         notes:'Dragon Fruit · Cognac · Suede',       inspired:'For nights that leave a mark',     p5:269,  p10:389,  cat:'dupe'  },
-  { id:'f5', brand:'French Avenue', name:'Frostbite',             notes:'Mint · Aquatic · White Musk',         inspired:'Inspired by Dior Sauvage',         p5:349,  p10:479,  cat:'dupe'  },
-  { id:'f6', brand:'Swiss Arabian', name:'Incensen 01',           notes:'Frankincense · Oud · Sandalwood',     inspired:'Inspired by Amouage Interlude',    p5:479,  p10:829,  cat:'dupe'  },
-  { id:'f7', brand:'Creed',         name:'Aventus EDP',           notes:'Pineapple · Birch · Musk · Oakmoss',  inspired:'The original crowd favourite',     p5:2399, p10:4399, cat:'niche' },
-  { id:'f8', brand:'Initio',        name:'Oud for Greatness EDP', notes:'Oud · Musk · Incense',                inspired:'Statement niche pick',             p5:1599, p10:2799, cat:'niche' },
+  { id:'f1', brand:'Creed',              name:'Aventus EDP',                  notes:'Pineapple · Birch · Musk · Oakmoss',    inspired:'The benchmark. Every dupe chases this.',       p5:2399, p10:4660, cat:'niche' },
+  { id:'f2', brand:'Maison Margiela',    name:'By The Fireplace EDT',          notes:'Chestnut · Cashmeran · Vanilla',        inspired:'The cosiest fragrance ever made.',             p5:899,  p10:1699, cat:'niche' },
+  { id:'f3', brand:'Parfums de Marly',   name:'Layton EDP',                   notes:'Apple · Cardamom · Sandalwood',         inspired:'Effortlessly elegant. Zero effort required.',  p5:1399, p10:2699, cat:'niche' },
+  { id:'f4', brand:'Initio',             name:'Oud for Greatness EDP',         notes:'Oud · Musk · Incense',                  inspired:'Walk into a room. Own it.',                    p5:1599, p10:2799, cat:'niche' },
+  { id:'f5', brand:'Tom Ford',           name:'Black Orchid EDP',              notes:'Black Orchid · Patchouli · Dark Choc',  inspired:'Dark, seductive and deeply unique.',           p5:1099, p10:2099, cat:'niche' },
+  { id:'f6', brand:'Xerjoff',            name:'Naxos EDP',                     notes:'Lavender · Honey · Tobacco · Vanilla',  inspired:'The sweetest niche pick in the game.',         p5:1299, p10:2540, cat:'niche' },
+  { id:'f7', brand:'Dior',               name:'Sauvage EDP',                   notes:'Bergamot · Ambroxan · Vanilla',         inspired:'The world\'s best-selling fragrance.',         p5:1099, p10:2099, cat:'niche' },
+  { id:'f8', brand:'Amouage',            name:'Interlude Man EDP',             notes:'Frankincense · Oud · Oregano',          inspired:'Complex, polarising and impossible to ignore.', p5:1599, p10:2999, cat:'niche' },
 ];
 
 // ─────────────────────────────────────────────────────────
@@ -290,6 +292,8 @@ export const PARTIALS = [
 //  Keep the most recent additions at the top.
 // ─────────────────────────────────────────────────────────
 export const NEW_ARRIVALS = [
+  ['Lattafa','Fahkar Platin','Bergamot · Guava · Sandalwood · Incense',210,370],
+  ['Riffs','Fareed','Cardamom · Lavender · Tonka',210,360],
   ['Arabiyat Prestige','Hamdan The Sheikh','Rose · Oud · Leather',280,540],
   ['Riiffs','Freeze','Mint · Citrus · Amber',220,420],
   ['Nusuk','Ateeq','Oud · Saffron · Musk',200,390],

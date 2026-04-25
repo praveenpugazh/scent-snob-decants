@@ -14,7 +14,7 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
       }}>
         <span style={{ color: '#b09060' }}>Free shipping</span> above ₹2999
         &nbsp;·&nbsp; PAN India
-        {FLAGS.ENABLE_10ML && !FLAGS.ENABLE_20ML && <>&nbsp;·&nbsp; <span style={{ color: '#b09060' }}>20ml soon</span></>}
+        &nbsp;·&nbsp; <span style={{ color: '#b09060' }}>Free 2ml niche sample</span> on orders above ₹4999
       </div>
 
       {/* Nav Row */}
@@ -27,13 +27,15 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
         {/* Brand — single line */}
         <div
           style={{
-            fontFamily: 'var(--ff-serif)', fontSize: '1.1rem', fontWeight: 300,
+            fontFamily: 'var(--ff-serif)', fontSize: '1.05rem', fontWeight: 300,
             cursor: 'pointer', color: 'rgba(255,255,255,0.92)',
-            letterSpacing: '0.02em', whiteSpace: 'nowrap', flexShrink: 0,
+            letterSpacing: '0.06em', whiteSpace: 'nowrap', flexShrink: 0,
+            display: 'flex', alignItems: 'baseline', gap: 6,
           }}
           onClick={() => setPage('home')}
         >
-          Scent Snob <em style={{ fontStyle: 'italic', color: '#b09060' }}>Decants</em>
+          <span style={{ letterSpacing: '0.1em', textTransform: 'uppercase', fontSize: '0.88rem', fontFamily: 'var(--ff-sans)', fontWeight: 400, color: 'rgba(255,255,255,0.92)' }}>Scent Snob</span>
+          <span style={{ color: '#b09060', fontFamily: 'var(--ff-serif)', fontSize: '1rem', fontWeight: 500, letterSpacing: '0.04em' }}>Decants</span>
         </div>
 
         {/* Nav links */}

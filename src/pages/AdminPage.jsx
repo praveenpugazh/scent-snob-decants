@@ -1,6 +1,181 @@
 import { useState, useEffect, useCallback } from 'react';
 import { C } from '../styles/theme.js';
 
+// ── Pricing Calculator Tab ────────────────────────────────
+const MARGIN = 0.22; // 22% margin
+const ATOMISER_5 = 15, ATOMISER_10 = 25, LABOUR = 10, PACKAGING = 25;
+
+function calcPrices(ml, paid) {
+  const cpm = paid / ml;
+  const cost5  = cpm * 5  + ATOMISER_5  + LABOUR + PACKAGING;
+  const cost10 = cpm * 10 + ATOMISER_10 + LABOUR + PACKAGING;
+  const p5  = Math.round((cost5  / (1 - MARGIN)) / 10) * 10;
+  const p10 = Math.round((cost10 / (1 - MARGIN)) / 10) * 10;
+  const p20 = Math.round(p10 * 1.8 / 10) * 10;
+  return { p5, p10, p20, cost5: Math.round(cost5), cost10: Math.round(cost10), cpm: Math.round(cpm * 10) / 10 };
+}
+
+function PricingTab() {
+  const [form, setForm] = useState({ brand:'', name:'', notes:'', cat:'niche', ml:'', paid:'' });
+  const [result, setResult] = useState(null);
+  const [list, setList] = useState([]);
+  const [copied, setCopied] = useState('');
+  const set = (k,v) => setForm(f => ({...f, [k]:v}));
+
+  const inp = { background:'rgba(255,255,255,0.04)', border:'0.5px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'8px 10px', fontFamily:'var(--ff-sans)', fontSize:13, color:'rgba(255,255,255,0.9)', outline:'none', boxSizing:'border-box', width:'100%' };
+  const lbl = { fontSize:10, color:'rgba(255,255,255,0.4)', letterSpacing:'0.1em', textTransform:'uppercase', display:'block', marginBottom:3 };
+
+  const calculate = () => {
+    if (!form.name || !form.ml || !form.paid) return;
+    setResult(calcPrices(parseFloat(form.ml), parseFloat(form.paid)));
+  };
+
+  const addToList = () => {
+    if (!result) return;
+    setList(l => [...l, { ...form, ...result, id: Date.now() }]);
+    setForm(f => ({ ...f, brand:'', name:'', notes:'', ml:'', paid:'' }));
+    setResult(null);
+  };
+
+  const copyEntry = (item) => {
+    const line = `  ['${item.brand}','${item.name}','${item.notes || 'Notes TBD'}',${item.p5},${item.p10}],`;
+    navigator.clipboard.writeText(line);
+    setCopied(item.id); setTimeout(() => setCopied(''), 2000);
+  };
+
+  const copyAll = () => {
+    const lines = list.map(it => `  ['${it.brand}','${it.name}','${it.notes || 'Notes TBD'}',${it.p5},${it.p10}],`).join('\n');
+    navigator.clipboard.writeText(lines);
+    setCopied('all'); setTimeout(() => setCopied(''), 2000);
+  };
+
+  const removeItem = (id) => setList(l => l.filter(i => i.id !== id));
+
+  return (
+    <div style={{ maxWidth:800, margin:'0 auto' }}>
+      {/* Input form */}
+      <div style={{ background:'rgba(255,255,255,0.02)', border:'0.5px solid rgba(255,255,255,0.07)', borderRadius:8, padding:'1.5rem', marginBottom:'1.5rem' }}>
+        <div style={{ fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', color:'#b09060', marginBottom:'1rem' }}>Enter bottle details</div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:10 }}>
+          <div><label style={lbl}>Brand</label><input style={inp} value={form.brand} onChange={e=>set('brand',e.target.value)} placeholder="e.g. Creed"/></div>
+          <div><label style={lbl}>Category</label>
+            <select style={inp} value={form.cat} onChange={e=>set('cat',e.target.value)}>
+              <option value="niche">Niche</option>
+              <option value="designer">Designer</option>
+              <option value="dupe">Middle Eastern / Dupe</option>
+            </select>
+          </div>
+        </div>
+
+        <div style={{ marginBottom:10 }}>
+          <label style={lbl}>Fragrance name *</label>
+          <input style={inp} value={form.name} onChange={e=>set('name',e.target.value)} placeholder="e.g. Aventus EDP"/>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:10, marginBottom:10 }}>
+          <div><label style={lbl}>Bottle size (ml) *</label><input style={inp} type="number" value={form.ml} onChange={e=>set('ml',e.target.value)} placeholder="e.g. 30"/></div>
+          <div><label style={lbl}>Price paid (₹) *</label><input style={inp} type="number" value={form.paid} onChange={e=>set('paid',e.target.value)} placeholder="e.g. 8500"/></div>
+        </div>
+
+        <div style={{ marginBottom:'1rem' }}>
+          <label style={lbl}>Fragrance notes (optional)</label>
+          <input style={inp} value={form.notes} onChange={e=>set('notes',e.target.value)} placeholder="e.g. Pineapple · Birch · Oakmoss · Musk"/>
+        </div>
+
+        <button
+          onClick={calculate}
+          disabled={!form.name || !form.ml || !form.paid}
+          style={{ width:'100%', padding:'11px', background: form.name && form.ml && form.paid ? '#b09060' : 'rgba(255,255,255,0.05)', color: form.name && form.ml && form.paid ? '#fff' : 'rgba(255,255,255,0.3)', border:'none', borderRadius:4, fontFamily:'var(--ff-sans)', fontSize:13, letterSpacing:'0.1em', cursor: form.name && form.ml && form.paid ? 'pointer' : 'default' }}
+        >
+          Calculate prices at 22% margin
+        </button>
+      </div>
+
+      {/* Results */}
+      {result && (
+        <div style={{ background:'rgba(176,144,96,0.06)', border:'0.5px solid rgba(176,144,96,0.2)', borderRadius:8, padding:'1.5rem', marginBottom:'1.5rem', animation:'fadeUp .3s ease' }}>
+          <div style={{ fontSize:13, color:'#b09060', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:'1rem' }}>
+            {form.brand && `${form.brand} — `}{form.name} · ₹{result.cpm}/ml cost
+          </div>
+
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:12, marginBottom:'1rem' }}>
+            {[
+              { size:'5ml', price:result.p5, cost:result.cost5 },
+              { size:'10ml', price:result.p10, cost:result.cost10 },
+              { size:'20ml', price:result.p20, cost:Math.round(result.cost10*1.8), best:true },
+            ].map(s => (
+              <div key={s.size} style={{ background: s.best ? 'rgba(76,175,125,0.08)' : 'rgba(255,255,255,0.03)', border:`0.5px solid ${s.best ? 'rgba(76,175,125,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius:6, padding:'1rem', textAlign:'center' }}>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.4)', marginBottom:4 }}>{s.size}{s.best ? ' ★ best value' : ''}</div>
+                <div style={{ fontFamily:'var(--ff-serif)', fontSize:'1.6rem', fontWeight:300, color:s.best ? '#4caf7d' : '#b09060' }}>₹{s.price}</div>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', marginTop:4 }}>cost ₹{s.cost} · profit ₹{s.price - s.cost}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display:'flex', gap:10 }}>
+            <button onClick={addToList} style={{ flex:2, padding:'10px', background:'#b09060', border:'none', color:'#fff', borderRadius:4, cursor:'pointer', fontFamily:'var(--ff-sans)', fontSize:13 }}>
+              Add to product list
+            </button>
+            <button onClick={() => setResult(null)} style={{ flex:1, padding:'10px', background:'transparent', border:'0.5px solid rgba(255,255,255,0.12)', color:'rgba(255,255,255,0.5)', borderRadius:4, cursor:'pointer', fontFamily:'var(--ff-sans)', fontSize:13 }}>
+              Recalculate
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Product list */}
+      {list.length > 0 && (
+        <div style={{ background:'rgba(255,255,255,0.02)', border:'0.5px solid rgba(255,255,255,0.07)', borderRadius:8, padding:'1.5rem' }}>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1rem' }}>
+            <div style={{ fontSize:13, color:'rgba(255,255,255,0.7)', fontWeight:500 }}>{list.length} product{list.length !== 1 ? 's' : ''} ready to add</div>
+            <div style={{ display:'flex', gap:8 }}>
+              <button onClick={copyAll} style={{ fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color: copied === 'all' ? '#4caf7d' : '#b09060', background:'rgba(176,144,96,0.1)', border:'0.5px solid rgba(176,144,96,0.3)', borderRadius:3, padding:'5px 12px', cursor:'pointer', fontFamily:'var(--ff-sans)' }}>
+                {copied === 'all' ? '✓ Copied!' : 'Copy all'}
+              </button>
+              <button onClick={() => setList([])} style={{ fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'rgba(255,255,255,0.4)', background:'transparent', border:'0.5px solid rgba(255,255,255,0.1)', borderRadius:3, padding:'5px 12px', cursor:'pointer', fontFamily:'var(--ff-sans)' }}>
+                Clear
+              </button>
+            </div>
+          </div>
+
+          {list.map(item => (
+            <div key={item.id} style={{ display:'grid', gridTemplateColumns:'2fr 1fr 1fr 1fr auto auto', gap:10, alignItems:'center', padding:'10px 0', borderBottom:'0.5px solid rgba(255,255,255,0.06)' }}>
+              <div>
+                <div style={{ fontSize:13, color:'rgba(255,255,255,0.9)' }}>{item.brand && `${item.brand} — `}{item.name}</div>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>{item.ml}ml · ₹{item.paid} paid · {item.cat}</div>
+              </div>
+              <div style={{ textAlign:'center' }}>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>5ml</div>
+                <div style={{ fontSize:14, color:'#b09060' }}>₹{item.p5}</div>
+              </div>
+              <div style={{ textAlign:'center' }}>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>10ml</div>
+                <div style={{ fontSize:14, color:'#b09060' }}>₹{item.p10}</div>
+              </div>
+              <div style={{ textAlign:'center' }}>
+                <div style={{ fontSize:11, color:'rgba(255,255,255,0.35)' }}>20ml</div>
+                <div style={{ fontSize:14, color:'#4caf7d' }}>₹{item.p20}</div>
+              </div>
+              <button onClick={() => copyEntry(item)} style={{ fontSize:11, color: copied === item.id ? '#4caf7d' : 'rgba(255,255,255,0.5)', background:'transparent', border:'0.5px solid rgba(255,255,255,0.1)', borderRadius:3, padding:'4px 10px', cursor:'pointer', fontFamily:'var(--ff-sans)', whiteSpace:'nowrap' }}>
+                {copied === item.id ? '✓' : 'Copy'}
+              </button>
+              <button onClick={() => removeItem(item.id)} style={{ fontSize:13, color:'rgba(220,80,80,0.7)', background:'transparent', border:'none', cursor:'pointer', padding:'4px 6px' }}>✕</button>
+            </div>
+          ))}
+
+          <div style={{ marginTop:'1rem', padding:'12px', background:'rgba(255,255,255,0.02)', border:'0.5px solid rgba(255,255,255,0.06)', borderRadius:4 }}>
+            <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)', marginBottom:6, letterSpacing:'0.08em', textTransform:'uppercase' }}>Products.js code — copy and send to Claude to add to site</div>
+            <div style={{ fontFamily:'monospace', fontSize:11, color:'rgba(255,255,255,0.6)', lineHeight:1.7, whiteSpace:'pre-wrap' }}>
+              {list.map(it => `  ['${it.brand}','${it.name}','${it.notes || 'Notes TBD'}',${it.p5},${it.p10}],`).join('\n')}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const ADMIN_KEY   = 'scentsnob_admin_2024';
 const POST_URL    = 'https://script.google.com/macros/s/AKfycbyRoTcexwmKRkmyVYINqZ08S237oybFZt60ZpFElXxd6go7KlelJTB_QlD3r-eGwuhC/exec';
 const GET_URL     = 'https://script.google.com/macros/s/AKfycbyRoTcexwmKRkmyVYINqZ08S237oybFZt60ZpFElXxd6go7KlelJTB_QlD3r-eGwuhC/exec';
@@ -282,6 +457,7 @@ export default function AdminPage() {
   const [filterStatus, setFilterStatus] = useState('All');
   const [search,       setSearch]       = useState('');
   const [lastRefresh,  setLastRefresh]  = useState(null);
+  const [activeTab,    setActiveTab]    = useState('orders'); // orders | pricing
 
   // Load orders from Sheet
   const loadOrders = useCallback(async () => {
@@ -376,7 +552,7 @@ export default function AdminPage() {
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'#0c0a08' }}>
       <div style={{ background:'#141210', border:'0.5px solid rgba(176,144,96,0.2)', borderRadius:8, padding:'2rem', width:'min(360px,90vw)', textAlign:'center' }}>
         <div style={{ fontFamily:'var(--ff-serif)', fontSize:'1.5rem', color:'rgba(255,255,255,0.9)', marginBottom:6 }}>
-          Admin <em style={{ color:'#b09060', fontStyle:'italic' }}>Access</em>
+          Admin <span style={{ color:'#b09060', fontStyle:'normal' }}>Access</span>
         </div>
         <div style={{ fontSize:12, color:'rgba(255,255,255,0.3)', marginBottom:'1.5rem' }}>Scent Snob Decants</div>
         <input type="password" placeholder="Enter password" value={pwInput}
@@ -415,7 +591,7 @@ export default function AdminPage() {
       {/* Header */}
       <div style={{ background:'#141210', borderBottom:'0.5px solid rgba(255,255,255,0.07)', padding:'0 1.5rem', display:'flex', alignItems:'center', justifyContent:'space-between', height:56, flexWrap:'wrap', gap:8 }}>
         <div style={{ fontFamily:'var(--ff-serif)', fontSize:'1.1rem', color:'rgba(255,255,255,0.9)' }}>
-          Scent Snob <em style={{ color:'#b09060', fontStyle:'italic' }}>Admin</em>
+          Scent Snob <span style={{ color:'#b09060', fontStyle:'normal' }}>Admin</span>
         </div>
         <div style={{ display:'flex', gap:8, alignItems:'center', flexWrap:'wrap' }}>
           {lastRefresh && <span style={{ fontSize:10, color:'rgba(255,255,255,0.25)' }}>Updated {lastRefresh}</span>}
@@ -438,6 +614,25 @@ export default function AdminPage() {
         </div>
       </div>
 
+      {/* Tab bar */}
+      <div style={{ background:'#141210', borderBottom:'0.5px solid rgba(255,255,255,0.07)', display:'flex', padding:'0 1.5rem', gap:0 }}>
+        {[['orders','Orders'],['pricing','Pricing Calculator']].map(([id,label]) => (
+          <button key={id} onClick={() => setActiveTab(id)} style={{
+            padding:'10px 20px', background:'none', border:'none',
+            borderBottom: activeTab === id ? '2px solid #b09060' : '2px solid transparent',
+            color: activeTab === id ? '#b09060' : 'rgba(255,255,255,0.4)',
+            fontFamily:'var(--ff-sans)', fontSize:12, letterSpacing:'0.1em',
+            textTransform:'uppercase', cursor:'pointer', transition:'all .15s',
+          }}>{label}</button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      {activeTab === 'pricing' ? (
+        <div style={{ maxWidth:960, margin:'0 auto', padding:'1.5rem 1rem' }}>
+          <PricingTab />
+        </div>
+      ) : (
       <div style={{ maxWidth:960, margin:'0 auto', padding:'1.5rem 1rem' }}>
 
         {/* Sheet error banner */}
@@ -507,6 +702,7 @@ export default function AdminPage() {
           {filtered.length} of {orders.length} orders · Source: Google Sheet
         </div>
       </div>
+      )}
 
       {/* Modals */}
       {showAdd && <OrderModal onSave={addOrder} onClose={() => setShowAdd(false)}/>}

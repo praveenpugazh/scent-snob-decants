@@ -125,7 +125,7 @@ export default function CombosSection() {
           Curated Sets
         </div>
         <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: C.t1 }}>
-          Combo <em style={{ fontStyle: 'italic', color: '#b09060' }}>Deals</em>
+          Combo <span style={{ fontStyle: 'normal', color: '#b09060' }}>Deals</span>
         </h2>
         <p style={{ fontSize: 14, color: C.t3, marginTop: 8, maxWidth: 500 }}>
           Handpicked sets with {COMBOS[0]?.discountPct}% off. Perfect for gifting or exploring a new scent family.

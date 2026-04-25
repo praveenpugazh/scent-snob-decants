@@ -27,7 +27,7 @@ export const S = {
   heroLine: { position:'absolute', bottom:0, left:0, right:0, height:'1px', background:'linear-gradient(90deg,transparent,rgba(176,144,96,0.3),transparent)' },
   heroTag: { fontSize:13, letterSpacing:'0.3em', color:'#b09060', textTransform:'uppercase', marginBottom:'1.5rem', display:'block', animation:'fadeUp .6s ease both' },
   heroH1: { fontFamily:'var(--ff-serif)', fontSize:'clamp(3.5rem, 9vw, 7rem)', fontWeight:300, color:'#fff', lineHeight:0.95, marginBottom:'1.75rem', animation:'fadeUp .7s ease .1s both' },
-  heroEm: { fontStyle:'italic', color:'#b09060' },
+  heroEm: { fontWeight:500, color:'#b09060' },
   heroSub: { fontSize:15, letterSpacing:'0.1em', color:'rgba(255,255,255,0.3)', marginBottom:'2.5rem', fontWeight:300, textTransform:'uppercase', animation:'fadeUp .7s ease .2s both' },
   heroBtns: { display:'flex', gap:12, animation:'fadeUp .7s ease .3s both', flexWrap:'wrap', justifyContent:'center' },
   heroScroll: { position:'absolute', bottom:32, left:'50%', transform:'translateX(-50%)', display:'flex', flexDirection:'column', alignItems:'center', gap:6, color:'rgba(255,255,255,0.3)', fontSize:11, letterSpacing:'0.2em', textTransform:'uppercase', animation:'fadeIn 1.2s ease 1s both' },
@@ -40,7 +40,7 @@ export const S = {
   section: { padding:'5rem 2rem' },
   sHdr: { display:'flex', alignItems:'baseline', justifyContent:'space-between', marginBottom:'2.5rem' },
   sH2: { fontFamily:'var(--ff-serif)', fontSize:'clamp(1.8rem, 3vw, 2.2rem)', fontWeight:300, color:'rgba(255,255,255,0.92)' },
-  sH2em: { fontStyle:'italic', color:'#b09060' },
+  sH2em: { fontWeight:500, color:'#b09060' },
   sLink: { fontSize:13, letterSpacing:'0.15em', textTransform:'uppercase', color:'#b09060', cursor:'pointer', background:'none', border:'none', fontFamily:'var(--ff-sans)' },
 
   // Cards
@@ -51,7 +51,7 @@ export const S = {
   featBrand: { fontSize:12, letterSpacing:'0.15em', textTransform:'uppercase', color:'#b09060', marginBottom:3 },
   featName: { fontFamily:'var(--ff-serif)', fontSize:'1.05rem', fontWeight:300, lineHeight:1.2, marginBottom:4, color:'rgba(255,255,255,0.92)' },
   featNotes: { fontSize:13, color:'rgba(255,255,255,0.3)', marginBottom:4 },
-  featInspired: { fontSize:13, color:'#b09060', fontStyle:'italic', marginBottom:12 },
+  featInspired: { fontSize:13, color:'#b09060', fontWeight:400, marginBottom:12 },
   featFooter: { display:'flex', alignItems:'center', justifyContent:'space-between' },
 
   card: { background:'#1e1a16', border:'0.5px solid rgba(255,255,255,0.08)', borderRadius:4, cursor:'pointer', transition:'all .2s', overflow:'hidden', animation:'fadeUp .3s ease both' },
@@ -62,7 +62,7 @@ export const S = {
   cardNotes: { fontSize:12, color:'rgba(255,255,255,0.3)', marginBottom:10, lineHeight:1.4 },
   cardFooter: { display:'flex', alignItems:'center', justifyContent:'space-between' },
   pr: { fontSize:14, color:'rgba(255,255,255,0.92)' },
-  prMuted: { fontSize:12, color:'#b09060', fontStyle:'italic' },
+  prMuted: { fontSize:12, color:'#b09060' },
   addBtn: { width:28, height:28, border:'0.5px solid rgba(255,255,255,0.08)', background:'transparent', cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:2, transition:'all .15s', flexShrink:0 },
 
   carousel: { overflowX:'auto', display:'flex', gap:16, paddingBottom:8, scrollSnapType:'x mandatory', WebkitOverflowScrolling:'touch', scrollbarWidth:'none' },
@@ -83,7 +83,7 @@ export const S = {
   drawerH2: { fontFamily:'var(--ff-serif)', fontSize:'1.3rem', fontWeight:300, color:'rgba(255,255,255,0.92)' },
   closeBtn: { background:'none', border:'none', cursor:'pointer', fontSize:'1.1rem', color:'rgba(255,255,255,0.3)', padding:4 },
   cartItems: { flex:1, overflowY:'auto', padding:'1rem 1.5rem' },
-  cartEmpty: { padding:'3rem 0', textAlign:'center', color:'rgba(255,255,255,0.3)', fontSize:15, fontFamily:'var(--ff-serif)', fontStyle:'italic' },
+  cartEmpty: { padding:'3rem 0', textAlign:'center', color:'rgba(255,255,255,0.3)', fontSize:15, fontFamily:'var(--ff-serif)' },
   cartItem: { display:'flex', alignItems:'flex-start', gap:12, padding:'0.9rem 0', borderBottom:'0.5px solid rgba(255,255,255,0.08)' },
   cartItemInfo: { flex:1 },
   cartItemBrand: { fontSize:12, letterSpacing:'0.12em', textTransform:'uppercase', color:'#b09060', marginBottom:2 },
@@ -106,7 +106,7 @@ export const S = {
   modalPanel: { background:'#141210', width:'100%', maxWidth:460, padding:'2rem', borderRadius:'4px 4px 0 0', borderTop:'0.5px solid rgba(255,255,255,0.08)', animation:'slideUp .25s ease' },
   modalBrand: { fontSize:13, letterSpacing:'0.15em', textTransform:'uppercase', color:'#b09060', marginBottom:4 },
   modalName: { fontFamily:'var(--ff-serif)', fontSize:'1.6rem', fontWeight:300, color:'rgba(255,255,255,0.92)', marginBottom:4, lineHeight:1.2 },
-  modalNotes: { fontSize:14, color:'rgba(255,255,255,0.3)', marginBottom:'1.25rem', fontStyle:'italic' },
+  modalNotes: { fontSize:14, color:'rgba(255,255,255,0.3)', marginBottom:'1.25rem' },
   sizeGrid: { display:'grid', gridTemplateColumns:'1fr 1fr', gap:8, marginBottom:'1.25rem' },
   sizeOpt: { border:'0.5px solid rgba(255,255,255,0.08)', padding:'0.85rem', cursor:'pointer', textAlign:'center', borderRadius:2, transition:'all .18s' },
   sizeOptSel: { borderColor:'#b09060', background:'rgba(176,144,96,0.08)' },
@@ -126,7 +126,7 @@ export const S = {
   // About
   aboutContent: { maxWidth:680, margin:'0 auto', padding:'5rem 2rem' },
   aH2: { fontFamily:'var(--ff-serif)', fontSize:'1.8rem', fontWeight:300, color:'rgba(255,255,255,0.92)', marginBottom:'1.25rem' },
-  aH2em: { fontStyle:'italic', color:'#b09060' },
+  aH2em: { fontWeight:500, color:'#b09060' },
   aP: { fontSize:15, color:'rgba(255,255,255,0.55)', lineHeight:1.95, marginBottom:'1.5rem' },
   divider: { width:40, height:'0.5px', background:'#b09060', margin:'3rem 0', opacity:0.5 },
   howStep: { display:'flex', gap:'1.5rem', marginBottom:'2rem', alignItems:'flex-start' },

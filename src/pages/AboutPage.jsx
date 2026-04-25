@@ -6,6 +6,7 @@ const FAQS = [
   ['Are the fragrances 100% authentic?', 'Absolutely. Every decant is taken from genuine, authenticated bottles. We never dilute, substitute, or adulterate any fragrance.'],
   ['How is the decant packaged?', 'Each decant is sealed, labelled, and wrapped in bubble wrap inside a padded envelope. Every order is inspected before dispatch.'],
   ['Do you ship PAN India?', 'Yes! Free shipping on orders above ₹2999. Delivery takes 3–7 business days. Currently shipping 5ml — 10ml glass atomisers coming soon.'],
+  ['Do orders above ₹4999 really get a free niche sample?', 'Yes! Every order above ₹4999 gets a free 2ml niche sample vial — a different fragrance each week, handpicked by Praveen. It\'s our way of helping you explore niche perfumery without committing to a full decant.'],
   ['What payment methods are accepted?', 'UPI and GPay. Pay to praveenpugazh14@okicici (Praveen P). Payment details are included in your WhatsApp order confirmation.'],
 ];
 
@@ -20,7 +21,7 @@ export default function AboutPage() {
         <div style={{ position:'relative' }}>
           <span style={{ fontSize:10, letterSpacing:'0.3em', color:'#b09060', textTransform:'uppercase', display:'block', marginBottom:'1.25rem', animation:'fadeUp .6s ease both' }}>The Story</span>
           <h1 style={{ fontFamily:'var(--ff-serif)', fontSize:'clamp(2.5rem,6vw,5rem)', fontWeight:300, color:'#fff', lineHeight:1.05, marginBottom:'1.5rem', animation:'fadeUp .7s ease .1s both' }}>
-            Born from an<br/><em style={{ fontStyle:'italic', color:'#b09060' }}>Obsession</em>
+            Born from an<br/><span style={{ color:'#b09060', fontWeight:500 }}>Obsession</span>
           </h1>
           <p style={{ fontSize:13, color:C.t3, maxWidth:520, margin:'0 auto', lineHeight:1.9, animation:'fadeUp .7s ease .2s both' }}>
             Five years ago, a bottle of Bleu de Chanel EDP changed everything. Since then, there has been no going back.
@@ -30,7 +31,7 @@ export default function AboutPage() {
 
       <div style={S.aboutContent}>
         {/* Story */}
-        <h2 style={S.aH2}>The <em style={S.aH2em}>Journey</em></h2>
+        <h2 style={S.aH2}>The <span style={S.aH2em}>Journey</span></h2>
         <p style={S.aP}>
           My name is Praveen Pugazhendhi, and my fragrance story started the way many do — with a first paycheck and a bottle of Bleu de Chanel EDP. It was my first real job, and that bottle felt like a rite of passage. I had no idea it would open a door I could never close.
         </p>
@@ -44,7 +45,7 @@ export default function AboutPage() {
         <div style={S.divider}/>
 
         {/* How it works */}
-        <h2 style={S.aH2}>How <em style={S.aH2em}>Decanting Works</em></h2>
+        <h2 style={S.aH2}>How <span style={S.aH2em}>Decanting Works</span></h2>
         {[
           ['01','We Source',  'Genuine, authenticated full bottles sourced from authorised retailers and trusted fragrance networks across India and abroad.'],
           ['02','We Decant',  'Each bottle is carefully opened in a clean environment. Transferred into atomisers using sterile equipment — no dilution, ever.'],
@@ -63,7 +64,7 @@ export default function AboutPage() {
         <div style={S.divider}/>
 
         {/* FAQ */}
-        <h2 style={S.aH2}>Common <em style={S.aH2em}>Questions</em></h2>
+        <h2 style={S.aH2}>Common <span style={S.aH2em}>Questions</span></h2>
         {FAQS.map(([q, a], i) => (
           <div key={i} style={S.faqItem}>
             <button style={S.faqQ} onClick={() => setOpenFaq(openFaq===i ? null : i)}>

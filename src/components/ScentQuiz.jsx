@@ -210,7 +210,7 @@ export default function ScentQuiz({ onOpen }) {
             <div style={{ padding: '1.25rem 1.5rem', borderBottom: '0.5px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.2rem', fontWeight: 300, color: 'rgba(255,255,255,0.92)' }}>
-                  Scent <em style={{ fontStyle: 'italic', color: '#b09060' }}>Finder</em>
+                  Scent <span style={{ fontStyle: 'normal', color: '#b09060' }}>Finder</span>
                 </div>
                 {!results && (
                   <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 2 }}>

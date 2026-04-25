@@ -114,52 +114,50 @@ export default function HomePage({ onOpen, setPage }) {
 
           {/* Text block */}
           <div style={{
-            padding: 'clamp(1.75rem,6vw,3.5rem) clamp(1.25rem,6vw,5vw) 1.5rem',
+            padding: 'clamp(2rem,6vw,4rem) clamp(1.5rem,6vw,5vw) 1.5rem',
             opacity: loaded ? 1 : 0,
             transform: loaded ? 'none' : 'translateY(20px)',
             transition: 'opacity .8s ease, transform .8s ease',
-            // On desktop: limit to left half via maxWidth + keep bottle on right via the absolute below
             maxWidth: isMobile ? '100%' : 'min(560px, 52vw)',
           }}>
             {/* Tag */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: '1rem', padding: '4px 12px 4px 5px', background: 'rgba(176,144,96,0.08)', border: '0.5px solid rgba(176,144,96,0.2)', borderRadius: 50 }}>
-              <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#b09060', flexShrink: 0 }}/>
-              <span style={{ fontSize: 10, letterSpacing: '0.18em', color: '#b09060', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)', whiteSpace: 'nowrap' }}>
-                Authentic Decants · India
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: '1.75rem', padding: '5px 14px 5px 6px', background: 'transparent', border: '0.5px solid rgba(176,144,96,0.3)', borderRadius: 50 }}>
+              <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#b09060', flexShrink: 0 }}/>
+              <span style={{ fontSize: 9, letterSpacing: '0.3em', color: 'rgba(176,144,96,0.8)', textTransform: 'uppercase', fontFamily: 'var(--ff-sans)', whiteSpace: 'nowrap' }}>
+                India's Niche Decant House
               </span>
             </div>
 
             {/* Headline */}
             <h1 style={{
               fontFamily: 'var(--ff-serif)',
-              fontSize: 'clamp(2.2rem, 7vw, 5.2rem)',
-              fontWeight: 300, color: '#fff',
-              lineHeight: 1.05, marginBottom: '0.85rem',
+              fontSize: 'clamp(2rem, 4.5vw, 4rem)',
+              fontWeight: 400, color: '#fff',
+              lineHeight: 1.15, marginBottom: '1.25rem',
               letterSpacing: '-0.01em',
             }}>
-              Wear the<br/>
-              <em style={{ fontStyle: 'italic', color: '#b09060' }}>World's Finest</em><br/>
-              Fragrances
+              Scent is the one luxury<br/>
+              <span style={{ fontWeight: 600, color: '#b09060' }}>everyone</span> deserves.
             </h1>
 
-            <p style={{ fontSize: 'clamp(13px,3vw,15px)', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: '1.25rem', fontFamily: 'var(--ff-sans)', fontWeight: 300 }}>
-              200+ authentic decants — Niche, Designer & Middle Eastern. Try before you commit. Ships PAN India.
+            <p style={{ fontSize: 'clamp(13px,2.5vw,15px)', color: 'rgba(255,255,255,0.38)', lineHeight: 1.85, marginBottom: '1.75rem', fontFamily: 'var(--ff-sans)', fontWeight: 300, maxWidth: 420, letterSpacing: '0.01em' }}>
+              200+ authenticated decants from the world's finest houses. Try niche, designer and Middle Eastern rarities — one wear at a time.
             </p>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', gap: 10, marginBottom: '1.5rem', flexWrap: 'wrap' }}>
-              <button onClick={() => setPage('brands')} style={{ background: '#b09060', color: '#fff', border: 'none', padding: '11px 22px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4, fontWeight: 400 }}>
-                Shop Collection
+            <div style={{ display: 'flex', gap: 12, marginBottom: '2rem', flexWrap: 'wrap' }}>
+              <button onClick={() => setPage('brands')} style={{ background: '#b09060', color: '#fff', border: 'none', padding: '12px 28px', fontFamily: 'var(--ff-sans)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 2, fontWeight: 500 }}>
+                Explore Collection
               </button>
-              <button onClick={() => setPage('about')} style={{ background: 'transparent', color: 'rgba(255,255,255,0.6)', border: '0.5px solid rgba(255,255,255,0.2)', padding: '11px 18px', fontFamily: 'var(--ff-sans)', fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 4 }}>
+              <button onClick={() => setPage('about')} style={{ background: 'transparent', color: 'rgba(255,255,255,0.45)', border: '0.5px solid rgba(255,255,255,0.15)', padding: '12px 22px', fontFamily: 'var(--ff-sans)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', borderRadius: 2 }}>
                 Our Story
               </button>
             </div>
 
             {/* Scent pills */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <div style={{ fontSize: 10, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 4, fontFamily: 'var(--ff-sans)' }}>
-                Popular right now
+              <div style={{ fontSize: 9, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)', marginBottom: 6, fontFamily: 'var(--ff-sans)' }}>
+                Trending now
               </div>
               {picks.map((p, i) => (
                 <ScentPill key={p.id} name={p.name} notes={p.notes} price={p.p5} delay={0.3 + i * 0.1} onOpen={onOpen} product={p}/>
@@ -167,7 +165,7 @@ export default function HomePage({ onOpen, setPage }) {
             </div>
           </div>
 
-          {/* Bottle — relative/stacked on mobile, absolute right panel on desktop */}
+          {/* Bottle — hidden on mobile, absolute right panel on desktop */}
           <div style={{
             position: isMobile ? 'relative' : 'absolute',
             right: isMobile ? undefined : 0,
@@ -176,7 +174,8 @@ export default function HomePage({ onOpen, setPage }) {
             width: isMobile ? '100%' : '52%',
             flex: isMobile ? 1 : undefined,
             minHeight: isMobile ? 300 : undefined,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            display: isMobile ? 'none' : 'flex',
+            alignItems: 'center', justifyContent: 'center',
             overflow: 'hidden',
           }}>
             {/* Glow */}
@@ -223,6 +222,19 @@ export default function HomePage({ onOpen, setPage }) {
               </div>
             </StatCard>
 
+            {/* Floating card: Free 2ml niche sample */}
+            <StatCard style={{ position: 'absolute', top: '30%', right: '4%', padding: '8px 12px', animation: 'fadeUp .6s ease .85s both' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(76,175,125,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontSize: 12 }}>◈</span>
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, color: '#4caf7d', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free 2ml Sample</div>
+                  <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Niche pick on ₹4999+</div>
+                </div>
+              </div>
+            </StatCard>
+
             {/* Floating card: 500+ orders */}
             <StatCard style={{ position: 'absolute', bottom: '12%', right: '4%', minWidth: 130, animation: 'fadeUp .6s ease .9s both' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
@@ -263,14 +275,14 @@ export default function HomePage({ onOpen, setPage }) {
       <NewArrivalsSection onOpen={onOpen} />
 
       {/* ══════════════════════════════════════════
-          STAFF PICKS
+          SNOB PICKS
       ══════════════════════════════════════════ */}
       <section style={{ padding: '5rem 4vw', background: '#0c0a08' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: '2.5rem' }}>
           <div>
-            <div style={{ fontSize: 15, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#b09060', marginBottom: 8, fontFamily: 'var(--ff-sans)' }}>Curated Collection</div>
+            <div style={{ fontSize: 15, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#b09060', marginBottom: 8, fontFamily: 'var(--ff-sans)' }}>Praveen's Favourites</div>
             <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 300, color: '#fff' }}>
-              Staff <em style={{ fontStyle: 'italic', color: '#b09060' }}>Picks</em>
+              Snob <span style={{ fontStyle: 'normal', color: '#b09060' }}>Picks</span>
             </h2>
           </div>
           <button style={{ fontSize: 15, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', cursor: 'pointer', background: 'none', border: 'none', fontFamily: 'var(--ff-sans)' }} onClick={() => setPage('brands')}>
@@ -291,7 +303,7 @@ export default function HomePage({ onOpen, setPage }) {
                 <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at 50% 70%, rgba(176,144,96,0.12), transparent 60%)' }}/>
                 <img src={DECANT_IMG} alt={p.name} style={{ height: '85%', width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.5))', position: 'relative', zIndex: 1 }} loading="lazy"/>
                 <div style={{ position: 'absolute', top: 10, left: 10, fontSize: 8, letterSpacing: '0.15em', textTransform: 'uppercase', padding: '3px 9px', borderRadius: 2, background: p.cat==='niche' ? 'rgba(255,255,255,0.1)' : 'rgba(176,144,96,0.3)', color: 'rgba(255,255,255,0.8)' }}>
-                  {p.cat==='niche' ? 'Niche' : 'Bestseller'}
+                  {p.cat==='niche' ? 'Niche' : 'Fan Fav'}
                 </div>
               </div>
               {/* Card body */}
@@ -299,11 +311,11 @@ export default function HomePage({ onOpen, setPage }) {
                 <div style={{ fontSize: 14, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#b09060', marginBottom: 4 }}>{p.brand}</div>
                 <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.05rem', fontWeight: 300, color: 'rgba(255,255,255,0.92)', marginBottom: 4, lineHeight: 1.2 }}>{p.name}</div>
                 <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', marginBottom: 4 }}>{p.notes}</div>
-                <div style={{ fontSize: 15, color: '#b09060', fontStyle: 'italic', marginBottom: 12 }}>{p.inspired}</div>
+                <div style={{ fontSize: 15, color: '#b09060', fontStyle: 'normal', marginBottom: 12 }}>{p.inspired}</div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
                     {p.p5 && <div style={{ fontSize: 15, color: 'rgba(255,255,255,0.9)' }}>₹{p.p5} <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.3)' }}>/ 5ml</span></div>}
-                    {!FLAGS.ENABLE_10ML && <div style={{ fontSize: 14, color: '#b09060', fontStyle: 'italic' }}>10ml glass · soon</div>}
+                    {!FLAGS.ENABLE_10ML && <div style={{ fontSize: 14, color: '#b09060', fontStyle: 'normal' }}>10ml glass · soon</div>}
                   </div>
                   <AddBtn onClick={e => { e.stopPropagation(); onOpen(p); }}/>
                 </div>
@@ -331,7 +343,7 @@ export default function HomePage({ onOpen, setPage }) {
             Shop by Mood
           </div>
           <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: 'rgba(255,255,255,0.92)' }}>
-            What are you <em style={{ fontStyle: 'italic', color: '#b09060' }}>dressing for?</em>
+            What are you <span style={{ fontStyle: 'normal', color: '#b09060' }}>dressing for?</span>
           </h2>
         </div>
         <MoodFilter onOpen={onOpen} />

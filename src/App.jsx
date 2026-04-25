@@ -142,7 +142,7 @@ export default function App() {
 
       <footer style={S.footer}>
         <span style={S.footerBrand}>
-          Scent Snob <em style={{ fontStyle: 'italic', color: '#b09060' }}>Decants</em>
+          Scent Snob <span style={{ fontStyle: 'normal', color: '#b09060' }}>Decants</span>
         </span>
         <div style={S.footerLinks}>
           <a href={`https://wa.me/${WA_NUMBER}`} style={{ color: '#b09060' }}>
