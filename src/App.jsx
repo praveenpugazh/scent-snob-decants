@@ -17,6 +17,8 @@ const WA_NUMBER = '918754519509';
 
 export default function App() {
   const [page,     setPage]     = useState('home');
+  const isAdmin = window.location.pathname === '/scentsnob-aaradhya-0905';
+  if (isAdmin) return <AdminPage />;
   const [cart,     setCart]     = useState({});
   const [cartOpen, setCartOpen] = useState(false);
   const [modal,    setModal]    = useState(null);
