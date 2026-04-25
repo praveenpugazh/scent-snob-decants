@@ -18,5 +18,5 @@ export const FLAGS = {
    * ENABLE_PARTIALS — flip to true when you have partial bottles to list.
    * Shows a dedicated Partials section on the Brands page.
    */
-  ENABLE_PARTIALS: false,
+  ENABLE_PARTIALS: true,
 };

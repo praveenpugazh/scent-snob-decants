@@ -196,6 +196,64 @@ export const NICHE_RAW = [
   ['Yves Saint Laurent','Myslf Le Parfum','Citrus · Woody · Aromatic',1099,2120],
   ['Yves Saint Laurent',"Y L'Elixir",'Sage · Tonka · Musk',999,0],
 
+
+  ['Mancera','Aoud Exclusif EDP','Oud · Rose · Musk',650,1250],
+  ['Kajal','Ambassador Man Intense EDP','Bergamot · Iris · Amber · Musk',820,1580],
+  ['Juliette Has a Gun','Not A Perfume EDP','Ambroxan',650,1250],
+  ['Jusbox','Narcotic Delight EDP','Bergamot · Rose · Benzoin · Musk',1290,2530],
+  ['Vilhelm','Drunk Lovers EDP','Rose · Raspberry · Patchouli · Musk',1470,2880],
+  ['Nasomatto','Black Afgano Extrait','Cannabis · Oud · Resin',2090,4140],
+  ['Ex Nihilo','Fleur Narcotique EDP','Peach · Rose · Musk · Ambroxan',1450,2850],
+  ['Memo Paris','Atomic Rose EDP','Rose · Musk · Cedarwood',1430,2800],
+  ['Xerjoff','Aldebaran EDP','Bergamot · Iris · Sandalwood · Musk',1330,2610],
+  ['Kajal','Can't Get Enough EDP','Iris · Rose · Vanilla · Musk',1340,2620],
+  ['Davidoff','Cool Water Man EDT','Mint · Aquatic · Musk',250,450],
+  ['Fendi','Mefisto Gentiluomo EDP','Bergamot · Pepper · Vetiver',1220,2380],
+  ['Bvlgari','Maai Extrait De Parfum','Bergamot · Rose · Musk · Patchouli',2150,4240],
+  ['Paco Rabanne','Invictus Parfum','Grapefruit · Guaiac Wood · Musk',690,1340],
+  ['Jean Paul Gaultier','Scandal Pour Homme Absolu','Ginger · Tonka · Vetiver',800,1550],
+  ['Giorgio Armani','Acqua Di Gio Profondo Parfum','Aquatic · Mineral · Musk',750,1440],
+  ['Prada','Luna Rossa Ocean EDP','Bergamot · Metallic Notes · Amber',650,1250],
+  ['Dolce & Gabbana','Light Blue Eau Intense EDP','Grapefruit · Apple · Amber · Musk',710,1360],
+  ['Tom Ford','Ombre Leather EDP','Leather · Floral · Amber',1030,2000],
+  ['Diptyque','Tam Dao EDP','Sandalwood · Cypress · Cedar',1590,3130],
+  ['Xerjoff','Erba Gold EDP','Bergamot · Iris · Sandalwood',1240,2430],
+  ['Escentric Molecules','Escentric 01 EDT','Iso E Super · Grapefruit · Pepper',950,1840],
+  ['House of Sillage','Le Sillage Blanc EDP','Bergamot · Rose · Sandalwood',1190,2320],
+  ['Xerjoff','Knight of Love EDP','Rose · Oud · Amber · Musk',2420,4790],
+  ['Xerjoff','Guidance EDP','Bergamot · Iris · Sandalwood · Musk',1880,3710],
+  ['Clive Christian','1872 Masculine EDP','Bergamot · Lime · Musk · Sandalwood',2240,4420],
+  ['Vilhelm','Jump Up And Kiss Me Hedonistic','Patchouli · Rose · Vanilla · Musk',3520,6990],
+  ['Xerjoff','Aqua Sexitus Extrait','Aquatic · Citrus · Musk · Ambergris',1470,2900],
+
+  ['Vilhelm','Blonde Amber EDP','Amber · Vanilla · Musk · Sandalwood',3590,7130],
+  ['Elie Saab','Power Of You Pour Femme EDP','Rose · Jasmine · Musk',2440,4820],
+
+  ['Bulgari','Le Gemme Tygar EDP','Oud · Amber · Incense · Musk',1970,3890],
+  ['Roja Parfums','Elysium Pour Homme Parfum','Grapefruit · Neroli · Sandalwood · Musk',2180,4310],
+
+  ['Clive Christian','Burlington 1819 EDP','Bergamot · Iris · Sandalwood · Musk',1610,3180],
+  ['Kilian','A Midsummer Dream EDP','Lavender · Vetiver · Musk',1520,2990],
+  ['Kilian','Town & Country EDP','Citrus · Vetiver · Musk',2870,5690],
+  ['Initio','Novae Vanilla EDP','Vanilla · Musk · Sandalwood',870,1680],
+  ['Initio','Paragon Extrait De Parfum','Musk · Amber · Sandalwood',950,1860],
+  ['Argos','Forever Wanted Elixir Parfum','Floral · Musk · Amber',480,910],
+  ['Viktor & Rolf','Spicebomb Metallic Musk EDP','Musk · Metallic · Amber',610,1170],
+  ['Viktor & Rolf','Spicebomb Extreme EDP','Tobacco · Vanilla · Pepper',670,1290],
+
+  ['Mancera','Cedrat Boise EDP','Grapefruit · Cedar · Musk · Leather',340,630],
+  ['Dunhill','Icon EDP','Bergamot · Cardamom · Leather · Amber',340,630],
+  ['Montale','Arabians Tonka EDP','Tonka · Sandalwood · Musk · Amber',260,460],
+  ['Lattafa','Atlas EDP','Oud · Rose · Sandalwood · Amber',270,480],
+  ['Ahmed Al Maghribi','Kaaf EDP','Cardamom · Rose · Oud · Musk',260,460],
+  ['Arabiyat Prestige','Marwa EDP','Floral · Rose · Musk · Sandalwood',300,550],
+  ['Calvin Klein','Eternity Air EDP','Bergamot · Violet · Sandalwood · Musk',230,410],
+  ['Mancera','Red Tobacco EDP','Tobacco · Rose · Amber · Oud',260,470],
+
+  ['Mancera','Aoud Exclusif EDP','Oud · Rose · Amber · Musk',260,460],
+  ['Chopard','Oud Malaki EDP','Oud · Leather · Amber · Musk',240,440],
+
+  ['Rasasi','Hawas Black','Aquatic · Sandalwood · Musk · Amber',250,460],
 ];
 
 export const allProducts = [
@@ -272,16 +330,27 @@ export const comboPrice = (combo) => {
 //  Set ENABLE_PARTIALS: true in flags.js when ready.
 // ─────────────────────────────────────────────────────────
 export const PARTIALS = [
-  // Add partials here when ready. Format:
-  // {
-  //   id: 'partial-1',
-  //   brand: 'Creed',
-  //   name: 'Aventus EDP',
-  //   notes: 'Pineapple · Birch · Oakmoss',
-  //   mlLeft: 18,        // approximate ml remaining
-  //   price: 2800,       // your price for this partial
-  //   condition: 'Like new — used 2-3 sprays',
-  // },
+  { id:'p-01', brand:'Mancera',           name:'Cedrat Boise EDP',                 notes:'Grapefruit · Cedar · Musk · Leather',      fullMl:100, mlLeft:40, p5:340,  p10:630,  price:1720, condition:'Good condition — 40ml remaining' },
+  { id:'p-02', brand:'Jean Paul Gaultier',name:'Le Beau EDT',                      notes:'Vanilla · Bergamot · Tonka · Iris',          fullMl:125, mlLeft:40, p5:270,  p10:490,  price:1280, condition:'Good condition — 40ml remaining' },
+  { id:'p-03', brand:'Dunhill',           name:'Icon EDP',                         notes:'Bergamot · Cardamom · Leather · Amber',      fullMl:100, mlLeft:40, p5:340,  p10:630,  price:1720, condition:'Good condition — 40ml remaining' },
+  { id:'p-04', brand:'Creed',             name:'Absolu Aventus EDP',               notes:'Pineapple · Birch · Musk · Oakmoss',         fullMl:100, mlLeft:30, p5:960,  p10:1870, price:4200, condition:'Tester — 30ml remaining' },
+  { id:'p-05', brand:'Afnan',             name:'Supremacy Not Only Intense EDP',   notes:'Pineapple · Birch · Musk',                   fullMl:150, mlLeft:50, p5:130,  p10:210,  price:500,  condition:'Good condition — 50ml remaining' },
+  { id:'p-06', brand:'Montale',           name:'Arabians Tonka EDP',               notes:'Tonka · Sandalwood · Musk · Amber',          fullMl:100, mlLeft:35, p5:260,  p10:460,  price:1050, condition:'Good condition — 35ml remaining' },
+  { id:'p-07', brand:'Afnan',             name:'Turathi Blue EDP',                 notes:'Aquatic · Musk · Amber · Vetiver',           fullMl:90,  mlLeft:60, p5:210,  p10:360,  price:1330, condition:'Good condition — 60ml remaining' },
+  { id:'p-08', brand:'Davidoff',          name:'Cool Water EDT',                   notes:'Mint · Aquatic · Sandalwood · Musk',         fullMl:150, mlLeft:50, p5:140,  p10:240,  price:620,  condition:'Good condition — 50ml remaining' },
+  { id:'p-09', brand:'Dior',              name:'Sauvage EDP',                      notes:'Bergamot · Ambroxan · Vanilla',              fullMl:200, mlLeft:20, p5:180,  p10:310,  price:360,  condition:'200ml bottle — 20ml remaining' },
+  { id:'p-10', brand:'Goldfield & Banks', name:'Pacific Rock Moss EDP',            notes:'Bergamot · Ambrette · Rock Moss · Musk',     fullMl:100, mlLeft:20, p5:310,  p10:580,  price:780,  condition:'Good condition — 20ml remaining' },
+  { id:'p-11', brand:'Kenzo',             name:'Pour Homme EDP',                   notes:'Lotus · Sage · Sandalwood · Amber',          fullMl:100, mlLeft:23, p5:190,  p10:330,  price:460,  condition:'Good condition — 23ml remaining' },
+  { id:'p-12', brand:'Kenzo',             name:'Pour Homme Santal Marin EDP',      notes:'Sandalwood · Marine · Cedar · Musk',         fullMl:100, mlLeft:30, p5:250,  p10:440,  price:860,  condition:'Good condition — 30ml remaining' },
+  { id:'p-13', brand:'Lattafa',           name:'Atlas EDP',                        notes:'Oud · Rose · Sandalwood · Amber',            fullMl:55,  mlLeft:25, p5:270,  p10:480,  price:795,  condition:'Good condition — 25ml remaining' },
+  { id:'p-14', brand:'Ahmed Al Maghribi', name:'Kaaf EDP',                         notes:'Cardamom · Rose · Oud · Musk',               fullMl:40,  mlLeft:40, p5:260,  p10:460,  price:1200, condition:'Sealed full bottle partial — 40ml' },
+  { id:'p-15', brand:'Arabiyat Prestige', name:'Marwa EDP',                        notes:'Floral · Rose · Musk · Sandalwood',          fullMl:45,  mlLeft:45, p5:300,  p10:550,  price:1650, condition:'Sealed full bottle partial — 45ml' },
+  { id:'p-16', brand:'Versace',           name:'Eros EDP',                         notes:'Mint · Lemon · Tonka · Vanilla · Amber',     fullMl:100, mlLeft:30, p5:240,  p10:440,  price:840,  condition:'Tester — 30ml remaining' },
+  { id:'p-17', brand:'Yves Saint Laurent',name:'Y EDP',                            notes:'Bergamot · Sage · Tonka · Cedar',            fullMl:100, mlLeft:20, p5:220,  p10:380,  price:480,  condition:'Good condition — 20ml remaining' },
+  { id:'p-18', brand:'Calvin Klein',      name:'Eternity Air EDP',                 notes:'Bergamot · Violet · Sandalwood · Musk',      fullMl:100, mlLeft:98, p5:230,  p10:410,  price:2550, condition:'Almost full — 98ml remaining' },
+  { id:'p-19', brand:'Mancera',           name:'Red Tobacco EDP',                  notes:'Tobacco · Rose · Amber · Oud',               fullMl:100, mlLeft:30, p5:260,  p10:470,  price:930,  condition:'Good condition — 30ml remaining' },
+  { id:'p-20', brand:'Mancera',           name:'Aoud Exclusif EDP',                notes:'Oud · Rose · Amber · Musk',                  fullMl:100, mlLeft:30, p5:260,  p10:460,  price:900,  condition:'Good condition — 30ml remaining' },
+  { id:'p-21', brand:'Chopard',           name:'Oud Malaki EDP',                   notes:'Oud · Leather · Amber · Musk',               fullMl:100, mlLeft:30, p5:240,  p10:440,  price:840,  condition:'Good condition — 30ml remaining' },
 ];
 
 // ─────────────────────────────────────────────────────────
@@ -292,6 +361,46 @@ export const PARTIALS = [
 //  Keep the most recent additions at the top.
 // ─────────────────────────────────────────────────────────
 export const NEW_ARRIVALS = [
+  ['Clive Christian','Burlington 1819 EDP','Bergamot · Iris · Sandalwood · Musk',1610,3180],
+  ['Kilian','A Midsummer Dream EDP','Lavender · Vetiver · Musk',1520,2990],
+  ['Kilian','Town & Country EDP','Citrus · Vetiver · Musk',2870,5690],
+  ['Initio','Novae Vanilla EDP','Vanilla · Musk · Sandalwood',870,1680],
+  ['Initio','Paragon Extrait De Parfum','Musk · Amber · Sandalwood',950,1860],
+  ['Argos','Forever Wanted Elixir Parfum','Floral · Musk · Amber',480,910],
+  ['Viktor & Rolf','Spicebomb Metallic Musk EDP','Musk · Metallic · Amber',610,1170],
+  ['Viktor & Rolf','Spicebomb Extreme EDP','Tobacco · Vanilla · Pepper',670,1290],
+  ['Bulgari','Le Gemme Tygar EDP','Oud · Amber · Incense · Musk',1970,3890],
+  ['Roja Parfums','Elysium Pour Homme Parfum','Grapefruit · Neroli · Sandalwood · Musk',2180,4310],
+  ['Vilhelm','Blonde Amber EDP','Amber · Vanilla · Musk · Sandalwood',3590,7130],
+  ['Elie Saab','Power Of You Pour Femme EDP','Rose · Jasmine · Musk',2440,4820],
+  ['Mancera','Aoud Exclusif EDP','Oud · Rose · Musk',650,1250],
+  ['Kajal','Ambassador Man Intense EDP','Bergamot · Iris · Amber · Musk',820,1580],
+  ['Juliette Has a Gun','Not A Perfume EDP','Ambroxan',650,1250],
+  ['Jusbox','Narcotic Delight EDP','Bergamot · Rose · Benzoin · Musk',1290,2530],
+  ['Vilhelm','Drunk Lovers EDP','Rose · Raspberry · Patchouli · Musk',1470,2880],
+  ['Nasomatto','Black Afgano Extrait','Cannabis · Oud · Resin',2090,4140],
+  ['Ex Nihilo','Fleur Narcotique EDP','Peach · Rose · Musk · Ambroxan',1450,2850],
+  ['Memo Paris','Atomic Rose EDP','Rose · Musk · Cedarwood',1430,2800],
+  ['Xerjoff','Aldebaran EDP','Bergamot · Iris · Sandalwood · Musk',1330,2610],
+  ['Kajal','Can't Get Enough EDP','Iris · Rose · Vanilla · Musk',1340,2620],
+  ['Davidoff','Cool Water Man EDT','Mint · Aquatic · Musk',250,450],
+  ['Fendi','Mefisto Gentiluomo EDP','Bergamot · Pepper · Vetiver',1220,2380],
+  ['Bvlgari','Maai Extrait De Parfum','Bergamot · Rose · Musk · Patchouli',2150,4240],
+  ['Paco Rabanne','Invictus Parfum','Grapefruit · Guaiac Wood · Musk',690,1340],
+  ['Jean Paul Gaultier','Scandal Pour Homme Absolu','Ginger · Tonka · Vetiver',800,1550],
+  ['Giorgio Armani','Acqua Di Gio Profondo Parfum','Aquatic · Mineral · Musk',750,1440],
+  ['Prada','Luna Rossa Ocean EDP','Bergamot · Metallic Notes · Amber',650,1250],
+  ['Dolce & Gabbana','Light Blue Eau Intense EDP','Grapefruit · Apple · Amber · Musk',710,1360],
+  ['Tom Ford','Ombre Leather EDP','Leather · Floral · Amber',1030,2000],
+  ['Diptyque','Tam Dao EDP','Sandalwood · Cypress · Cedar',1590,3130],
+  ['Xerjoff','Erba Gold EDP','Bergamot · Iris · Sandalwood',1240,2430],
+  ['Escentric Molecules','Escentric 01 EDT','Iso E Super · Grapefruit · Pepper',950,1840],
+  ['House of Sillage','Le Sillage Blanc EDP','Bergamot · Rose · Sandalwood',1190,2320],
+  ['Xerjoff','Knight of Love EDP','Rose · Oud · Amber · Musk',2420,4790],
+  ['Xerjoff','Guidance EDP','Bergamot · Iris · Sandalwood · Musk',1880,3710],
+  ['Clive Christian','1872 Masculine EDP','Bergamot · Lime · Musk · Sandalwood',2240,4420],
+  ['Vilhelm','Jump Up And Kiss Me Hedonistic','Patchouli · Rose · Vanilla · Musk',3520,6990],
+  ['Xerjoff','Aqua Sexitus Extrait','Aquatic · Citrus · Musk · Ambergris',1470,2900],
   ['Lattafa','Fahkar Platin','Bergamot · Guava · Sandalwood · Incense',210,370],
   ['Riffs','Fareed','Cardamom · Lavender · Tonka',210,360],
   ['Arabiyat Prestige','Hamdan The Sheikh','Rose · Oud · Leather',280,540],
@@ -308,3 +417,61 @@ export const NEW_ARRIVALS = [
   ['Arabiyat Prestige','Mahad Al Dhahab','Oud · Amber · Rose',220,420],
   ['Armaf','Cristian Provenzano III','Leather · Woody · Oud',470,920],
 ];
+
+// ─────────────────────────────────────────────────────────
+//  PRODUCT IMAGES
+//  Key format: 'Brand|Name' — value: Cloudinary URL
+//  Add images here as you upload them to Cloudinary.
+//  Products without an entry fall back to the default decant image.
+// ─────────────────────────────────────────────────────────
+export const PRODUCT_IMAGES = {
+  'Xerjoff|Naxos EDP':                          'https://res.cloudinary.com/dlakipgdf/image/upload/v1777110450/Perfumes/Xerjoff/Xerjoff_Naxos_e5jnbx.jpg',
+  'Versace|Eros EDP':                           'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137930/Perfumes/Partials/IMG_0728_vfwhru.jpg',
+  'Dior|Sauvage EDP':                           'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137930/Perfumes/Partials/IMG_0735_t2ot04.jpg',
+  'Yves Saint Laurent|Y EDP':                   'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137930/Perfumes/Partials/IMG_0736_kiafd0.jpg',
+  'Afnan|Supremacy Not Only Intense EDP':        'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137930/Perfumes/Partials/IMG_0730_gdsnmd.jpg',
+  'Mancera|Aoud Exclusif EDP':                  'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137930/Perfumes/Partials/IMG_0727_l1tvpb.jpg',
+  'Chopard|Oud Malaki EDP':                     'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0725_c56lg8.jpg',
+  'Rasasi|Hawas Black':                         'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0723_lfo392.jpg',
+  'Calvin Klein|Eternity Air EDP':              'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0724_bl5i9s.jpg',
+  'Dolce & Gabbana|Light Blue Eau Intense EDP': 'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0722_hz9pdp.jpg',
+  'Ahmed Al Maghribi|Kaaf EDP':                 'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0721_c9lsxy.jpg',
+  'Lattafa|Atlas EDP':                          'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0719_dljegy.jpg',
+  'Kenzo|Pour Homme Santal Marin EDP':          'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0720_poxilz.jpg',
+  'Davidoff|Cool Water EDT':                    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0718_kh4h5o.jpg',
+  'Jean Paul Gaultier|Le Beau EDT':             'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0715_k1mwp7.jpg',
+  'Afnan|Turathi Blue EDP':                     'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137928/Perfumes/Partials/IMG_0714_sn5c7u.jpg',
+  'Montale|Arabians Tonka EDP':                 'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137928/Perfumes/Partials/IMG_0710_jp6wtn.jpg',
+  'Mancera|Cedrat Boise EDP':                   'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137928/Perfumes/Partials/IMG_0712_sayvj4.jpg',
+  'Mancera|Red Tobacco EDP':                    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137928/Perfumes/Partials/IMG_0709_lmpcw1.jpg',
+  'Goldfield & Banks|Pacific Rock Moss EDP':    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137927/Perfumes/Partials/IMG_0711_vecuxm.jpg',
+  'Arabiyat Prestige|Marwa EDP':                'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137927/Perfumes/Partials/IMG_0716_gigeh1.jpg',
+};
+
+// ─────────────────────────────────────────────────────────
+//  SOLD OUT PRODUCTS
+//  Key format: 'Name' — products currently out of stock.
+//  Add/remove as stock changes.
+// ─────────────────────────────────────────────────────────
+export const SOLD_OUT = new Set([
+  'Cedrat Boise EDP',
+  'Le Beau EDT',
+  'Icon EDP',
+  'Supremacy Not Only Intense EDP',
+  'Arabians Tonka EDP',
+  'Turathi Blue EDP',
+  'Cool Water EDT',
+  'Sauvage EDP',
+  'Pacific Rock Moss EDP',
+  'Pour Homme EDP',
+  'Pour Homme Santal Marin EDP',
+  'Atlas EDP',
+  'Kaaf EDP',
+  'Marwa EDP',
+  'Eros EDP',
+  'Y EDP',
+  'Eternity Air EDP',
+  'Red Tobacco EDP',
+  'Aoud Exclusif EDP',
+  'Oud Malaki EDP',
+]);

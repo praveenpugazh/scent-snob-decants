@@ -1,98 +1,145 @@
 import { useState } from 'react';
-import { C } from '../styles/theme.js';
-import { PARTIALS } from '../data/products.js';
+import { C, S } from '../styles/theme.js';
+import { PARTIALS, PRODUCT_IMAGES } from '../data/products.js';
 import { FLAGS } from '../config/flags.js';
 
-function PartialCard({ partial }) {
+function PartialCard({ partial, onOpen }) {
   const [hov, setHov] = useState(false);
-
-  const buildWAMsg = () => {
-    const msg = `🧪 *Partial Bottle Enquiry*\n\n• ${partial.brand} — ${partial.name}\n• Approx. ${partial.mlLeft}ml remaining\n• Condition: ${partial.condition}\n• Price: ₹${partial.price}\n\nIs this still available? Please share payment details. Thank you!`;
-    return `https://wa.me/918754519509?text=${encodeURIComponent(msg)}`;
-  };
+  const mlLeft = partial.mlLeft;
+  const pct = Math.round((mlLeft / partial.fullMl) * 100);
 
   return (
     <div
-      style={{
-        background: hov ? 'rgba(176,144,96,0.06)' : C.bg3,
-        border: `0.5px solid ${hov ? 'rgba(176,144,96,0.4)' : C.border}`,
-        borderRadius: 6, padding: '1.25rem',
-        transition: 'all .2s', cursor: 'pointer',
-        transform: hov ? 'translateY(-2px)' : 'none',
-      }}
+      onClick={() => onOpen && onOpen(partial)}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      style={{
+        background: hov ? 'rgba(176,144,96,0.07)' : 'rgba(255,255,255,0.02)',
+        border: `0.5px solid ${hov ? 'rgba(176,144,96,0.4)' : 'rgba(255,255,255,0.08)'}`,
+        borderRadius: 8,
+        padding: '1.1rem 1.25rem',
+        cursor: 'pointer',
+        transition: 'all .18s',
+        transform: hov ? 'translateY(-2px)' : 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+        position: 'relative',
+      }}
     >
-      {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>
-        <div>
-          <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#b09060', marginBottom: 3, fontFamily: 'var(--ff-sans)' }}>
-            {partial.brand}
-          </div>
-          <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.1rem', fontWeight: 300, color: C.t1 }}>
-            {partial.name}
-          </div>
+      {/* Bottle image if available */}
+      {PRODUCT_IMAGES[`${partial.brand}|${partial.name}`] && (
+        <div style={{ height: 160, margin: '-1.1rem -1.25rem 0.75rem', borderRadius: '8px 8px 0 0', overflow: 'hidden' }}>
+          <img
+            src={PRODUCT_IMAGES[`${partial.brand}|${partial.name}`]}
+            alt={partial.name}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
-        {/* ml remaining badge */}
-        <div style={{
-          background: 'rgba(176,144,96,0.12)', border: '0.5px solid rgba(176,144,96,0.3)',
-          borderRadius: 4, padding: '4px 10px', textAlign: 'center', flexShrink: 0,
-        }}>
-          <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.1rem', color: '#b09060', lineHeight: 1 }}>
-            ~{partial.mlLeft}ml
-          </div>
-          <div style={{ fontSize: 10, color: C.t3, marginTop: 1 }}>remaining</div>
+      )}
+
+      {/* Partial badge */}
+      <div style={{
+        position: 'absolute', top: 10, right: 10,
+        background: 'rgba(176,144,96,0.15)',
+        border: '0.5px solid rgba(176,144,96,0.4)',
+        color: '#b09060', fontSize: 9,
+        letterSpacing: '0.12em', textTransform: 'uppercase',
+        padding: '2px 8px', borderRadius: 3,
+        fontFamily: 'var(--ff-sans)',
+      }}>
+        Partial
+      </div>
+
+      <div style={{ fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#b09060', fontFamily: 'var(--ff-sans)' }}>
+        {partial.brand}
+      </div>
+      <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1rem', fontWeight: 400, color: 'rgba(255,255,255,0.92)', paddingRight: 48, lineHeight: 1.25 }}>
+        {partial.name}
+      </div>
+      <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>
+        {partial.notes}
+      </div>
+
+      {/* Fill level bar */}
+      <div style={{ marginTop: 4 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+          <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
+            {mlLeft}ml of {partial.fullMl}ml remaining
+          </span>
+          <span style={{ fontSize: 10, color: pct > 50 ? '#4caf7d' : pct > 25 ? '#b09060' : '#dc5050', fontWeight: 500 }}>
+            {pct}%
+          </span>
+        </div>
+        <div style={{ height: 3, background: 'rgba(255,255,255,0.08)', borderRadius: 2 }}>
+          <div style={{
+            height: '100%', borderRadius: 2, transition: 'width .4s ease',
+            width: `${pct}%`,
+            background: pct > 50 ? '#4caf7d' : pct > 25 ? '#b09060' : '#dc5050',
+          }}/>
         </div>
       </div>
 
-      <div style={{ fontSize: 12, color: C.t3, marginBottom: 8, lineHeight: 1.5 }}>{partial.notes}</div>
-      <div style={{ fontSize: 11, color: 'rgba(76,175,125,0.8)', marginBottom: '1rem' }}>
-        ✓ {partial.condition}
-      </div>
-
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ fontFamily: 'var(--ff-serif)', fontSize: '1.4rem', fontWeight: 300, color: '#b09060' }}>
-          ₹{partial.price}
+      {/* Condition */}
+      {partial.condition && (
+        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontStyle: 'normal' }}>
+          {partial.condition}
         </div>
-        <a
-          href={buildWAMsg()}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: '#b09060', border: '0.5px solid rgba(176,144,96,0.4)',
-            padding: '6px 14px', borderRadius: 3, textDecoration: 'none',
-            fontFamily: 'var(--ff-sans)', transition: 'all .15s',
-          }}
-        >
-          Enquire →
-        </a>
+      )}
+
+      {/* Pricing */}
+      <div style={{ display: 'flex', gap: 12, alignItems: 'baseline', marginTop: 4, flexWrap: 'wrap' }}>
+        {partial.p5 > 0 && (
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.92)', fontWeight: 500 }}>₹{partial.p5}</div>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em' }}>5ml</div>
+          </div>
+        )}
+        {FLAGS.ENABLE_10ML && partial.p10 > 0 && (
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.92)', fontWeight: 500 }}>₹{partial.p10}</div>
+            <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em' }}>10ml</div>
+          </div>
+        )}
+        {partial.price && (
+          <div style={{ marginLeft: 'auto', textAlign: 'right' }}>
+            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Full partial</div>
+            <div style={{ fontSize: 16, color: '#b09060', fontWeight: 500 }}>₹{partial.price.toLocaleString('en-IN')}</div>
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default function PartialsSection() {
-  if (!FLAGS.ENABLE_PARTIALS || PARTIALS.length === 0) return null;
+export default function PartialsSection({ onOpen }) {
+  if (!FLAGS.ENABLE_PARTIALS || !PARTIALS || PARTIALS.length === 0) return null;
 
   return (
-    <section style={{ padding: '5rem 4vw', background: '#0c0a08', borderTop: '0.5px solid rgba(255,255,255,0.06)' }}>
-      <div style={{ marginBottom: '2.5rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(76,175,125,0.1)', border: '0.5px solid rgba(76,175,125,0.25)', borderRadius: 4, padding: '4px 12px', marginBottom: 12 }}>
-          <span style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(76,175,125,0.9)', fontFamily: 'var(--ff-sans)' }}>
-            Limited Stock
+    <section style={{ padding: '4rem 4vw', background: '#0e0c0a', borderTop: '0.5px solid rgba(255,255,255,0.05)' }}>
+      <div style={{ marginBottom: '2rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#b09060' }}/>
+          <span style={{ fontSize: 10, letterSpacing: '0.22em', textTransform: 'uppercase', color: '#b09060', fontFamily: 'var(--ff-sans)' }}>
+            Authenticated Partials
           </span>
         </div>
-        <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 300, color: 'rgba(255,255,255,0.92)' }}>
-          Partial <span style={{ fontStyle: 'normal', color: '#b09060' }}>Bottles</span>
+        <h2 style={{ fontFamily: 'var(--ff-serif)', fontSize: 'clamp(1.8rem, 3vw, 2.2rem)', fontWeight: 400, color: 'rgba(255,255,255,0.92)', margin: 0 }}>
+          Partial Bottles
         </h2>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.3)', marginTop: 8, maxWidth: 500 }}>
-          Genuine bottles with remaining juice — sold as-is. Each is authenticated and priced based on how much is left. First come, first served.
+        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 8, maxWidth: 520, lineHeight: 1.7 }}>
+          Authentic partial bottles from my personal collection — priced on full bottle cost/ml. Buy a decant or the remaining partial.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
-        {PARTIALS.map(p => <PartialCard key={p.id} partial={p} />)}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+        gap: 14,
+      }}>
+        {PARTIALS.map((p, i) => (
+          <PartialCard key={p.id || i} partial={p} onOpen={onOpen} />
+        ))}
       </div>
     </section>
   );

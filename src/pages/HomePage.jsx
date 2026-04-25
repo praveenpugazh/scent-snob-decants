@@ -4,6 +4,7 @@ import { FEATURED } from '../data/products.js';
 import { DECANT_IMG, AddBtn } from '../components/ui.jsx';
 import CombosSection from '../components/CombosSection.jsx';
 import NewArrivalsSection from '../components/NewArrivalsSection.jsx';
+import PartialsSection from '../components/PartialsSection.jsx';
 import MoodFilter from '../components/MoodFilter.jsx';
 import PartialsSection from '../components/PartialsSection.jsx';
 import { FLAGS } from '../config/flags.js';
@@ -273,6 +274,11 @@ export default function HomePage({ onOpen, setPage }) {
           NEW ARRIVALS
       ══════════════════════════════════════════ */}
       <NewArrivalsSection onOpen={onOpen} />
+
+      {/* ══════════════════════════════════════════
+          PARTIALS
+      ══════════════════════════════════════════ */}
+      <PartialsSection onOpen={onOpen} />
 
       {/* ══════════════════════════════════════════
           SNOB PICKS
