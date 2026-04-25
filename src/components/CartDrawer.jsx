@@ -4,7 +4,7 @@ import { WAIcon } from './ui.jsx';
 
 const FREE_SHIPPING_THRESHOLD = 2999;
 const SHIPPING_CHARGE = 150;
-const UPI_ID = '8754519509@okicici';
+const UPI_ID = 'praveenpugazh14@okicici';
 const UPI_NAME = 'Praveen P';
 
 export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {

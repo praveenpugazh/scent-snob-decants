@@ -6,6 +6,7 @@ import CartDrawer from './components/CartDrawer.jsx';
 import SizeModal  from './components/SizeModal.jsx';
 import { Toast, WAIcon } from './components/ui.jsx';
 import ScentQuiz from './components/ScentQuiz.jsx';
+import AdminPage from './pages/AdminPage.jsx';
 import { S, C }   from './styles/theme.js';
 
 import HomePage   from './pages/HomePage.jsx';
@@ -90,7 +91,7 @@ export default function App() {
 
     // Payment instructions
     msg += `\n\n*Payment*`;
-    msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *8754519509@okicici* (Praveen P)`;
+    msg += `\nPay ₹${grandTotal.toLocaleString('en-IN')} to GPay/UPI: *praveenpugazh14@okicici* (Praveen P)`;
     msg += `\nSend payment screenshot to confirm your order 📸`;
 
     return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
