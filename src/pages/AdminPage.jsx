@@ -40,29 +40,54 @@ const postToSheet = async (row) => {
 };
 
 // ── Fetch from Sheet ──────────────────────────────────────
-const fetchFromSheet = async () => {
-  try {
-    const res  = await fetch(GET_URL);
-    const data = await res.json();
-    // Map sheet columns to order objects
-    return data
-      .filter(row => row['Order ID'])
-      .map(row => ({
-        id:        row['Order ID']  || '',
-        date:      row['Date']      || '',
-        name:      row['Name']      || '',
-        phone:     row['Phone']     || '',
-        items:     row['Items']     || '',
-        amount:    Number(row['Total']) || 0,
-        status:    row['Status']    || 'Pending',
-        address:   row['Address']   || '',
-        notes:     row['Notes']     || '',
-        createdAt: row['Date']      || '',
-      }));
-  } catch(e) {
-    console.warn('Sheet fetch failed:', e);
-    return null;
-  }
+const fetchFromSheet = () => {
+  return new Promise((resolve) => {
+    // Use JSONP to bypass CORS — append callback param to URL
+    const cbName = 'ssCallback_' + Date.now();
+    const script = document.createElement('script');
+
+    window[cbName] = (data) => {
+      delete window[cbName];
+      document.body.removeChild(script);
+      try {
+        const orders = (Array.isArray(data) ? data : [])
+          .filter(row => row['Order ID'])
+          .map(row => ({
+            id:        String(row['Order ID']  || ''),
+            date:      String(row['Date']      || ''),
+            name:      String(row['Name']      || ''),
+            phone:     String(row['Phone']     || ''),
+            items:     String(row['Items']     || ''),
+            amount:    Number(row['Total'])    || 0,
+            status:    String(row['Status']    || 'Pending'),
+            address:   String(row['Address']   || ''),
+            notes:     String(row['Notes']     || ''),
+            createdAt: String(row['Date']      || ''),
+          }));
+        resolve(orders);
+      } catch(e) {
+        resolve(null);
+      }
+    };
+
+    script.onerror = () => {
+      delete window[cbName];
+      try { document.body.removeChild(script); } catch(_) {}
+      resolve(null);
+    };
+
+    // Timeout fallback
+    setTimeout(() => {
+      if (window[cbName]) {
+        delete window[cbName];
+        try { document.body.removeChild(script); } catch(_) {}
+        resolve(null);
+      }
+    }, 8000);
+
+    script.src = `${GET_URL}?callback=${cbName}`;
+    document.body.appendChild(script);
+  });
 };
 
 // ── StatusPill ────────────────────────────────────────────
@@ -242,12 +267,21 @@ export default function AdminPage() {
     setLoading(true);
     setSheetError(false);
     const data = await fetchFromSheet();
-    if (data) {
+    if (data && data.length > 0) {
       setOrders(data);
       setLastRefresh(new Date().toLocaleTimeString('en-IN'));
+      localStorage.setItem('ss_orders', JSON.stringify(data));
+    } else if (data && data.length === 0) {
+      // Sheet is reachable but empty — use localStorage seed if available
+      const local = localStorage.getItem('ss_orders');
+      if (local) {
+        setOrders(JSON.parse(local));
+        setLastRefresh('cached');
+      }
+      setSheetError(false); // Sheet works, just empty
     } else {
+      // Sheet unreachable — fall back to localStorage
       setSheetError(true);
-      // Fallback to localStorage
       const local = localStorage.getItem('ss_orders');
       if (local) setOrders(JSON.parse(local));
     }
