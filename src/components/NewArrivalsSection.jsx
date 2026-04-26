@@ -87,9 +87,10 @@ function NewArrivalCard({ product, onOpen }) {
 }
 
 export default function NewArrivalsSection({ onOpen }) {
-  if (!NEW_ARRIVALS || NEW_ARRIVALS.length === 0) return null;
+  if (!FLAGS.ENABLE_NEW_ARRIVALS || !NEW_ARRIVALS || NEW_ARRIVALS.length === 0) return null;
+  const items = NEW_ARRIVALS.slice(0, 10);
 
-  const products = NEW_ARRIVALS.map(toProduct);
+  const products = items.map(toProduct);
 
   return (
     <section style={{ padding: '4rem 4vw', background: '#0c0a08', borderTop: '0.5px solid rgba(255,255,255,0.05)' }}>

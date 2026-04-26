@@ -252,8 +252,6 @@ export const NICHE_RAW = [
 
   ['Mancera','Aoud Exclusif EDP','Oud · Rose · Amber · Musk',260,460],
   ['Chopard','Oud Malaki EDP','Oud · Leather · Amber · Musk',240,440],
-
-  ['Rasasi','Hawas Black','Aquatic · Sandalwood · Musk · Amber',250,460],
 ];
 
 export const allProducts = [
@@ -330,27 +328,30 @@ export const comboPrice = (combo) => {
 //  Set ENABLE_PARTIALS: true in flags.js when ready.
 // ─────────────────────────────────────────────────────────
 export const PARTIALS = [
-  { id:'p-01', brand:'Mancera',           name:'Cedrat Boise EDP',                 notes:'Grapefruit · Cedar · Musk · Leather',      fullMl:100, mlLeft:40, p5:340,  p10:630,  price:1720, condition:'Good condition — 40ml remaining' },
-  { id:'p-02', brand:'Jean Paul Gaultier',name:'Le Beau EDT',                      notes:'Vanilla · Bergamot · Tonka · Iris',          fullMl:125, mlLeft:40, p5:270,  p10:490,  price:1280, condition:'Good condition — 40ml remaining' },
-  { id:'p-03', brand:'Dunhill',           name:'Icon EDP',                         notes:'Bergamot · Cardamom · Leather · Amber',      fullMl:100, mlLeft:40, p5:340,  p10:630,  price:1720, condition:'Good condition — 40ml remaining' },
-  { id:'p-04', brand:'Creed',             name:'Absolu Aventus EDP',               notes:'Pineapple · Birch · Musk · Oakmoss',         fullMl:100, mlLeft:30, p5:960,  p10:1870, price:4200, condition:'Tester — 30ml remaining' },
-  { id:'p-05', brand:'Afnan',             name:'Supremacy Not Only Intense EDP',   notes:'Pineapple · Birch · Musk',                   fullMl:150, mlLeft:50, p5:130,  p10:210,  price:500,  condition:'Good condition — 50ml remaining' },
-  { id:'p-06', brand:'Montale',           name:'Arabians Tonka EDP',               notes:'Tonka · Sandalwood · Musk · Amber',          fullMl:100, mlLeft:35, p5:260,  p10:460,  price:1050, condition:'Good condition — 35ml remaining' },
-  { id:'p-07', brand:'Afnan',             name:'Turathi Blue EDP',                 notes:'Aquatic · Musk · Amber · Vetiver',           fullMl:90,  mlLeft:60, p5:210,  p10:360,  price:1330, condition:'Good condition — 60ml remaining' },
-  { id:'p-08', brand:'Davidoff',          name:'Cool Water EDT',                   notes:'Mint · Aquatic · Sandalwood · Musk',         fullMl:150, mlLeft:50, p5:140,  p10:240,  price:620,  condition:'Good condition — 50ml remaining' },
-  { id:'p-09', brand:'Dior',              name:'Sauvage EDP',                      notes:'Bergamot · Ambroxan · Vanilla',              fullMl:200, mlLeft:20, p5:180,  p10:310,  price:360,  condition:'200ml bottle — 20ml remaining' },
-  { id:'p-10', brand:'Goldfield & Banks', name:'Pacific Rock Moss EDP',            notes:'Bergamot · Ambrette · Rock Moss · Musk',     fullMl:100, mlLeft:20, p5:310,  p10:580,  price:780,  condition:'Good condition — 20ml remaining' },
-  { id:'p-11', brand:'Kenzo',             name:'Pour Homme EDP',                   notes:'Lotus · Sage · Sandalwood · Amber',          fullMl:100, mlLeft:23, p5:190,  p10:330,  price:460,  condition:'Good condition — 23ml remaining' },
-  { id:'p-12', brand:'Kenzo',             name:'Pour Homme Santal Marin EDP',      notes:'Sandalwood · Marine · Cedar · Musk',         fullMl:100, mlLeft:30, p5:250,  p10:440,  price:860,  condition:'Good condition — 30ml remaining' },
-  { id:'p-13', brand:'Lattafa',           name:'Atlas EDP',                        notes:'Oud · Rose · Sandalwood · Amber',            fullMl:55,  mlLeft:25, p5:270,  p10:480,  price:795,  condition:'Good condition — 25ml remaining' },
-  { id:'p-14', brand:'Ahmed Al Maghribi', name:'Kaaf EDP',                         notes:'Cardamom · Rose · Oud · Musk',               fullMl:40,  mlLeft:40, p5:260,  p10:460,  price:1200, condition:'Sealed full bottle partial — 40ml' },
-  { id:'p-15', brand:'Arabiyat Prestige', name:'Marwa EDP',                        notes:'Floral · Rose · Musk · Sandalwood',          fullMl:45,  mlLeft:45, p5:300,  p10:550,  price:1650, condition:'Sealed full bottle partial — 45ml' },
-  { id:'p-16', brand:'Versace',           name:'Eros EDP',                         notes:'Mint · Lemon · Tonka · Vanilla · Amber',     fullMl:100, mlLeft:30, p5:240,  p10:440,  price:840,  condition:'Tester — 30ml remaining' },
-  { id:'p-17', brand:'Yves Saint Laurent',name:'Y EDP',                            notes:'Bergamot · Sage · Tonka · Cedar',            fullMl:100, mlLeft:20, p5:220,  p10:380,  price:480,  condition:'Good condition — 20ml remaining' },
-  { id:'p-18', brand:'Calvin Klein',      name:'Eternity Air EDP',                 notes:'Bergamot · Violet · Sandalwood · Musk',      fullMl:100, mlLeft:98, p5:230,  p10:410,  price:2550, condition:'Almost full — 98ml remaining' },
-  { id:'p-19', brand:'Mancera',           name:'Red Tobacco EDP',                  notes:'Tobacco · Rose · Amber · Oud',               fullMl:100, mlLeft:30, p5:260,  p10:470,  price:930,  condition:'Good condition — 30ml remaining' },
-  { id:'p-20', brand:'Mancera',           name:'Aoud Exclusif EDP',                notes:'Oud · Rose · Amber · Musk',                  fullMl:100, mlLeft:30, p5:260,  p10:460,  price:900,  condition:'Good condition — 30ml remaining' },
-  { id:'p-21', brand:'Chopard',           name:'Oud Malaki EDP',                   notes:'Oud · Leather · Amber · Musk',               fullMl:100, mlLeft:30, p5:240,  p10:440,  price:840,  condition:'Good condition — 30ml remaining' },
+  // ── DAY 1 DROP ───────────────────────────────────────────────────────────────
+  { id:'p-04', brand:'Creed',             name:'Absolu Aventus EDP',               notes:'Pineapple · Birch · Musk · Oakmoss',         fullMl:100, mlLeft:30, p5:960,  p10:1870, price:13999,condition:'Tester — 30ml remaining',                visible:true  },
+  { id:'p-01', brand:'Mancera',           name:'Cedrat Boise EDP',                 notes:'Grapefruit · Cedar · Musk · Leather',        fullMl:100, mlLeft:40, p5:340,  p10:630,  price:4299, condition:'Good condition — 40ml remaining',          visible:true  },
+  { id:'p-02', brand:'Jean Paul Gaultier',name:'Le Beau EDT',                      notes:'Vanilla · Bergamot · Tonka · Iris',          fullMl:125, mlLeft:40, p5:270,  p10:490,  price:3999, condition:'Good condition — 40ml remaining',          visible:true  },
+  { id:'p-22', brand:'Rasasi',            name:'Hawas Black',                      notes:'Aquatic · Sandalwood · Musk · Amber',        fullMl:100, mlLeft:10, p5:500,  p10:0,    price:500,  condition:'Good condition — 10ml remaining',          visible:true  },
+  // ── COMING SOON ──────────────────────────────────────────────────────────────
+  { id:'p-03', brand:'Dunhill',           name:'Icon EDP',                         notes:'Bergamot · Cardamom · Leather · Amber',      fullMl:100, mlLeft:40, p5:340,  p10:630,  price:4299, condition:'Good condition — 40ml remaining',          visible:false },
+  { id:'p-05', brand:'Afnan',             name:'Supremacy Not Only Intense EDP',   notes:'Pineapple · Birch · Musk',                   fullMl:150, mlLeft:50, p5:130,  p10:210,  price:1500, condition:'Good condition — 50ml remaining',          visible:false },
+  { id:'p-06', brand:'Montale',           name:'Arabians Tonka EDP',               notes:'Tonka · Sandalwood · Musk · Amber',          fullMl:100, mlLeft:35, p5:260,  p10:460,  price:3000, condition:'Good condition — 35ml remaining',          visible:false },
+  { id:'p-07', brand:'Afnan',             name:'Turathi Blue EDP',                 notes:'Aquatic · Musk · Amber · Vetiver',           fullMl:90,  mlLeft:60, p5:210,  p10:360,  price:1999, condition:'Good condition — 60ml remaining',          visible:false },
+  { id:'p-08', brand:'Davidoff',          name:'Cool Water EDT',                   notes:'Mint · Aquatic · Sandalwood · Musk',         fullMl:150, mlLeft:50, p5:140,  p10:240,  price:1850, condition:'Good condition — 50ml remaining',          visible:false },
+  { id:'p-09', brand:'Dior',              name:'Sauvage EDP',                      notes:'Bergamot · Ambroxan · Vanilla',              fullMl:200, mlLeft:20, p5:180,  p10:310,  price:3600, condition:'200ml bottle — 20ml remaining',            visible:false },
+  { id:'p-10', brand:'Goldfield & Banks', name:'Pacific Rock Moss EDP',            notes:'Bergamot · Ambrette · Rock Moss · Musk',     fullMl:100, mlLeft:20, p5:310,  p10:580,  price:3799, condition:'Good condition — 20ml remaining',          visible:true  },
+  { id:'p-11', brand:'Kenzo',             name:'Pour Homme EDP',                   notes:'Lotus · Sage · Sandalwood · Amber',          fullMl:100, mlLeft:23, p5:190,  p10:330,  price:2000, condition:'Good condition — 23ml remaining',          visible:true  },
+  { id:'p-12', brand:'Kenzo',             name:'Pour Homme Santal Marin EDP',      notes:'Sandalwood · Marine · Cedar · Musk',         fullMl:100, mlLeft:30, p5:250,  p10:440,  price:2850, condition:'Good condition — 30ml remaining',          visible:false },
+  { id:'p-13', brand:'Lattafa',           name:'Atlas EDP',                        notes:'Oud · Rose · Sandalwood · Amber',            fullMl:55,  mlLeft:25, p5:270,  p10:480,  price:1750, condition:'Good condition — 25ml remaining',          visible:false },
+  { id:'p-14', brand:'Ahmed Al Maghribi', name:'Kaaf EDP',                         notes:'Cardamom · Rose · Oud · Musk',               fullMl:100, mlLeft:40, p5:260,  p10:460,  price:1200, condition:'Good condition — 40ml remaining',          visible:true  },
+  { id:'p-15', brand:'Arabiyat Prestige', name:'Marwa EDP',                        notes:'Floral · Rose · Musk · Sandalwood',          fullMl:100, mlLeft:45, p5:300,  p10:550,  price:1650, condition:'Good condition — 45ml remaining',          visible:true  },
+  { id:'p-16', brand:'Versace',           name:'Eros EDP',                         notes:'Mint · Lemon · Tonka · Vanilla · Amber',     fullMl:100, mlLeft:30, p5:240,  p10:440,  price:2799, condition:'Tester — 30ml remaining',                 visible:false },
+  { id:'p-17', brand:'Yves Saint Laurent',name:'Y EDP',                            notes:'Bergamot · Sage · Tonka · Cedar',            fullMl:100, mlLeft:20, p5:220,  p10:380,  price:2400, condition:'Good condition — 20ml remaining',          visible:false },
+  { id:'p-18', brand:'Calvin Klein',      name:'Eternity Air EDP',                 notes:'Bergamot · Violet · Sandalwood · Musk',      fullMl:100, mlLeft:98, p5:230,  p10:410,  price:2600, condition:'Tester — 98ml remaining',                 visible:false },
+  { id:'p-19', brand:'Mancera',           name:'Red Tobacco EDP',                  notes:'Tobacco · Rose · Amber · Oud',               fullMl:100, mlLeft:30, p5:260,  p10:470,  price:3100, condition:'Good condition — 30ml remaining',          visible:false },
+  { id:'p-20', brand:'Mancera',           name:'Aoud Exclusif EDP',                notes:'Oud · Rose · Amber · Musk',                  fullMl:100, mlLeft:30, p5:260,  p10:460,  price:900,  condition:'Good condition — 30ml remaining',          visible:false },
+  { id:'p-21', brand:'Chopard',           name:'Oud Malaki EDP',                   notes:'Oud · Leather · Amber · Musk',               fullMl:100, mlLeft:30, p5:240,  p10:440,  price:2800, condition:'Good condition — 30ml remaining',          visible:true  },
 ];
 
 // ─────────────────────────────────────────────────────────
@@ -446,6 +447,9 @@ export const PRODUCT_IMAGES = {
   'Mancera|Red Tobacco EDP':                    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137928/Perfumes/Partials/IMG_0709_lmpcw1.jpg',
   'Goldfield & Banks|Pacific Rock Moss EDP':    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137927/Perfumes/Partials/IMG_0711_vecuxm.jpg',
   'Arabiyat Prestige|Marwa EDP':                'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137927/Perfumes/Partials/IMG_0716_gigeh1.jpg',
+  'Creed|Absolu Aventus EDP':                   'https://res.cloudinary.com/dlakipgdf/image/upload/v1777139524/Perfumes/Partials/IMG_0703_regfol.jpg',
+  'Dunhill|Icon EDP':                           'https://res.cloudinary.com/dlakipgdf/image/upload/v1777139814/Perfumes/Partials/IMG_0740_r0rob4.jpg',
+  'Kenzo|Pour Homme EDP':                       'https://res.cloudinary.com/dlakipgdf/image/upload/v1777139950/Perfumes/Partials/IMG_0741_vzswcm.jpg',
 };
 
 // ─────────────────────────────────────────────────────────

@@ -16,7 +16,13 @@ export const FLAGS = {
 
   /**
    * ENABLE_PARTIALS — flip to true when you have partial bottles to list.
-   * Shows a dedicated Partials section on the Brands page.
+   * Shows a dedicated Partials section on the home page.
    */
   ENABLE_PARTIALS: true,
+
+  /**
+   * ENABLE_NEW_ARRIVALS — flip to false to hide the New Arrivals section
+   * while you clean up the list.
+   */
+  ENABLE_NEW_ARRIVALS: false,
 };
