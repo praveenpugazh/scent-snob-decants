@@ -1,7 +1,17 @@
 import { useState } from 'react';
-import { C, S } from '../styles/theme.js';
 import { PARTIALS, PRODUCT_IMAGES } from '../data/products.js';
 import { FLAGS } from '../config/flags.js';
+
+const WA_NUMBER = '918754519509';
+const SHIPPING = 160;
+
+function buildWALink(partial, isDecantOnly) {
+  const item = isDecantOnly
+    ? `${partial.brand} ${partial.name} — 10ml decant — ₹${partial.p5}`
+    : `${partial.brand} ${partial.name} — Whole partial (${partial.mlLeft}ml) — ₹${partial.price}`;
+  const msg = `Hi Scent Snob! I'd like to order:\n\n${item}\nShipping: ₹${SHIPPING}\nTotal: ₹${(isDecantOnly ? partial.p5 : partial.price) + SHIPPING}\n\nMy details:\nName: \nPhone: \nAddress: `;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
 
 function PartialCard({ partial }) {
   const [hov, setHov] = useState(false);
@@ -10,8 +20,9 @@ function PartialCard({ partial }) {
   const isSoldOut = partial.soldOut === true;
   const imgKey = `${partial.brand}|${partial.name}`;
   const hasImg = !!PRODUCT_IMAGES[imgKey];
-  // Hawas Black and similar: decant-only, no whole bottle price
   const isDecantOnly = partial.price === 0 && partial.p5 > 0;
+  const displayPrice = isDecantOnly ? partial.p5 : partial.price;
+  const total = displayPrice + SHIPPING;
 
   return (
     <div
@@ -91,7 +102,7 @@ function PartialCard({ partial }) {
           {partial.notes}
         </div>
 
-        {/* Fill level — only show for whole-bottle partials */}
+        {/* Fill level */}
         {!isDecantOnly && (
           <div style={{ marginTop: 6 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
@@ -118,26 +129,52 @@ function PartialCard({ partial }) {
           </div>
         )}
 
-        {/* Price */}
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 10 }}>
-          {isDecantOnly ? (
-            <div>
-              <div style={{ fontSize: 20, color: '#6caf8d', fontWeight: 500 }}>
-                ₹{partial.p5.toLocaleString('en-IN')}
-              </div>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', marginTop: 1 }}>
-                10ml · + ₹200 shipping
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div style={{ fontSize: 20, color: '#b09060', fontWeight: 500 }}>
-                ₹{partial.price.toLocaleString('en-IN')}
-              </div>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', marginTop: 1 }}>
-                + ₹200 shipping
-              </div>
-            </div>
+        {/* Price + shipping breakdown */}
+        <div style={{ marginTop: 'auto', paddingTop: 12, borderTop: '0.5px solid rgba(255,255,255,0.06)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 3 }}>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>
+              {isDecantOnly ? '10ml decant' : 'Partial bottle'}
+            </span>
+            <span style={{ fontSize: 15, color: isDecantOnly ? '#6caf8d' : '#b09060', fontWeight: 500 }}>
+              ₹{displayPrice.toLocaleString('en-IN')}
+            </span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 10 }}>
+            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>Shipping</span>
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>₹{SHIPPING}</span>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Total</span>
+            <span style={{ fontSize: 17, color: 'rgba(255,255,255,0.92)', fontWeight: 600 }}>
+              ₹{total.toLocaleString('en-IN')}
+            </span>
+          </div>
+
+          {/* WhatsApp Order Button */}
+          {!isSoldOut && (
+            <a
+              href={buildWALink(partial, isDecantOnly)}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                width: '100%', padding: '10px 0',
+                background: 'rgba(37,211,102,0.12)',
+                border: '0.5px solid rgba(37,211,102,0.35)',
+                borderRadius: 6,
+                color: '#25d366', fontSize: 13, fontWeight: 500,
+                fontFamily: 'var(--ff-sans)', letterSpacing: '0.04em',
+                textDecoration: 'none',
+                transition: 'background .15s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = 'rgba(37,211,102,0.22)'}
+              onMouseLeave={e => e.currentTarget.style.background = 'rgba(37,211,102,0.12)'}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#25d366">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Order on WhatsApp
+            </a>
           )}
         </div>
       </div>
@@ -164,8 +201,8 @@ export default function PartialsSection() {
           Partial Bottles
         </h2>
         <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.35)', marginTop: 8, maxWidth: 540, lineHeight: 1.7 }}>
-          Authentic bottles from my personal collection — sold as-is with however much is left.
-          No decants on partials. <span style={{ color: 'rgba(255,255,255,0.45)' }}>₹200 shipping on all partials.</span>
+          Authentic bottles from my personal collection — sold as-is. No decants on partials.
+          Order directly on WhatsApp, ₹160 shipping on all partials.
         </p>
       </div>
 
