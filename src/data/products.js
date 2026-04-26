@@ -330,7 +330,7 @@ export const comboPrice = (combo) => {
 export const PARTIALS = [
   // ── DAY 1 DROP ───────────────────────────────────────────────────────────────
   { id:'p-04', brand:'Creed',             name:'Absolu Aventus EDP',               notes:'Pineapple · Birch · Musk · Oakmoss',         fullMl:100, mlLeft:30, p5:960,  p10:1870, price:13999,condition:'Tester — 30ml remaining',                visible:true  },
-  { id:'p-01', brand:'Mancera',           name:'Cedrat Boise EDP',                 notes:'Grapefruit · Cedar · Musk · Leather',        fullMl:100, mlLeft:40, p5:340,  p10:630,  price:4299, condition:'Good condition — 40ml remaining',          visible:true  },
+  { id:'p-01', brand:'Mancera',           name:'Cedrat Boise EDP',                 notes:'Grapefruit · Cedar · Musk · Leather',        fullMl:100, mlLeft:40, p5:340,  p10:630,  price:4299, condition:'Good condition — 40ml remaining',          visible:true,  soldOut:true  },
   { id:'p-02', brand:'Jean Paul Gaultier',name:'Le Beau EDT',                      notes:'Vanilla · Bergamot · Tonka · Iris',          fullMl:125, mlLeft:40, p5:270,  p10:490,  price:3999, condition:'Good condition — 40ml remaining',          visible:true  },
   { id:'p-22', brand:'Rasasi',            name:'Hawas Black',                      notes:'Aquatic · Sandalwood · Musk · Amber',        fullMl:100, mlLeft:10, p5:500,  p10:0,    price:500,  condition:'Good condition — 10ml remaining',          visible:true  },
   // ── COMING SOON ──────────────────────────────────────────────────────────────
