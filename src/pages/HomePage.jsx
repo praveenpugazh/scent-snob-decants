@@ -56,7 +56,7 @@ function ScentPill({ name, notes, price, delay, onOpen, product }) {
   );
 }
 
-export default function HomePage({ onOpen, setPage }) {
+export default function HomePage({ onOpen, onAdd, setPage }) {
   const carRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
@@ -217,7 +217,7 @@ export default function HomePage({ onOpen, setPage }) {
                 </div>
                 <div>
                   <div style={{ fontSize: 12, color: '#b09060', fontWeight: 500, fontFamily: 'var(--ff-sans)' }}>Free Shipping</div>
-                  <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Above ₹2999</div>
+                  <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.35)' }}>Above ₹3000</div>
                 </div>
               </div>
             </StatCard>
@@ -277,7 +277,7 @@ export default function HomePage({ onOpen, setPage }) {
       {/* ══════════════════════════════════════════
           PARTIALS
       ══════════════════════════════════════════ */}
-      <PartialsSection />
+      <PartialsSection onAdd={onAdd} />
 
       {/* ══════════════════════════════════════════
           SNOB PICKS

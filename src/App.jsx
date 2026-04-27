@@ -136,7 +136,7 @@ export default function App() {
         scrolled={scrolled}
       />
 
-      {page === 'home'   && <HomePage   onOpen={setModal} setPage={setPage} />}
+      {page === 'home'   && <HomePage   onOpen={setModal} onAdd={addToCart} setPage={setPage} />}
       {page === 'brands' && <BrandsPage onOpen={setModal} />}
       {page === 'about'  && <AboutPage />}
 

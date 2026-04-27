@@ -12,7 +12,7 @@ export default function Nav({ page, setPage, cartCount, openCart, scrolled }) {
         borderBottom: `0.5px solid ${C.border}`,
         overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis',
       }}>
-        <span style={{ color: '#b09060' }}>Free shipping</span> above ₹2999
+        <span style={{ color: '#b09060' }}>Free shipping</span> above ₹3000
         &nbsp;·&nbsp; PAN India
         &nbsp;·&nbsp; <span style={{ color: '#b09060' }}>Free 2ml niche sample</span> on orders above ₹4999
       </div>

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { S, C } from '../styles/theme.js';
 import { WAIcon } from './ui.jsx';
 
-const FREE_SHIPPING_THRESHOLD = 2999;
-const SHIPPING_CHARGE = 150;
+const FREE_SHIPPING_THRESHOLD = 3000;
+const SHIPPING_CHARGE = 160;
 const UPI_ID = 'praveenpugazh14@okicici';
 const UPI_NAME = 'Praveen P';
 
@@ -11,7 +11,8 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
   const items      = Object.entries(cart);
   const subtotal   = items.reduce((a, [, b]) => a + b.price * b.qty, 0);
   const totalQty   = items.reduce((a, [, b]) => a + b.qty, 0);
-  const shipping   = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_CHARGE;
+  const hasOnlyPartials = items.length > 0 && items.every(([key]) => key.startsWith('p-'));
+  const shipping   = (subtotal >= FREE_SHIPPING_THRESHOLD && !hasOnlyPartials) ? 0 : SHIPPING_CHARGE;
   const grandTotal = subtotal + shipping;
 
   const [name,    setName]    = useState('');
@@ -101,11 +102,16 @@ export default function CartDrawer({ cart, onClose, onChange, buildWALink }) {
             {shipping > 0 ? (
               <>
                 <div style={{ fontSize: 12, color: C.t3, marginBottom: 4 }}>
-                  Add <span style={{ color: '#b09060', fontWeight: 500 }}>₹{(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString('en-IN')}</span> more for free shipping
+                  {hasOnlyPartials
+                    ? <span style={{ color:'rgba(255,255,255,0.4)' }}>₹160 shipping applies to all partial bottles</span>
+                    : <>Add <span style={{ color: '#b09060', fontWeight: 500 }}>₹{(FREE_SHIPPING_THRESHOLD - subtotal).toLocaleString('en-IN')}</span> more for free shipping</>
+                  }
                 </div>
-                <div style={{ height: 2, background: C.border, borderRadius: 2 }}>
-                  <div style={{ height:'100%', width:`${Math.min((subtotal/FREE_SHIPPING_THRESHOLD)*100,100)}%`, background:'#b09060', borderRadius:2, transition:'width .4s' }} />
-                </div>
+                {!hasOnlyPartials && (
+                  <div style={{ height: 2, background: C.border, borderRadius: 2 }}>
+                    <div style={{ height:'100%', width:`${Math.min((subtotal/FREE_SHIPPING_THRESHOLD)*100,100)}%`, background:'#b09060', borderRadius:2, transition:'width .4s' }} />
+                  </div>
+                )}
               </>
             ) : (
               <div style={{ fontSize: 12, color: '#b09060', textAlign:'center', letterSpacing:'0.06em' }}>✦ Free shipping unlocked!</div>
