@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { S, C } from '../styles/theme.js';
-import { allProducts } from '../data/products.js';
+import { allProducts, PARTIALS } from '../data/products.js';
 import { ProductCard } from '../components/ui.jsx';
 import MoodFilter from '../components/MoodFilter.jsx';
 
@@ -76,6 +76,10 @@ export default function BrandsPage({ onOpen }) {
     ? allProducts.filter(p => (p.brand+' '+p.name+' '+(p.notes||'')).toLowerCase().includes(query.toLowerCase().trim()))
     : [];
 
+  const searchedPartials = isSearching
+    ? (PARTIALS || []).filter(p => p.visible && (p.brand+' '+p.name+' '+(p.notes||'')).toLowerCase().includes(query.toLowerCase().trim()))
+    : [];
+
   return (
     <div style={{ minHeight:'100vh', paddingTop:'6rem' }}>
       <div style={{ padding:'1.5rem 2rem 0' }}>
@@ -88,10 +92,53 @@ export default function BrandsPage({ onOpen }) {
       </div>
 
       {/* Fragrance search results */}
-      {isSearching && searchedProducts.length > 0 && (
+      {isSearching && (searchedProducts.length > 0 || searchedPartials.length > 0) && (
         <div style={{ padding:'0 2rem 1.5rem' }}>
-          <div style={S.countLbl}>{searchedProducts.length} fragrance{searchedProducts.length!==1?'s':''} for "{query}"</div>
-          <div style={S.grid}>{searchedProducts.map(p => <ProductCard key={p.id} product={p} onOpen={onOpen}/>)}</div>
+          <div style={S.countLbl}>
+            {searchedProducts.length + searchedPartials.length} result{(searchedProducts.length + searchedPartials.length) !== 1 ? 's' : ''} for "{query}"
+          </div>
+          {/* Decants */}
+          {searchedProducts.length > 0 && (
+            <div style={S.grid}>{searchedProducts.map(p => <ProductCard key={p.id} product={p} onOpen={onOpen}/>)}</div>
+          )}
+          {/* Partials */}
+          {searchedPartials.length > 0 && (
+            <div>
+              <div style={{ fontSize:10, letterSpacing:'0.18em', textTransform:'uppercase', color:'#b09060', margin:'16px 0 10px' }}>
+                Partial Bottles Available
+              </div>
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(200px, 1fr))', gap:10 }}>
+                {searchedPartials.map(p => {
+                  const pct = Math.round((p.mlLeft/p.fullMl)*100);
+                  const color = pct > 50 ? '#4caf7d' : pct > 25 ? '#b09060' : '#dc5050';
+                  return (
+                    <div key={p.id} style={{ background:'rgba(176,144,96,0.04)', border:'0.5px solid rgba(176,144,96,0.2)', borderRadius:8, padding:'12px', opacity: p.soldOut ? 0.45 : 1, position:'relative' }}>
+                      {p.soldOut && (
+                        <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center', background:'rgba(0,0,0,0.35)', borderRadius:8, zIndex:2 }}>
+                          <span style={{ fontSize:10, letterSpacing:'0.15em', textTransform:'uppercase', color:'rgba(255,255,255,0.5)', border:'0.5px solid rgba(255,255,255,0.2)', padding:'3px 10px', borderRadius:3 }}>Sold Out</span>
+                        </div>
+                      )}
+                      <div style={{ fontSize:9, color:'#b09060', letterSpacing:'0.12em', textTransform:'uppercase', marginBottom:2 }}>{p.brand}</div>
+                      <div style={{ fontSize:13, color:'rgba(255,255,255,0.9)', fontFamily:'var(--ff-serif)', marginBottom:6, lineHeight:1.3 }}>{p.name.replace(' (Partial)','')}</div>
+                      <div style={{ marginBottom:6 }}>
+                        <div style={{ display:'flex', justifyContent:'space-between', marginBottom:3 }}>
+                          <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)' }}>{p.mlLeft}ml left</span>
+                          <span style={{ fontSize:10, color, fontWeight:600 }}>{pct}%</span>
+                        </div>
+                        <div style={{ height:3, background:'rgba(255,255,255,0.08)', borderRadius:2 }}>
+                          <div style={{ height:'100%', width:`${pct}%`, background:color, borderRadius:2 }} />
+                        </div>
+                      </div>
+                      <div style={{ display:'flex', alignItems:'baseline', justifyContent:'space-between' }}>
+                        <span style={{ fontSize:14, color:'#b09060', fontWeight:500 }}>₹{p.price.toLocaleString('en-IN')}</span>
+                        <span style={{ fontSize:10, color:'rgba(255,255,255,0.3)' }}>+ ₹160 ship</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

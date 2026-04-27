@@ -48,6 +48,7 @@ export const DUPES_RAW = [
   ['Armaf','Odyssey Spectre','Leather · Smoky · Woody',159,270],
   ['Armaf','CDNIM Limited Edition','Pineapple · Birch · Smoky',239,380],
   ['Armaf','Dunescape','Desert · Warm · Sandy',229,370],
+  ['Armaf', 'Cristian Provenzano III', 'Tangerine · Bergamot · Cedarwood · Musk', 560, 1060],
   ['Ahmed Al Maghribi','Kaaf','Oud · Rose · Amber',179,310],
   ['Khadlaj','Island','Tropical · Coconut · Musk',149,270],
   ['Khadlaj','Island Dreams','Coconut · Vanilla · Tiare',159,300],
@@ -55,7 +56,7 @@ export const DUPES_RAW = [
   ['Zimaya','Mazaaj Rhythmn','Rhythmic · Spicy · Warm',179,320],
   ['Arabiyat Prestige','Marwa','Fresh Floral · Citrus · Light Musk',259,390],
   ['Swiss Arabian','Enigma Of Taif','Rose Taif · Oud · Amber',279,530],
-  ['Swiss Arabian','Incensen 01','Frankincense · Oud · Sandalwood',479,880],
+  ['Swiss Arabian','Incense 01','Frankincense · Oud · Sandalwood',479,880],
   ['Lattafa','Fahkar Platin','Bergamot · Guava · Sandalwood · Incense',210,370],
   ['Riffs','Fareed','Cardamom · Lavender · Tonka',210,360],
 ];
@@ -245,7 +246,6 @@ export const NICHE_RAW = [
   ['Dunhill','Icon EDP','Bergamot · Cardamom · Leather · Amber',340,630],
   ['Montale','Arabians Tonka EDP','Tonka · Sandalwood · Musk · Amber',260,460],
   ['Lattafa','Atlas EDP','Oud · Rose · Sandalwood · Amber',270,480],
-  ['Ahmed Al Maghribi','Kaaf EDP','Cardamom · Rose · Oud · Musk',260,460],
   ['Arabiyat Prestige','Marwa EDP','Floral · Rose · Musk · Sandalwood',300,550],
   ['Calvin Klein','Eternity Air EDP','Bergamot · Violet · Sandalwood · Musk',230,410],
   ['Mancera','Red Tobacco EDP','Tobacco · Rose · Amber · Oud',260,470],
@@ -341,10 +341,10 @@ export const PARTIALS = [
   { id:'p-08', brand:'Davidoff',          name:'Cool Water EDT',                   notes:'Mint · Aquatic · Sandalwood · Musk',         fullMl:150, mlLeft:50, p5:140,  p10:240,  price:1850, condition:'Good condition — 50ml remaining',          visible:false },
   { id:'p-09', brand:'Dior',              name:'Sauvage EDP',                      notes:'Bergamot · Ambroxan · Vanilla',              fullMl:200, mlLeft:20, p5:180,  p10:310,  price:3600, condition:'200ml bottle — 20ml remaining',            visible:false },
   { id:'p-10', brand:'Goldfield & Banks', name:'Pacific Rock Moss EDP',            notes:'Bergamot · Ambrette · Rock Moss · Musk',     fullMl:100, mlLeft:20, p5:310,  p10:580,  price:3799, condition:'Good condition — 20ml remaining',          visible:true  },
-  { id:'p-11', brand:'Kenzo',             name:'Pour Homme EDP',                   notes:'Lotus · Sage · Sandalwood · Amber',          fullMl:100, mlLeft:23, p5:190,  p10:330,  price:2000, condition:'Good condition — 23ml remaining',          visible:true  },
+  { id:'p-11', brand:'Kenzo',             name:'Pour Homme EDP',                   notes:'Lotus · Sage · Sandalwood · Amber',          fullMl:100, mlLeft:23, p5:190,  p10:330,  price:2000, condition:'Good condition — 23ml remaining',          visible:true,  soldOut:true  },
   { id:'p-12', brand:'Kenzo',             name:'Pour Homme Santal Marin EDP',      notes:'Sandalwood · Marine · Cedar · Musk',         fullMl:100, mlLeft:30, p5:250,  p10:440,  price:2850, condition:'Good condition — 30ml remaining',          visible:false },
   { id:'p-13', brand:'Lattafa',           name:'Atlas EDP',                        notes:'Oud · Rose · Sandalwood · Amber',            fullMl:55,  mlLeft:25, p5:270,  p10:480,  price:1750, condition:'Good condition — 25ml remaining',          visible:true  },
-  { id:'p-14', brand:'Ahmed Al Maghribi', name:'Kaaf EDP',                         notes:'Cardamom · Rose · Oud · Musk',               fullMl:100, mlLeft:40, p5:260,  p10:460,  price:1200, condition:'Good condition — 40ml remaining',          visible:true  },
+  { id:'p-14', brand:'Ahmed Al Maghribi', name:'Kaaf EDP (Partial)',                notes:'Cardamom · Rose · Oud · Musk',               fullMl:100, mlLeft:40, p5:260,  p10:460,  price:1200, condition:'Good condition — 40ml remaining',          visible:true  },
   { id:'p-15', brand:'Arabiyat Prestige', name:'Marwa EDP',                        notes:'Floral · Rose · Musk · Sandalwood',          fullMl:100, mlLeft:45, p5:300,  p10:550,  price:1650, condition:'Good condition — 45ml remaining',          visible:true  },
   { id:'p-16', brand:'Versace',           name:'Eros EDP',                         notes:'Mint · Lemon · Tonka · Vanilla · Amber',     fullMl:100, mlLeft:30, p5:240,  p10:440,  price:2799, condition:'Tester — 30ml remaining',                 visible:false },
   { id:'p-17', brand:'Yves Saint Laurent',name:'Y EDP',                            notes:'Bergamot · Sage · Tonka · Cedar',            fullMl:100, mlLeft:20, p5:220,  p10:380,  price:2400, condition:'Good condition — 20ml remaining',          visible:false },
@@ -416,7 +416,6 @@ export const NEW_ARRIVALS = [
   ['Nusuk','Sama','Fresh · Floral · Clean',150,290],
   ['Arabiyat Prestige','Al Noor','Floral · Musk · Fresh',220,420],
   ['Arabiyat Prestige','Mahad Al Dhahab','Oud · Amber · Rose',220,420],
-  ['Armaf','Cristian Provenzano III','Leather · Woody · Oud',470,920],
 ];
 
 // ─────────────────────────────────────────────────────────
@@ -436,7 +435,7 @@ export const PRODUCT_IMAGES = {
   'Rasasi|Hawas Black':                         'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0723_lfo392.jpg',
   'Calvin Klein|Eternity Air EDP':              'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0724_bl5i9s.jpg',
   'Dolce & Gabbana|Light Blue Eau Intense EDP': 'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0722_hz9pdp.jpg',
-  'Ahmed Al Maghribi|Kaaf EDP':                 'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0721_c9lsxy.jpg',
+  'Ahmed Al Maghribi|Kaaf EDP (Partial)':       'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0721_c9lsxy.jpg',
   'Lattafa|Atlas EDP':                          'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0719_dljegy.jpg',
   'Kenzo|Pour Homme Santal Marin EDP':          'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0720_poxilz.jpg',
   'Davidoff|Cool Water EDT':                    'https://res.cloudinary.com/dlakipgdf/image/upload/v1777137929/Perfumes/Partials/IMG_0718_kh4h5o.jpg',
@@ -470,7 +469,6 @@ export const SOLD_OUT = new Set([
   'Pour Homme EDP',
   'Pour Homme Santal Marin EDP',
   'Atlas EDP',
-  'Kaaf EDP',
   'Marwa EDP',
   'Eros EDP',
   'Y EDP',
@@ -478,4 +476,5 @@ export const SOLD_OUT = new Set([
   'Red Tobacco EDP',
   'Aoud Exclusif EDP',
   'Oud Malaki EDP',
+  'Incense 01',
 ]);

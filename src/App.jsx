@@ -173,14 +173,6 @@ export default function App() {
 
       <ScentQuiz onOpen={setModal} />
 
-      <button
-        style={S.waFloat}
-        onClick={() => window.open(`https://wa.me/${WA_NUMBER}`, '_blank')}
-        aria-label="Chat on WhatsApp"
-      >
-        <WAIcon size={26} />
-      </button>
-
       {showBtt && (
         <button style={S.btt} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={C.t2} strokeWidth="2.5">

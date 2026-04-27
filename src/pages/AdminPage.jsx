@@ -444,6 +444,217 @@ function OrderRow({ order, onStatusChange, onDelete, onEdit }) {
   );
 }
 
+// ── Stock Tracker Tab ─────────────────────────────────────
+const STOCK_KEY = 'ss_bottles';
+
+function parseOrderItems(itemsStr) {
+  // Format: "Brand — Name (Xml) ×qty, Brand — Name (Xml) ×qty"
+  const results = [];
+  if (!itemsStr) return results;
+  const parts = itemsStr.split(',').map(s => s.trim());
+  for (const part of parts) {
+    // Extract ml: match (5ml), (10ml), (30ml) etc
+    const mlMatch = part.match(/\((\d+)ml\)/i);
+    // Extract qty: match ×1, ×2 etc
+    const qtyMatch = part.match(/×(\d+)/);
+    // Extract name: everything before (Xml)
+    const nameMatch = part.match(/^(.+?)\s*\(\d+ml\)/i);
+    if (mlMatch && nameMatch) {
+      const ml = parseInt(mlMatch[1]);
+      const qty = qtyMatch ? parseInt(qtyMatch[1]) : 1;
+      const fullName = nameMatch[1].trim(); // "Brand — Name"
+      // Split brand and name on " — "
+      const dashIdx = fullName.indexOf(' — ');
+      const brand = dashIdx > -1 ? fullName.slice(0, dashIdx).trim() : '';
+      const name  = dashIdx > -1 ? fullName.slice(dashIdx + 3).trim() : fullName;
+      results.push({ brand, name, ml: ml * qty, key: name.toLowerCase() });
+    }
+  }
+  return results;
+}
+
+function calcUsedMl(orders, bottleName) {
+  const key = bottleName.toLowerCase();
+  let used = 0;
+  for (const order of orders) {
+    if (order.status === 'Cancelled') continue;
+    const items = parseOrderItems(order.items);
+    for (const item of items) {
+      // Match by name (fuzzy — check if bottle name is contained in item name or vice versa)
+      if (item.key.includes(key) || key.includes(item.key)) {
+        used += item.ml;
+      }
+    }
+  }
+  return used;
+}
+
+function StockTab({ orders }) {
+  const [bottles, setBottles] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(STOCK_KEY) || '[]'); } catch { return []; }
+  });
+  const [showAdd, setShowAdd] = useState(false);
+  const [form, setForm] = useState({ brand:'', name:'', startMl:'', notes:'' });
+  const [editId, setEditId] = useState(null);
+  const set = (k,v) => setForm(f => ({...f, [k]:v}));
+
+  const save = (b) => {
+    localStorage.setItem(STOCK_KEY, JSON.stringify(b));
+    setBottles(b);
+  };
+
+  const addBottle = () => {
+    if (!form.name || !form.startMl) return;
+    const newBottle = { id: Date.now(), brand: form.brand, name: form.name, startMl: parseFloat(form.startMl), notes: form.notes, addedAt: new Date().toISOString() };
+    save([...bottles, newBottle]);
+    setForm({ brand:'', name:'', startMl:'', notes:'' });
+    setShowAdd(false);
+  };
+
+  const removeBottle = (id) => {
+    if (confirm('Remove this bottle from tracker?')) save(bottles.filter(b => b.id !== id));
+  };
+
+  const updateStartMl = (id, val) => {
+    save(bottles.map(b => b.id === id ? {...b, startMl: parseFloat(val) || 0} : b));
+  };
+
+  const inp = { background:'rgba(255,255,255,0.04)', border:'0.5px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'8px 10px', fontFamily:'var(--ff-sans)', fontSize:13, color:'rgba(255,255,255,0.9)', outline:'none', width:'100%', boxSizing:'border-box' };
+  const lbl = { fontSize:10, color:'rgba(255,255,255,0.4)', letterSpacing:'0.1em', textTransform:'uppercase', display:'block', marginBottom:3 };
+
+  // Compute all used ml from orders
+  const bottlesWithStats = bottles.map(b => {
+    const used = calcUsedMl(orders, b.name);
+    const remaining = Math.max(0, b.startMl - used);
+    const pct = Math.round((remaining / b.startMl) * 100);
+    const status = pct <= 0 ? 'empty' : pct <= 15 ? 'critical' : pct <= 35 ? 'low' : 'good';
+    const color = status === 'empty' ? '#666' : status === 'critical' ? '#dc5050' : status === 'low' ? '#b09060' : '#4caf7d';
+    return { ...b, used, remaining, pct, status, color };
+  }).sort((a,b) => a.pct - b.pct); // most depleted first
+
+  const totalBottles = bottlesWithStats.length;
+  const criticalCount = bottlesWithStats.filter(b => b.status === 'critical' || b.status === 'empty').length;
+
+  return (
+    <div style={{ padding:'1.5rem 0' }}>
+      {/* Header row */}
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'1.5rem' }}>
+        <div>
+          <div style={{ fontSize:10, letterSpacing:'0.18em', textTransform:'uppercase', color:'#b09060', marginBottom:4 }}>Bottle Inventory</div>
+          <div style={{ fontSize:22, color:'rgba(255,255,255,0.9)', fontFamily:'var(--ff-serif)' }}>
+            {totalBottles} bottles tracked
+            {criticalCount > 0 && <span style={{ fontSize:13, color:'#dc5050', marginLeft:12 }}>⚠ {criticalCount} running low</span>}
+          </div>
+        </div>
+        <button onClick={() => setShowAdd(s => !s)} style={{
+          background:'#b09060', border:'none', borderRadius:4,
+          padding:'8px 16px', color:'#fff', fontSize:12,
+          letterSpacing:'0.08em', textTransform:'uppercase',
+          fontFamily:'var(--ff-sans)', cursor:'pointer',
+        }}>
+          + Add Bottle
+        </button>
+      </div>
+
+      {/* Add bottle form */}
+      {showAdd && (
+        <div style={{ background:'rgba(176,144,96,0.06)', border:'0.5px solid rgba(176,144,96,0.2)', borderRadius:6, padding:'1rem', marginBottom:'1.5rem' }}>
+          <div style={{ fontSize:11, color:'#b09060', letterSpacing:'0.1em', textTransform:'uppercase', marginBottom:12 }}>New Bottle</div>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 2fr 1fr', gap:10, marginBottom:10 }}>
+            <div><label style={lbl}>Brand</label><input style={inp} placeholder="Rasasi" value={form.brand} onChange={e => set('brand', e.target.value)} /></div>
+            <div><label style={lbl}>Fragrance Name</label><input style={inp} placeholder="Hawas Ice" value={form.name} onChange={e => set('name', e.target.value)} /></div>
+            <div><label style={lbl}>Bottle Size (ml)</label><input style={inp} type="number" placeholder="150" value={form.startMl} onChange={e => set('startMl', e.target.value)} /></div>
+          </div>
+          <div style={{ marginBottom:12 }}>
+            <label style={lbl}>Notes (optional)</label>
+            <input style={inp} placeholder="Bought Apr 2026, Scentoria" value={form.notes} onChange={e => set('notes', e.target.value)} />
+          </div>
+          <div style={{ display:'flex', gap:8 }}>
+            <button onClick={addBottle} style={{ background:'#b09060', border:'none', borderRadius:4, padding:'8px 18px', color:'#fff', fontSize:12, fontFamily:'var(--ff-sans)', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Save</button>
+            <button onClick={() => setShowAdd(false)} style={{ background:'none', border:'0.5px solid rgba(255,255,255,0.1)', borderRadius:4, padding:'8px 14px', color:'rgba(255,255,255,0.4)', fontSize:12, fontFamily:'var(--ff-sans)', cursor:'pointer' }}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {bottles.length === 0 && (
+        <div style={{ textAlign:'center', padding:'3rem', color:'rgba(255,255,255,0.25)', fontSize:14 }}>
+          No bottles tracked yet. Add your first bottle above.
+        </div>
+      )}
+
+      {/* Bottle cards */}
+      <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))', gap:12 }}>
+        {bottlesWithStats.map(b => (
+          <div key={b.id} style={{
+            background:'rgba(255,255,255,0.02)',
+            border:`0.5px solid ${b.status === 'empty' ? 'rgba(255,255,255,0.05)' : b.status === 'critical' ? 'rgba(220,80,80,0.25)' : 'rgba(255,255,255,0.07)'}`,
+            borderRadius:8, padding:'1rem', opacity: b.status === 'empty' ? 0.5 : 1,
+          }}>
+            {/* Brand + name */}
+            <div style={{ fontSize:10, color:'#b09060', letterSpacing:'0.12em', textTransform:'uppercase', marginBottom:2 }}>{b.brand}</div>
+            <div style={{ fontSize:15, color:'rgba(255,255,255,0.9)', fontFamily:'var(--ff-serif)', marginBottom:10 }}>{b.name}</div>
+
+            {/* Fill bar */}
+            <div style={{ marginBottom:8 }}>
+              <div style={{ display:'flex', justifyContent:'space-between', marginBottom:5 }}>
+                <span style={{ fontSize:11, color:'rgba(255,255,255,0.4)' }}>
+                  {b.remaining.toFixed(0)}ml left of {b.startMl}ml
+                </span>
+                <span style={{ fontSize:12, color:b.color, fontWeight:600 }}>{b.pct}%</span>
+              </div>
+              <div style={{ height:6, background:'rgba(255,255,255,0.07)', borderRadius:3 }}>
+                <div style={{ height:'100%', borderRadius:3, width:`${b.pct}%`, background:b.color, transition:'width .4s' }} />
+              </div>
+            </div>
+
+            {/* Stats row */}
+            <div style={{ display:'flex', gap:12, marginBottom:10 }}>
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)' }}>
+                Used: <span style={{ color:'rgba(255,255,255,0.6)' }}>{b.used}ml</span>
+              </div>
+              <div style={{ fontSize:11, color:'rgba(255,255,255,0.3)' }}>
+                {b.used > 0 ? `~${Math.floor(b.used / 5)} × 5ml decants` : 'No sales yet'}
+              </div>
+            </div>
+
+            {/* Status badge + edit start ml */}
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+              <span style={{
+                fontSize:9, letterSpacing:'0.14em', textTransform:'uppercase',
+                padding:'2px 8px', borderRadius:3,
+                background: b.status === 'empty' ? 'rgba(100,100,100,0.15)' : b.status === 'critical' ? 'rgba(220,80,80,0.15)' : b.status === 'low' ? 'rgba(176,144,96,0.15)' : 'rgba(76,175,125,0.12)',
+                color: b.color,
+              }}>
+                {b.status === 'empty' ? 'Empty' : b.status === 'critical' ? '⚠ Critical' : b.status === 'low' ? 'Running low' : 'Good'}
+              </span>
+              <div style={{ display:'flex', gap:6, alignItems:'center' }}>
+                {editId === b.id ? (
+                  <>
+                    <input
+                      type="number"
+                      defaultValue={b.startMl}
+                      style={{ ...inp, width:70, padding:'4px 8px', fontSize:12 }}
+                      onBlur={e => { updateStartMl(b.id, e.target.value); setEditId(null); }}
+                      autoFocus
+                    />
+                  </>
+                ) : (
+                  <button onClick={() => setEditId(b.id)} style={{ fontSize:10, color:'rgba(255,255,255,0.3)', background:'none', border:'0.5px solid rgba(255,255,255,0.08)', borderRadius:3, padding:'3px 8px', cursor:'pointer', fontFamily:'var(--ff-sans)' }}>
+                    Edit ml
+                  </button>
+                )}
+                <button onClick={() => removeBottle(b.id)} style={{ fontSize:10, color:'rgba(220,80,80,0.5)', background:'none', border:'none', cursor:'pointer', padding:'3px 4px' }}>✕</button>
+              </div>
+            </div>
+
+            {b.notes && <div style={{ fontSize:10, color:'rgba(255,255,255,0.2)', marginTop:8 }}>{b.notes}</div>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── Main Admin Page ───────────────────────────────────────
 export default function AdminPage() {
   const [auth,         setAuth]         = useState(sessionStorage.getItem('ss_auth') === ADMIN_KEY);
@@ -485,10 +696,17 @@ export default function AdminPage() {
     // Try Sheet in background for any newer orders
     const data = await fetchFromSheet();
     if (data && data.length > 0) {
-      // Merge Sheet data with local (Sheet wins for same IDs)
-      const sheetIds = new Set(data.map(o => o.id));
+      // Filter out junk/test entries — must have a real name and amount > 0
+      const JUNK_NAMES = ['test','fah hee','walter','walter clement','dummy','sample','john doe','unknown test'];
+      const clean = data.filter(o => {
+        if (!o.name || !o.amount || Number(o.amount) <= 0) return false;
+        if (JUNK_NAMES.includes((o.name || '').toLowerCase().trim())) return false;
+        return true;
+      });
+      // Merge Sheet data with local seed (Sheet wins for same IDs)
+      const sheetIds = new Set(clean.map(o => o.id));
       const localOnly = cached.filter(o => !sheetIds.has(o.id));
-      const merged = [...data, ...localOnly];
+      const merged = [...clean, ...localOnly];
       setOrders(merged);
       localStorage.setItem('ss_orders', JSON.stringify(merged));
       setLastRefresh(new Date().toLocaleTimeString('en-IN') + ' (Sheet)');
@@ -599,6 +817,10 @@ export default function AdminPage() {
             style={{ fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'rgba(255,255,255,0.5)', background:'rgba(255,255,255,0.04)', border:'0.5px solid rgba(255,255,255,0.1)', borderRadius:3, padding:'6px 12px', cursor:'pointer' }}>
             {loading ? 'Loading…' : '↻ Refresh'}
           </button>
+          <button onClick={() => { localStorage.removeItem('ss_orders'); loadOrders(); }}
+            style={{ fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'rgba(255,100,100,0.6)', background:'rgba(255,255,255,0.04)', border:'0.5px solid rgba(255,100,100,0.2)', borderRadius:3, padding:'6px 12px', cursor:'pointer' }}>
+            Clear Cache
+          </button>
           <button onClick={exportCSV}
             style={{ fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'rgba(255,255,255,0.5)', background:'rgba(255,255,255,0.04)', border:'0.5px solid rgba(255,255,255,0.1)', borderRadius:3, padding:'6px 12px', cursor:'pointer' }}>
             Export CSV
@@ -616,7 +838,7 @@ export default function AdminPage() {
 
       {/* Tab bar */}
       <div style={{ background:'#141210', borderBottom:'0.5px solid rgba(255,255,255,0.07)', display:'flex', padding:'0 1.5rem', gap:0 }}>
-        {[['orders','Orders'],['pricing','Pricing Calculator']].map(([id,label]) => (
+        {[['orders','Orders'],['stock','Stock Tracker'],['pricing','Pricing Calculator']].map(([id,label]) => (
           <button key={id} onClick={() => setActiveTab(id)} style={{
             padding:'10px 20px', background:'none', border:'none',
             borderBottom: activeTab === id ? '2px solid #b09060' : '2px solid transparent',
@@ -631,6 +853,10 @@ export default function AdminPage() {
       {activeTab === 'pricing' ? (
         <div style={{ maxWidth:960, margin:'0 auto', padding:'1.5rem 1rem' }}>
           <PricingTab />
+        </div>
+      ) : activeTab === 'stock' ? (
+        <div style={{ maxWidth:960, margin:'0 auto', padding:'0 1rem' }}>
+          <StockTab orders={orders} />
         </div>
       ) : (
       <div style={{ maxWidth:960, margin:'0 auto', padding:'1.5rem 1rem' }}>

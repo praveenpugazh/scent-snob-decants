@@ -170,7 +170,7 @@ export default function ScentQuiz({ onOpen }) {
       <button
         onClick={() => { setOpen(true); reset(); }}
         style={{
-          position: 'fixed', bottom: 90, left: 24, zIndex: 48,
+          position: 'fixed', bottom: 90, right: 24, zIndex: 48,
           background: '#1e1a16',
           border: '0.5px solid rgba(176,144,96,0.5)',
           borderRadius: 50,
